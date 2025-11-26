@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTourBySlug } from "@/lib/api";
 import { MapPin, Clock, Users, Check, X, Calendar, ArrowLeft, ShieldCheck } from "lucide-react";
+import { BlurImage } from "@/components/ui/blur-image";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -28,10 +29,12 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
             <div className="relative h-[60vh] bg-slate-900">
                 <div className="absolute inset-0 bg-slate-900/40 z-10" />
                 {tour.images && tour.images.length > 0 ? (
-                    <img
+                    <BlurImage
                         src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/tours/${tour.images[0].storage_path}`}
                         alt={tour.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        fill
+                        priority
+                        className="object-cover"
                     />
                 ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-muted">

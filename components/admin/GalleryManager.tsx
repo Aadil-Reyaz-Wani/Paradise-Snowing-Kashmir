@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { uploadGalleryImage, deleteGalleryImage } from "@/lib/actions";
 import { Loader2, Trash2, Upload, Plus, X } from "lucide-react";
 import { toast } from "sonner";
+import { BlurImage } from "@/components/ui/blur-image";
 
 type GalleryImage = {
     id: string;
@@ -103,10 +104,12 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
                 {initialImages.map((img) => (
                     <div key={img.id} className="group relative bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                         <div className="aspect-square bg-slate-100 relative">
-                            <img
+                            <BlurImage
                                 src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${img.storage_path}`}
                                 alt={img.caption || "Gallery Image"}
-                                className="object-cover w-full h-full"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 50vw, 25vw"
                             />
                         </div>
                         <div className="p-3">

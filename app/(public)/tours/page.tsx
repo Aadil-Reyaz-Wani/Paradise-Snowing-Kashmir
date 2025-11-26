@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllTours } from "@/lib/api";
 import { MapPin, Calendar, Filter } from "lucide-react";
+import { BlurImage } from "@/components/ui/blur-image";
 
 export const metadata = {
     title: "Tour Packages - Paradise Snowing Kashmir",
@@ -35,10 +36,12 @@ export default async function ToursPage() {
                         >
                             <div className="h-56 bg-muted relative overflow-hidden">
                                 {tour.images && tour.images.length > 0 ? (
-                                    <img
+                                    <BlurImage
                                         src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/tours/${tour.images[0].storage_path}`}
                                         alt={tour.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 ) : (
                                     <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-muted">

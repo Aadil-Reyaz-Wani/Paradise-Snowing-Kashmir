@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BlurImage } from "@/components/ui/blur-image";
 
 type TourFormProps = {
     tour?: any; // Replace with proper type
@@ -191,10 +192,12 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                                 {tour.images.map((img: any) => (
                                     <div key={img.id} className="relative group aspect-video bg-muted rounded-lg overflow-hidden">
-                                        <img
+                                        <BlurImage
                                             src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/tours/${img.storage_path}`}
                                             alt="Tour"
-                                            className="w-full h-full object-cover"
+                                            fill
+                                            className="object-cover"
+                                            sizes="(max-width: 768px) 50vw, 25vw"
                                         />
                                         <button
                                             type="button"
@@ -254,7 +257,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                         {previews.map((url, idx) => (
                                             <div key={idx} className="relative aspect-video bg-muted rounded-lg overflow-hidden border border-primary/50">
-                                                <img src={url} alt="Preview" className="w-full h-full object-cover" />
+                                                <BlurImage src={url} alt="Preview" fill className="object-cover" unoptimized />
                                             </div>
                                         ))}
                                     </div>

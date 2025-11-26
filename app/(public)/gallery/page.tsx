@@ -1,5 +1,6 @@
 import { getGalleryImages } from "@/lib/api";
 import { Image as ImageIcon } from "lucide-react";
+import { BlurImage } from "@/components/ui/blur-image";
 
 export const metadata = {
     title: "Gallery - Paradise Snowing Kashmir",
@@ -40,11 +41,12 @@ export default async function GalleryPage() {
                   For now, assuming storage_path might be a full URL or we need a helper to resolve it.
                   If it's just a path, we need to construct the public URL.
                 */}
-                                <img
+                                <BlurImage
                                     src={img.storage_path.startsWith('http') ? img.storage_path : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${img.storage_path}`}
                                     alt={img.caption || "Gallery Image"}
+                                    fill
                                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                                    loading="lazy"
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 />
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end p-4">
                                     <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium truncate">

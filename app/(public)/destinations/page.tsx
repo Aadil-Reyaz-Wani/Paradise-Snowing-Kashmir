@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { BlurImage } from "@/components/ui/blur-image";
 
 export const metadata = {
     title: "Destinations - Paradise Snowing Kashmir",
@@ -72,11 +73,12 @@ export default function Destinations() {
                         <div key={dest.name} className={`group bg-card rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
                             <div className="md:w-1/2 h-64 md:h-auto relative overflow-hidden">
                                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors z-10" />
-                                <img
+                                <BlurImage
                                     src={dest.image}
                                     alt={dest.name}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    loading="lazy"
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                             </div>
                             <div className="md:w-1/2 p-8 flex flex-col justify-center">
