@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight, Mountain } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 export default function Footer() {
@@ -13,7 +13,7 @@ export default function Footer() {
                     <div className="space-y-6">
                         <div className="flex items-center gap-2">
                             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-primary-foreground font-bold text-xl">
-                                P
+                                <Mountain className="h-6 w-6" />
                             </div>
                             <div className="flex flex-col">
                                 <span className="font-bold text-lg leading-none">Paradise</span>

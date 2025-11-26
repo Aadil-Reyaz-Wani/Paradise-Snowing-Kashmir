@@ -20,8 +20,6 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // On the home page, before scroll, we want transparent bg and white text.
-    // After scroll, or on other pages, we want standard theme bg and text.
     const isTransparent = isHomePage && !isScrolled;
 
     return (
@@ -33,17 +31,20 @@ export function Header() {
         >
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
+                    <Link href="/" className="flex items-center gap-3 group">
                         <div className={`p-2 rounded-xl transition-colors ${isTransparent ? "bg-white/20 text-white" : "bg-primary/10 text-primary"}`}>
                             <Mountain className="h-6 w-6" />
                         </div>
-                        <span className={`text-xl font-bold tracking-tight transition-colors ${isTransparent ? "text-white" : "text-foreground"}`}>
-                            Paradise<span className={isTransparent ? "text-blue-200" : "text-primary"}>Kashmir</span>
-                        </span>
+                        <div className="flex flex-col">
+                            <span className={`text-xl font-bold leading-none tracking-tight transition-colors ${isTransparent ? "text-white" : "text-foreground"}`}>
+                                Paradise
+                            </span>
+                            <span className={`text-[10px] font-medium tracking-[0.2em] uppercase leading-tight ${isTransparent ? "text-blue-200" : "text-primary"}`}>
+                                Snowing Kashmir
+                            </span>
+                        </div>
                     </Link>
 
-                    {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center gap-8">
                         {[
                             { name: "Home", href: "/" },
@@ -77,7 +78,6 @@ export function Header() {
                         </div>
                     </nav>
 
-                    {/* Mobile Menu Button */}
                     <div className="flex items-center gap-4 md:hidden">
                         <ThemeToggle />
                         <button
@@ -91,7 +91,6 @@ export function Header() {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             {isMobileMenuOpen && (
                 <div className="md:hidden absolute top-full left-0 right-0 bg-background border-t border-border shadow-lg p-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
                     {[
