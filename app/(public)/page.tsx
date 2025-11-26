@@ -6,6 +6,16 @@ import { BlurImage } from "@/components/ui/blur-image";
 import FeaturedTours from "@/components/features/FeaturedTours";
 import TestimonialsList from "@/components/features/TestimonialsList";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home - Experience Paradise on Earth",
+  description: "Book customized tour packages for Kashmir, Ladakh, and Jammu. Best rates for houseboats, hotels, and cabs.",
+  alternates: {
+    canonical: "/",
+  },
+};
+
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">

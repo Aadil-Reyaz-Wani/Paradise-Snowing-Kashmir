@@ -12,8 +12,10 @@ import Script from "next/script";
 const bookingSchema = z.object({
     customer_name: z.string().min(2, "Name is required"),
     customer_email: z.string().email("Invalid email"),
-    customer_phone: z.string().min(10, "Valid phone number is required"),
-    start_date: z.string().min(1, "Start date is required"),
+    customer_phone: z.string().regex(/^\+?[0-9]{10,15}$/, "Valid phone number required (10-15 digits)"),
+    start_date: z.string().refine((date) => new Date(date) > new Date(), {
+        message: "Date must be in the future",
+    }),
     travellers_adults: z.coerce.number().min(1, "At least 1 adult"),
     travellers_children: z.coerce.number().min(0),
 });

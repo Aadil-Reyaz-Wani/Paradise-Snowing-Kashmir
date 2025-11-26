@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -50,10 +50,10 @@ export async function createTour(prevState: any, formData: FormData) {
         return { error: error.message };
     }
 
-    // Handle Image Uploads
+    // Handle Image Uploads in Parallel
     const images = formData.getAll("images") as File[];
     if (images.length > 0 && images[0].size > 0) {
-        for (const image of images) {
+        await Promise.all(images.map(async (image) => {
             const fileExt = image.name.split(".").pop();
             const fileName = `${tourData.id}/${Math.random().toString(36).substring(2)}.${fileExt}`;
 
@@ -67,11 +67,12 @@ export async function createTour(prevState: any, formData: FormData) {
                     storage_path: fileName,
                 });
             }
-        }
+        }));
     }
 
     revalidatePath("/admin/tours");
     revalidatePath("/tours");
+    // revalidateTag("tours");
     return { success: true };
 }
 
@@ -114,12 +115,12 @@ export async function updateTour(id: string, prevState: any, formData: FormData)
         return { error: error.message };
     }
 
-    // Handle New Image Uploads
+    // Handle New Image Uploads in Parallel
     const images = formData.getAll("images") as File[];
     console.log(`Processing ${images.length} images...`);
 
     if (images.length > 0 && images[0].size > 0) {
-        for (const image of images) {
+        await Promise.all(images.map(async (image) => {
             const fileExt = image.name.split(".").pop();
             const fileName = `${id}/${Math.random().toString(36).substring(2)}.${fileExt}`;
 
@@ -137,12 +138,13 @@ export async function updateTour(id: string, prevState: any, formData: FormData)
                     storage_path: fileName,
                 });
             }
-        }
+        }));
     }
 
     revalidatePath("/admin/tours");
     revalidatePath("/tours");
     revalidatePath(`/tours/${validatedFields.data.slug}`);
+    // revalidateTag("tours");
     return { success: true };
 }
 
@@ -157,6 +159,7 @@ export async function deleteTourImage(imageId: string, storagePath: string) {
     await adminSupabase.from("tour_images").delete().eq("id", imageId);
 
     revalidatePath("/admin/tours");
+    // revalidateTag("tours");
 }
 
 export async function deleteTour(id: string) {
@@ -176,6 +179,7 @@ export async function deleteTour(id: string) {
 
     revalidatePath("/admin/tours");
     revalidatePath("/tours");
+    // revalidateTag("tours");
 }
 
 export async function uploadGalleryImage(prevState: any, formData: FormData) {
@@ -235,6 +239,7 @@ export async function uploadGalleryImage(prevState: any, formData: FormData) {
     console.log("Gallery image added successfully");
     revalidatePath("/admin/gallery");
     revalidatePath("/gallery");
+    // revalidateTag("gallery");
     return { success: true };
 }
 
@@ -269,6 +274,7 @@ export async function deleteGalleryImage(id: string, storagePath: string) {
 
     revalidatePath("/admin/gallery");
     revalidatePath("/gallery");
+    // revalidateTag("gallery");
 }
 
 export async function createTestimonial(prevState: any, formData: FormData) {
@@ -306,6 +312,7 @@ export async function createTestimonial(prevState: any, formData: FormData) {
 
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
+    // revalidateTag("testimonials");
     return { success: true };
 }
 
@@ -326,6 +333,7 @@ export async function deleteTestimonial(id: string) {
 
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
+    // revalidateTag("testimonials");
 }
 
 export async function updateBookingStatus(id: string, status: string) {
@@ -347,4 +355,29 @@ export async function updateBookingStatus(id: string, status: string) {
     }
 
     revalidatePath("/admin/bookings");
+}
+
+export async function submitContactForm(prevState: any, formData: FormData) {
+    const schema = z.object({
+        name: z.string().min(2, "Name is required"),
+        email: z.string().email("Invalid email"),
+        phone: z.string().min(10, "Valid phone number is required"),
+        message: z.string().min(10, "Message must be at least 10 characters"),
+    });
+
+    const validatedFields = schema.safeParse({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        message: formData.get("message"),
+    });
+
+    if (!validatedFields.success) {
+        return { error: "Invalid fields", issues: validatedFields.error.issues };
+    }
+
+    // In a real app, send email here (e.g. Resend)
+    console.log("Contact Form Submitted:", validatedFields.data);
+
+    return { success: true };
 }

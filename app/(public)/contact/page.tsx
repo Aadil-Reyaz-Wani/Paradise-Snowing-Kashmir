@@ -3,10 +3,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ContactForm from "@/components/features/ContactForm";
 
 export const metadata = {
     title: "Contact Us - Paradise Snowing Kashmir",
     description: "Get in touch with us to plan your dream trip to Kashmir and Ladakh.",
+    openGraph: {
+        title: "Contact Us - Paradise Snowing Kashmir",
+        description: "Get in touch with us to plan your dream trip to Kashmir and Ladakh.",
+    },
 };
 
 export default function ContactPage() {
@@ -86,33 +91,7 @@ export default function ContactPage() {
                             <CardTitle>Send us a Message</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <form className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="name">Name</Label>
-                                        <Input id="name" placeholder="Your Name" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="phone">Phone</Label>
-                                        <Input id="phone" placeholder="Your Phone" />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="email">Email</Label>
-                                    <Input id="email" type="email" placeholder="your@email.com" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="message">Message</Label>
-                                    <Textarea id="message" rows={4} placeholder="Tell us about your travel plans..." />
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-xl hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2"
-                                >
-                                    <Send className="h-5 w-5" />
-                                    Send Message
-                                </button>
-                            </form>
+                            <ContactForm />
                         </CardContent>
                     </Card>
                 </div>

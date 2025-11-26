@@ -12,6 +12,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: `${tour.title} - Paradise Snowing Kashmir`,
         description: tour.short_description,
+        openGraph: {
+            title: tour.title,
+            description: tour.short_description,
+            type: "website",
+            images: tour.images && tour.images.length > 0
+                ? [{
+                    url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/tours/${tour.images[0].storage_path}`,
+                    width: 1200,
+                    height: 630,
+                    alt: tour.title,
+                }]
+                : [],
+        },
     };
 }
 

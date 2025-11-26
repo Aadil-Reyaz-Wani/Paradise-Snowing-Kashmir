@@ -5,6 +5,11 @@ import { BlurImage } from "@/components/ui/blur-image";
 export const metadata = {
     title: "Destinations - Paradise Snowing Kashmir",
     description: "Explore the top destinations in Jammu, Kashmir, and Ladakh.",
+    openGraph: {
+        title: "Destinations - Paradise Snowing Kashmir",
+        description: "Explore the top destinations in Jammu, Kashmir, and Ladakh.",
+        images: ["https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=800&auto=format&fit=crop"],
+    },
 };
 
 const destinations = [

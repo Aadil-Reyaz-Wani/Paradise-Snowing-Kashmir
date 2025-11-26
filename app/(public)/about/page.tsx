@@ -3,6 +3,11 @@ import { Users, Heart, Map, Award } from "lucide-react";
 export const metadata = {
     title: "About Us - Paradise Snowing Kashmir",
     description: "Learn about our story, our local expertise, and why we are the best choice for your Kashmir trip.",
+    openGraph: {
+        title: "About Us - Paradise Snowing Kashmir",
+        description: "Learn about our story, our local expertise, and why we are the best choice for your Kashmir trip.",
+        images: ["https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=2070&auto=format&fit=crop"],
+    },
 };
 
 export default function AboutPage() {

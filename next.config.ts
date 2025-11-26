@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    // @ts-expect-error - reactCompiler is valid in this version but missing from types
     reactCompiler: true,
   },
   images: {
