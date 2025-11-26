@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -19,6 +20,7 @@ const TourSchema = z.object({
 
 export async function createTour(prevState: any, formData: FormData) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     // Check auth
     const { data: { user } } = await supabase.auth.getUser();
@@ -42,7 +44,7 @@ export async function createTour(prevState: any, formData: FormData) {
         return { error: "Invalid fields", issues: validatedFields.error.issues };
     }
 
-    const { data: tourData, error } = await supabase.from("tours").insert(validatedFields.data).select().single();
+    const { data: tourData, error } = await adminSupabase.from("tours").insert(validatedFields.data).select().single();
 
     if (error) {
         return { error: error.message };
@@ -55,12 +57,12 @@ export async function createTour(prevState: any, formData: FormData) {
             const fileExt = image.name.split(".").pop();
             const fileName = `${tourData.id}/${Math.random().toString(36).substring(2)}.${fileExt}`;
 
-            const { error: uploadError } = await supabase.storage
+            const { error: uploadError } = await adminSupabase.storage
                 .from("tours")
                 .upload(fileName, image);
 
             if (!uploadError) {
-                await supabase.from("tour_images").insert({
+                await adminSupabase.from("tour_images").insert({
                     tour_id: tourData.id,
                     storage_path: fileName,
                 });
@@ -70,14 +72,17 @@ export async function createTour(prevState: any, formData: FormData) {
 
     revalidatePath("/admin/tours");
     revalidatePath("/tours");
-    redirect("/admin/tours");
+    return { success: true };
 }
 
 export async function updateTour(id: string, prevState: any, formData: FormData) {
+    console.log(`Starting updateTour for ID: ${id}`);
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
+        console.log("User not authenticated");
         return { error: "Unauthorized" };
     }
 
@@ -94,31 +99,40 @@ export async function updateTour(id: string, prevState: any, formData: FormData)
     });
 
     if (!validatedFields.success) {
+        console.log("Validation failed", validatedFields.error.issues);
         return { error: "Invalid fields", issues: validatedFields.error.issues };
     }
 
-    const { error } = await supabase
+    console.log("Updating tour details...");
+    const { error } = await adminSupabase
         .from("tours")
         .update(validatedFields.data)
         .eq("id", id);
 
     if (error) {
+        console.error("Tour update error:", error);
         return { error: error.message };
     }
 
     // Handle New Image Uploads
     const images = formData.getAll("images") as File[];
+    console.log(`Processing ${images.length} images...`);
+
     if (images.length > 0 && images[0].size > 0) {
         for (const image of images) {
             const fileExt = image.name.split(".").pop();
             const fileName = `${id}/${Math.random().toString(36).substring(2)}.${fileExt}`;
 
-            const { error: uploadError } = await supabase.storage
+            console.log(`Uploading image: ${fileName}`);
+            const { error: uploadError } = await adminSupabase.storage
                 .from("tours")
                 .upload(fileName, image);
 
-            if (!uploadError) {
-                await supabase.from("tour_images").insert({
+            if (uploadError) {
+                console.error("Image upload error:", uploadError);
+            } else {
+                console.log("Image uploaded, inserting into tour_images...");
+                await adminSupabase.from("tour_images").insert({
                     tour_id: id,
                     storage_path: fileName,
                 });
@@ -129,29 +143,32 @@ export async function updateTour(id: string, prevState: any, formData: FormData)
     revalidatePath("/admin/tours");
     revalidatePath("/tours");
     revalidatePath(`/tours/${validatedFields.data.slug}`);
-    redirect("/admin/tours");
+    return { success: true };
 }
 
 export async function deleteTourImage(imageId: string, storagePath: string) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return { error: "Unauthorized" };
 
-    await supabase.storage.from("tours").remove([storagePath]);
-    await supabase.from("tour_images").delete().eq("id", imageId);
+    await adminSupabase.storage.from("tours").remove([storagePath]);
+    await adminSupabase.from("tour_images").delete().eq("id", imageId);
 
     revalidatePath("/admin/tours");
 }
 
 export async function deleteTour(id: string) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         return { error: "Unauthorized" };
     }
 
-    const { error } = await supabase.from("tours").delete().eq("id", id);
+    const { error } = await adminSupabase.from("tours").delete().eq("id", id);
 
     if (error) {
         return { error: error.message };
@@ -162,10 +179,18 @@ export async function deleteTour(id: string) {
 }
 
 export async function uploadGalleryImage(prevState: any, formData: FormData) {
+    console.log("Starting uploadGalleryImage...");
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
+
+    // Debug: Check if Service Role Key is loaded (don't log the full key)
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    console.log("SUPABASE_SERVICE_ROLE_KEY present:", !!serviceKey);
+    if (serviceKey) console.log("Key length:", serviceKey.length);
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
+        console.log("User not authenticated");
         return { error: "Unauthorized" };
     }
 
@@ -174,6 +199,7 @@ export async function uploadGalleryImage(prevState: any, formData: FormData) {
     const caption = formData.get("caption") as string;
 
     if (!file) {
+        console.log("No file provided");
         return { error: "No file provided" };
     }
 
@@ -182,25 +208,31 @@ export async function uploadGalleryImage(prevState: any, formData: FormData) {
     const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
     const filePath = `${fileName}`;
 
-    const { error: uploadError } = await supabase.storage
+    console.log(`Attempting upload to 'gallery' bucket: ${filePath}`);
+
+    const { error: uploadError } = await adminSupabase.storage
         .from("gallery")
         .upload(filePath, file);
 
     if (uploadError) {
-        return { error: uploadError.message };
+        console.error("Storage Upload Error:", uploadError);
+        return { error: `Storage Error: ${uploadError.message}` };
     }
 
     // 2. Insert into DB
-    const { error: dbError } = await supabase.from("gallery_images").insert({
+    console.log("Upload successful, inserting into DB...");
+    const { error: dbError } = await adminSupabase.from("gallery_images").insert({
         storage_path: filePath,
         category,
         caption,
     });
 
     if (dbError) {
-        return { error: dbError.message };
+        console.error("DB Insert Error:", dbError);
+        return { error: `DB Error: ${dbError.message}` };
     }
 
+    console.log("Gallery image added successfully");
     revalidatePath("/admin/gallery");
     revalidatePath("/gallery");
     return { success: true };
@@ -208,6 +240,7 @@ export async function uploadGalleryImage(prevState: any, formData: FormData) {
 
 export async function deleteGalleryImage(id: string, storagePath: string) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
@@ -215,7 +248,7 @@ export async function deleteGalleryImage(id: string, storagePath: string) {
     }
 
     // 1. Delete from Storage
-    const { error: storageError } = await supabase.storage
+    const { error: storageError } = await adminSupabase.storage
         .from("gallery")
         .remove([storagePath]);
 
@@ -225,7 +258,7 @@ export async function deleteGalleryImage(id: string, storagePath: string) {
     }
 
     // 2. Delete from DB
-    const { error: dbError } = await supabase
+    const { error: dbError } = await adminSupabase
         .from("gallery_images")
         .delete()
         .eq("id", id);
@@ -240,6 +273,7 @@ export async function deleteGalleryImage(id: string, storagePath: string) {
 
 export async function createTestimonial(prevState: any, formData: FormData) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
@@ -257,7 +291,7 @@ export async function createTestimonial(prevState: any, formData: FormData) {
         return { error: "Missing required fields" };
     }
 
-    const { error } = await supabase.from("testimonials").insert({
+    const { error } = await adminSupabase.from("testimonials").insert({
         name,
         location,
         rating,
@@ -277,13 +311,14 @@ export async function createTestimonial(prevState: any, formData: FormData) {
 
 export async function deleteTestimonial(id: string) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         return { error: "Unauthorized" };
     }
 
-    const { error } = await supabase.from("testimonials").delete().eq("id", id);
+    const { error } = await adminSupabase.from("testimonials").delete().eq("id", id);
 
     if (error) {
         return { error: error.message };
@@ -295,13 +330,14 @@ export async function deleteTestimonial(id: string) {
 
 export async function updateBookingStatus(id: string, status: string) {
     const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         return { error: "Unauthorized" };
     }
 
-    const { error } = await supabase
+    const { error } = await adminSupabase
         .from("bookings")
         .update({ status })
         .eq("id", id);

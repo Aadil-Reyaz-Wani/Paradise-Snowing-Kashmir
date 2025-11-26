@@ -23,7 +23,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
     }
 
     return (
-        <div className="min-h-screen bg-white pb-20">
+        <div className="min-h-screen bg-background pb-20">
             {/* Hero Section */}
             <div className="relative h-[60vh] bg-slate-900">
                 <div className="absolute inset-0 bg-slate-900/40 z-10" />
@@ -34,7 +34,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         className="absolute inset-0 w-full h-full object-cover"
                     />
                 ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-slate-600 bg-slate-800">
+                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-muted">
                         <span className="text-white/20 text-9xl font-bold">IMAGE</span>
                     </div>
                 )}
@@ -46,7 +46,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             Back to Packages
                         </Link>
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                            <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                                 {tour.region}
                             </span>
                             <span className="bg-white/20 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
@@ -74,19 +74,19 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                     <div className="lg:col-span-2 space-y-12">
                         {/* Overview */}
                         <section>
-                            <h2 className="text-2xl font-bold text-slate-900 mb-4">Overview</h2>
-                            <p className="text-slate-600 leading-relaxed text-lg">
+                            <h2 className="text-2xl font-bold text-foreground mb-4">Overview</h2>
+                            <p className="text-muted-foreground leading-relaxed text-lg">
                                 {tour.long_description || tour.short_description}
                             </p>
 
                             {tour.highlights && (
                                 <div className="mt-8">
-                                    <h3 className="text-lg font-semibold text-slate-900 mb-4">Trip Highlights</h3>
+                                    <h3 className="text-lg font-semibold text-foreground mb-4">Trip Highlights</h3>
                                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         {tour.highlights.map((highlight, idx) => (
-                                            <li key={idx} className="flex items-start gap-3 text-slate-700">
-                                                <div className="mt-1 bg-blue-100 p-1 rounded-full">
-                                                    <Check className="h-3 w-3 text-blue-600" />
+                                            <li key={idx} className="flex items-start gap-3 text-muted-foreground">
+                                                <div className="mt-1 bg-primary/10 p-1 rounded-full">
+                                                    <Check className="h-3 w-3 text-primary" />
                                                 </div>
                                                 {highlight}
                                             </li>
@@ -99,15 +99,15 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         {/* Itinerary */}
                         {tour.itinerary && (
                             <section>
-                                <h2 className="text-2xl font-bold text-slate-900 mb-6">Day-wise Itinerary</h2>
-                                <div className="space-y-8 border-l-2 border-slate-200 ml-3 pl-8 relative">
+                                <h2 className="text-2xl font-bold text-foreground mb-6">Day-wise Itinerary</h2>
+                                <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">
                                     {tour.itinerary.map((day: any, idx: number) => (
                                         <div key={idx} className="relative">
-                                            <div className="absolute -left-[41px] top-0 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
+                                            <div className="absolute -left-[41px] top-0 bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                                                 {day.day}
                                             </div>
-                                            <h3 className="text-lg font-bold text-slate-900 mb-2">{day.title}</h3>
-                                            <p className="text-slate-600 leading-relaxed">{day.description}</p>
+                                            <h3 className="text-lg font-bold text-foreground mb-2">{day.title}</h3>
+                                            <p className="text-muted-foreground leading-relaxed">{day.description}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -117,13 +117,13 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         {/* Inclusions & Exclusions */}
                         <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {tour.inclusions && (
-                                <div className="bg-green-50 p-6 rounded-2xl border border-green-100">
-                                    <h3 className="text-lg font-bold text-green-800 mb-4 flex items-center gap-2">
+                                <div className="bg-green-500/5 p-6 rounded-2xl border border-green-500/10">
+                                    <h3 className="text-lg font-bold text-green-600 mb-4 flex items-center gap-2">
                                         <Check className="h-5 w-5" /> What's Included
                                     </h3>
                                     <ul className="space-y-2">
                                         {tour.inclusions.map((item, idx) => (
-                                            <li key={idx} className="text-green-900 text-sm flex items-start gap-2">
+                                            <li key={idx} className="text-muted-foreground text-sm flex items-start gap-2">
                                                 <span>•</span> {item}
                                             </li>
                                         ))}
@@ -132,13 +132,13 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             )}
 
                             {tour.exclusions && (
-                                <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
-                                    <h3 className="text-lg font-bold text-red-800 mb-4 flex items-center gap-2">
+                                <div className="bg-red-500/5 p-6 rounded-2xl border border-red-500/10">
+                                    <h3 className="text-lg font-bold text-red-600 mb-4 flex items-center gap-2">
                                         <X className="h-5 w-5" /> What's Excluded
                                     </h3>
                                     <ul className="space-y-2">
                                         {tour.exclusions.map((item, idx) => (
-                                            <li key={idx} className="text-red-900 text-sm flex items-start gap-2">
+                                            <li key={idx} className="text-muted-foreground text-sm flex items-start gap-2">
                                                 <span>•</span> {item}
                                             </li>
                                         ))}
@@ -150,20 +150,20 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
 
                     {/* Sidebar Booking Card */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24 bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+                        <div className="sticky top-24 bg-card rounded-2xl shadow-lg border border-border p-6">
                             <div className="mb-6">
-                                <p className="text-sm text-slate-500 mb-1">Starting from</p>
+                                <p className="text-sm text-muted-foreground mb-1">Starting from</p>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-bold text-slate-900">₹{tour.base_price.toLocaleString()}</span>
-                                    <span className="text-slate-500">/ person</span>
+                                    <span className="text-3xl font-bold text-foreground">₹{tour.base_price.toLocaleString()}</span>
+                                    <span className="text-muted-foreground">/ person</span>
                                 </div>
-                                <p className="text-xs text-slate-400 mt-2">*Prices may vary based on season and customization</p>
+                                <p className="text-xs text-muted-foreground mt-2">*Prices may vary based on season and customization</p>
                             </div>
 
                             <div className="space-y-4">
                                 <Link
                                     href={`/book/${tour.slug}`}
-                                    className="block w-full py-4 bg-blue-600 hover:bg-blue-700 text-white text-center font-bold rounded-xl transition-colors shadow-blue-200 shadow-lg"
+                                    className="block w-full py-4 bg-primary hover:bg-primary/90 text-primary-foreground text-center font-bold rounded-xl transition-colors shadow-lg"
                                 >
                                     Book This Trip
                                 </Link>
@@ -171,25 +171,25 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                                     href={`https://wa.me/910000000000?text=Hi, I am interested in ${tour.title}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center font-bold rounded-xl transition-colors shadow-green-200 shadow-lg"
+                                    className="block w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center font-bold rounded-xl transition-colors shadow-lg"
                                 >
                                     Customize on WhatsApp
                                 </a>
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-slate-100">
-                                <h4 className="font-semibold text-slate-900 mb-4 text-sm">Why book with us?</h4>
-                                <ul className="space-y-3 text-sm text-slate-600">
+                            <div className="mt-8 pt-6 border-t border-border">
+                                <h4 className="font-semibold text-foreground mb-4 text-sm">Why book with us?</h4>
+                                <ul className="space-y-3 text-sm text-muted-foreground">
                                     <li className="flex items-center gap-2">
-                                        <ShieldCheck className="h-4 w-4 text-blue-600" />
+                                        <ShieldCheck className="h-4 w-4 text-primary" />
                                         Verified Local Operators
                                     </li>
                                     <li className="flex items-center gap-2">
-                                        <Users className="h-4 w-4 text-blue-600" />
+                                        <Users className="h-4 w-4 text-primary" />
                                         24/7 On-ground Support
                                     </li>
                                     <li className="flex items-center gap-2">
-                                        <Calendar className="h-4 w-4 text-blue-600" />
+                                        <Calendar className="h-4 w-4 text-primary" />
                                         Flexible Cancellation
                                     </li>
                                 </ul>

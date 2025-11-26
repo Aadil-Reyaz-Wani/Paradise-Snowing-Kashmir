@@ -11,16 +11,16 @@ export default async function ToursPage() {
     const tours = await getAllTours();
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12">
+        <div className="min-h-screen bg-background pt-24">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900">All Tour Packages</h1>
-                        <p className="text-slate-600 mt-2">Find the perfect itinerary for your next adventure.</p>
+                        <h1 className="text-3xl font-bold text-foreground">All Tour Packages</h1>
+                        <p className="text-muted-foreground mt-2">Find the perfect itinerary for your next adventure.</p>
                     </div>
 
                     {/* Placeholder for Filters - To be implemented with client components */}
-                    <button className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+                    <button className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-card-foreground hover:bg-secondary transition-colors">
                         <Filter className="h-4 w-4" />
                         Filters
                     </button>
@@ -31,9 +31,9 @@ export default async function ToursPage() {
                         <Link
                             href={`/tours/${tour.slug}`}
                             key={tour.id}
-                            className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-slate-100 flex flex-col"
+                            className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-border flex flex-col"
                         >
-                            <div className="h-56 bg-slate-200 relative overflow-hidden">
+                            <div className="h-56 bg-muted relative overflow-hidden">
                                 {tour.images && tour.images.length > 0 ? (
                                     <img
                                         src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/tours/${tour.images[0].storage_path}`}
@@ -41,18 +41,18 @@ export default async function ToursPage() {
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
-                                    <div className="absolute inset-0 flex items-center justify-center text-slate-400 bg-slate-100">
+                                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-muted">
                                         <MapPin className="h-10 w-10" />
                                     </div>
                                 )}
                                 <div className="absolute top-4 left-4">
-                                    <span className="bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                                    <span className="bg-background/90 backdrop-blur text-foreground text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                                         {tour.region}
                                     </span>
                                 </div>
                             </div>
                             <div className="p-6 flex-1 flex flex-col">
-                                <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mb-3">
+                                <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-3">
                                     <span className="flex items-center gap-1">
                                         <Calendar className="h-3 w-3" />
                                         {tour.duration_days} Days
@@ -60,19 +60,19 @@ export default async function ToursPage() {
                                     <span>•</span>
                                     <span>{tour.trip_type}</span>
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                <h3 className="text-xl font-bold text-card-foreground mb-2 group-hover:text-primary transition-colors">
                                     {tour.title}
                                 </h3>
-                                <p className="text-slate-600 text-sm mb-6 line-clamp-2 flex-1">
+                                <p className="text-muted-foreground text-sm mb-6 line-clamp-2 flex-1">
                                     {tour.short_description}
                                 </p>
-                                <div className="flex items-center justify-between pt-4 border-t border-slate-100 mt-auto">
+                                <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
                                     <div>
-                                        <span className="text-xs text-slate-500 block">Starting from</span>
-                                        <span className="text-lg font-bold text-slate-900">₹{tour.base_price.toLocaleString()}</span>
-                                        <span className="text-xs text-slate-500 ml-1">/ person</span>
+                                        <span className="text-xs text-muted-foreground block">Starting from</span>
+                                        <span className="text-lg font-bold text-foreground">₹{tour.base_price.toLocaleString()}</span>
+                                        <span className="text-xs text-muted-foreground ml-1">/ person</span>
                                     </div>
-                                    <span className="text-sm font-medium text-blue-600 group-hover:translate-x-1 transition-transform">
+                                    <span className="text-sm font-medium text-primary group-hover:translate-x-1 transition-transform">
                                         View Details →
                                     </span>
                                 </div>
@@ -83,7 +83,7 @@ export default async function ToursPage() {
 
                 {tours.length === 0 && (
                     <div className="text-center py-20">
-                        <p className="text-slate-500">No tours found matching your criteria.</p>
+                        <p className="text-muted-foreground">No tours found matching your criteria.</p>
                     </div>
                 )}
             </div>

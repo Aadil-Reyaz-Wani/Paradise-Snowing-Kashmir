@@ -51,37 +51,43 @@ const destinations = [
     }
 ];
 
-export default function DestinationsPage() {
+export default function Destinations() {
     return (
-        <div className="min-h-screen bg-slate-50 py-12">
-            <div className="container mx-auto px-4">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-4">Destinations</h1>
-                    <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+        <div className="min-h-screen bg-background pt-24">
+            {/* Hero Section */}
+            <section className="relative py-20 bg-muted/30">
+                <div className="container px-4 mx-auto text-center">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                        Destinations
+                    </h1>
+                    <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
                         Discover the breathtaking landscapes of Jammu, Kashmir, and Ladakh. From snow-capped peaks to lush green valleys.
                     </p>
                 </div>
+            </section>
 
+            <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {destinations.map((dest, idx) => (
-                        <div key={dest.name} className={`group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+                        <div key={dest.name} className={`group bg-card rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
                             <div className="md:w-1/2 h-64 md:h-auto relative overflow-hidden">
-                                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors z-10" />
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors z-10" />
                                 <img
                                     src={dest.image}
                                     alt={dest.name}
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    loading="lazy"
                                 />
                             </div>
                             <div className="md:w-1/2 p-8 flex flex-col justify-center">
-                                <h2 className="text-2xl font-bold text-slate-900 mb-3">{dest.name}</h2>
-                                <p className="text-slate-600 mb-6 leading-relaxed">
+                                <h2 className="text-2xl font-bold text-card-foreground mb-3">{dest.name}</h2>
+                                <p className="text-muted-foreground mb-6 leading-relaxed">
                                     {dest.description}
                                 </p>
                                 <div>
                                     <Link
                                         href={`/tours?region=${dest.name}`} // Simple filter link for now
-                                        className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                                        className="inline-flex items-center text-primary font-semibold hover:text-primary/80 transition-colors"
                                     >
                                         View Packages <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                                     </Link>

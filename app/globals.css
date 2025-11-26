@@ -1,49 +1,102 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-surface-foreground: var(--surface-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-}
+
 
 :root {
-  /* Light Mode - Material Design Inspired */
-  --background: #f8f9fa; /* Light grey background */
-  --foreground: #1a1c1e; /* Almost black text */
-  
-  --surface: #ffffff; /* White cards */
-  --surface-foreground: #1a1c1e;
+  /* Light Mode Palette */
+  /* Background: Snow White (#F8FAFC) -> 210 40% 98% */
+  --background: 210 40% 98%;
+  /* Text: Charcoal (#1A1A1A) -> 0 0% 10% */
+  --foreground: 0 0% 10%;
 
-  --primary: #0061a4; /* Material Blue */
-  --primary-foreground: #ffffff;
+  /* Card: White */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10%;
 
-  --border: #e1e3e5;
-  --input: #ffffff;
-  --ring: #0061a4;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10%;
+
+  /* Primary: Deep Himalayan Blue (#1A365D) -> 215 56% 23% */
+  --primary: 215 56% 23%;
+  --primary-foreground: 210 40% 98%;
+
+  /* Secondary: Light Blue/Gray for contrast */
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  /* Muted: Soft Gray */
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  /* Accent: Kashmir Teal (#2AB3A9) -> 176 62% 43% */
+  --accent: 176 62% 43%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  /* Input Border: Slate 300 (#cbd5e1) -> 214.3 31.8% 84% (Darker than before for visibility) */
+  --border: 214.3 31.8% 84%;
+  --input: 214.3 31.8% 84%;
+
+  /* Ring: Kashmir Teal */
+  --ring: 176 62% 43%;
+
+  --radius: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark Mode - Material Design Inspired */
-    --background: #1a1c1e; /* Dark background */
-    --foreground: #e2e2e6; /* Light grey text */
+.dark {
+  /* Dark Mode Palette */
+  /* Background: Charcoal Slate (#121216) -> 240 10% 8% */
+  --background: 240 10% 8%;
+  /* Text: Off-White (#E4E4E7) -> 240 5% 90% */
+  --foreground: 240 5% 90%;
 
-    --surface: #202427; /* Slightly lighter dark for cards */
-    --surface-foreground: #e2e2e6;
+  /* Card: Soft Gray (#1E1F24) -> 230 9% 13% */
+  --card: 230 9% 13%;
+  --card-foreground: 240 5% 90%;
 
-    --primary: #9ecaff; /* Lighter blue for dark mode */
-    --primary-foreground: #003258;
+  --popover: 230 9% 13%;
+  --popover-foreground: 240 5% 90%;
 
-    --border: #43474e;
-    --input: #202427;
-    --ring: #9ecaff;
-  }
+  /* Primary: Deep Himalayan Blue adjusted for dark mode or keep same? 
+     Usually primary needs to be legible. Let's use the Teal as primary in dark mode or a lighter blue?
+     User said: "Primary: Deep Himalayan Blue" for Light mode.
+     For Dark mode, user specified "Accent: Teal". 
+     Let's keep Primary as the Blue but maybe slightly lighter, OR use Teal as the primary action color in dark mode if appropriate.
+     However, usually --primary is the main brand color. 
+     Let's stick to the requested palette. 
+     If Primary is too dark on dark bg, we might need to adjust. 
+     #1A365D on #121216 is low contrast.
+     Let's use the Teal (#2AB3A9) as the Primary for Dark Mode to ensure visibility, 
+     OR keep Primary Blue and use Teal for Accents.
+     The user listed "Accent: Teal" for Dark mode.
+     Let's use a lighter version of the Blue for Primary in dark mode, or just use the Teal as the main interactive color.
+     Actually, standard practice is to lighten the primary color. 
+     Let's use the Teal as the Primary in Dark Mode for better contrast and "premium calm" feel.
+     Teal: 176 62% 43%
+  */
+  --primary: 176 62% 43%;
+  --primary-foreground: 240 10% 8%;
+  /* Dark text on teal button */
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  /* Border: Slate 700 (#334155) -> 215 25% 27% */
+  --border: 215 25% 27%;
+  --input: 215 25% 27%;
+
+  --ring: 176 62% 43%;
 }
 
 body {
@@ -53,23 +106,26 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Global Input Styles for Material Feel */
-input, textarea, select {
-  background-color: var(--surface);
+/* Global Input Styles */
+input,
+textarea,
+select {
+  background-color: var(--background);
   color: var(--foreground);
   border: 1px solid var(--border);
-  border-radius: 0.5rem; /* Rounded corners */
+  border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
   transition: all 0.2s ease;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 2px var(--ring);
 }
 
-/* Placeholder color */
 ::placeholder {
-  color: #8d9196;
+  color: var(--muted-foreground);
 }

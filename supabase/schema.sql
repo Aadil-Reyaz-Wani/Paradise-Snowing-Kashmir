@@ -91,10 +91,16 @@ create policy "Public tour images are viewable by everyone" on public.tour_image
 -- Gallery: Public read, Admin write
 alter table public.gallery_images enable row level security;
 create policy "Public gallery images are viewable by everyone" on public.gallery_images for select using (true);
+create policy "Admins can insert gallery images" on public.gallery_images for insert with check (auth.role() = 'authenticated');
+create policy "Admins can update gallery images" on public.gallery_images for update using (auth.role() = 'authenticated');
+create policy "Admins can delete gallery images" on public.gallery_images for delete using (auth.role() = 'authenticated');
 
 -- Testimonials: Public read, Admin write
 alter table public.testimonials enable row level security;
 create policy "Public testimonials are viewable by everyone" on public.testimonials for select using (true);
+create policy "Admins can insert testimonials" on public.testimonials for insert with check (auth.role() = 'authenticated');
+create policy "Admins can update testimonials" on public.testimonials for update using (auth.role() = 'authenticated');
+create policy "Admins can delete testimonials" on public.testimonials for delete using (auth.role() = 'authenticated');
 
 -- Bookings: User can view own, Admin view all, Public create (guest)
 alter table public.bookings enable row level security;
@@ -103,4 +109,5 @@ create policy "Anyone can create bookings" on public.bookings for insert with ch
 
 -- Storage Policies
 create policy "Public Access" on storage.objects for select using ( bucket_id in ('tours', 'gallery') );
-create policy "Admin Insert" on storage.objects for insert with check ( bucket_id in ('tours', 'gallery') and auth.role() = 'service_role' );
+-- Allow authenticated users to upload to tours and gallery buckets
+create policy "Admin Insert" on storage.objects for insert with check ( bucket_id in ('tours', 'gallery') and auth.role() = 'authenticated' );
