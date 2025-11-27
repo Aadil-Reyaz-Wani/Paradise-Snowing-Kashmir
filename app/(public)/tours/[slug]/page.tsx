@@ -116,14 +116,21 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         {tour.itinerary && (
                             <section>
                                 <h2 className="text-2xl font-bold text-foreground mb-6">Day-wise Itinerary</h2>
-                                <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">
+                                <div className="ml-4 pl-4 relative">
                                     {tour.itinerary.map((day: any, idx: number) => (
-                                        <div key={idx} className="relative">
-                                            <div className="absolute -left-[41px] top-0 bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
+                                        <div key={idx} className="relative pb-12 last:pb-0">
+
+
+                                            {/* Number Circle */}
+                                            <div className="absolute left-0 top-0 bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm z-10">
                                                 {day.day}
                                             </div>
-                                            <h3 className="text-lg font-bold text-foreground mb-2">{day.title}</h3>
-                                            <p className="text-muted-foreground leading-relaxed">{day.description}</p>
+
+                                            {/* Content */}
+                                            <div className="pl-12">
+                                                <h3 className="text-lg font-bold text-foreground mb-2">{day.title}</h3>
+                                                <p className="text-muted-foreground leading-relaxed">{day.description}</p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -133,7 +140,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         {/* Inclusions & Exclusions */}
                         <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {tour.inclusions && (
-                                <div className="bg-green-500/5 p-6 rounded-2xl border border-green-500/10">
+                                <div className="bg-green-500/5 p-6 rounded-xl border border-green-500/10">
                                     <h3 className="text-lg font-bold text-green-600 mb-4 flex items-center gap-2">
                                         <Check className="h-5 w-5" /> What's Included
                                     </h3>
@@ -148,7 +155,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             )}
 
                             {tour.exclusions && (
-                                <div className="bg-red-500/5 p-6 rounded-2xl border border-red-500/10">
+                                <div className="bg-red-500/5 p-6 rounded-xl border border-red-500/10">
                                     <h3 className="text-lg font-bold text-red-600 mb-4 flex items-center gap-2">
                                         <X className="h-5 w-5" /> What's Excluded
                                     </h3>
@@ -166,7 +173,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
 
                     {/* Sidebar Booking Card */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24 bg-card rounded-2xl shadow-lg border border-border p-6">
+                        <div className="sticky top-24 bg-card rounded-xl shadow-lg border border-border p-6">
                             <div className="mb-6">
                                 <p className="text-sm text-muted-foreground mb-1">Starting from</p>
                                 <div className="flex items-baseline gap-1">
@@ -179,12 +186,12 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             <div className="space-y-4">
                                 <Link
                                     href={`/book/${tour.slug}`}
-                                    className="block w-full py-4 bg-primary hover:bg-primary/90 text-primary-foreground text-center font-bold rounded-xl transition-colors shadow-lg"
+                                    className="block w-full py-4 bg-[#F8FAFC] hover:bg-[#F8FAFC] text-primary text-center font-bold rounded-xl transition-all shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:scale-[1.02] active:scale-[0.98] border-[0.5px] border-primary/10"
                                 >
                                     Book This Trip
                                 </Link>
                                 <a
-                                    href={`https://wa.me/910000000000?text=Hi, I am interested in ${tour.title}`}
+                                    href={`https://wa.me/919906700000?text=Hi, I am interested in ${tour.title}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="block w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center font-bold rounded-xl transition-colors shadow-lg"

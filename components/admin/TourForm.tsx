@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { createTour, updateTour } from "@/lib/actions";
-import { Loader2, Save, ArrowLeft, Upload, Image as ImageIcon, X } from "lucide-react";
+import { Loader2, Save, ArrowLeft, Upload, Image as ImageIcon, X, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,12 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [previews, setPreviews] = useState<string[]>([]);
+
+    // Dynamic Fields State
+    const [highlights, setHighlights] = useState<string[]>(tour?.highlights || []);
+    const [itinerary, setItinerary] = useState<any[]>(tour?.itinerary || []);
+    const [inclusions, setInclusions] = useState<string[]>(tour?.inclusions || []);
+    const [exclusions, setExclusions] = useState<string[]>(tour?.exclusions || []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -196,6 +202,199 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                             </CardContent>
                         </Card>
 
+                        {/* Highlights Section */}
+                        <Card className="border-border/50 shadow-sm">
+                            <CardHeader>
+                                <CardTitle className="text-xl font-bold font-serif">Trip Highlights</CardTitle>
+                                <CardDescription>Key features of this tour package.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                {highlights.map((item, idx) => (
+                                    <div key={idx} className="flex gap-2">
+                                        <Input
+                                            value={item}
+                                            onChange={(e) => {
+                                                const newHighlights = [...highlights];
+                                                newHighlights[idx] = e.target.value;
+                                                setHighlights(newHighlights);
+                                            }}
+                                            placeholder="e.g. Shikara Ride on Dal Lake"
+                                        />
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => {
+                                                const newHighlights = highlights.filter((_, i) => i !== idx);
+                                                setHighlights(newHighlights);
+                                            }}
+                                        >
+                                            <Trash2 className="h-4 w-4 text-destructive" />
+                                        </Button>
+                                    </div>
+                                ))}
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setHighlights([...highlights, ""])}
+                                    className="mt-2"
+                                >
+                                    <Plus className="h-4 w-4 mr-2" /> Add Highlight
+                                </Button>
+                                <input type="hidden" name="highlights" value={JSON.stringify(highlights)} />
+                            </CardContent>
+                        </Card>
+
+                        {/* Itinerary Section */}
+                        <Card className="border-border/50 shadow-sm">
+                            <CardHeader>
+                                <CardTitle className="text-xl font-bold font-serif">Day-wise Itinerary</CardTitle>
+                                <CardDescription>Detailed daily plan for the tour.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                                {itinerary.map((day, idx) => (
+                                    <div key={idx} className="p-4 border rounded-xl space-y-4 bg-muted/30">
+                                        <div className="flex justify-between items-center">
+                                            <span className="font-bold text-sm bg-primary/10 text-primary px-2 py-1 rounded">Day {day.day}</span>
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => {
+                                                    const newItinerary = itinerary.filter((_, i) => i !== idx);
+                                                    // Re-index days
+                                                    const reindexed = newItinerary.map((d, i) => ({ ...d, day: i + 1 }));
+                                                    setItinerary(reindexed);
+                                                }}
+                                            >
+                                                <Trash2 className="h-4 w-4 text-destructive" />
+                                            </Button>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Title</Label>
+                                            <Input
+                                                value={day.title}
+                                                onChange={(e) => {
+                                                    const newItinerary = [...itinerary];
+                                                    newItinerary[idx].title = e.target.value;
+                                                    setItinerary(newItinerary);
+                                                }}
+                                                placeholder="e.g. Arrival in Srinagar"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Description</Label>
+                                            <Textarea
+                                                value={day.description}
+                                                onChange={(e) => {
+                                                    const newItinerary = [...itinerary];
+                                                    newItinerary[idx].description = e.target.value;
+                                                    setItinerary(newItinerary);
+                                                }}
+                                                placeholder="Details about the day's activities..."
+                                                rows={3}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setItinerary([...itinerary, { day: itinerary.length + 1, title: "", description: "" }])}
+                                >
+                                    <Plus className="h-4 w-4 mr-2" /> Add Day
+                                </Button>
+                                <input type="hidden" name="itinerary" value={JSON.stringify(itinerary)} />
+                            </CardContent>
+                        </Card>
+
+                        {/* Inclusions & Exclusions */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <Card className="border-border/50 shadow-sm">
+                                <CardHeader>
+                                    <CardTitle className="text-lg font-bold font-serif text-green-600">Inclusions</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    {inclusions.map((item, idx) => (
+                                        <div key={idx} className="flex gap-2">
+                                            <Input
+                                                value={item}
+                                                onChange={(e) => {
+                                                    const newInclusions = [...inclusions];
+                                                    newInclusions[idx] = e.target.value;
+                                                    setInclusions(newInclusions);
+                                                }}
+                                                placeholder="Included item..."
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => {
+                                                    const newInclusions = inclusions.filter((_, i) => i !== idx);
+                                                    setInclusions(newInclusions);
+                                                }}
+                                            >
+                                                <Trash2 className="h-4 w-4 text-destructive" />
+                                            </Button>
+                                        </div>
+                                    ))}
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setInclusions([...inclusions, ""])}
+                                    >
+                                        <Plus className="h-4 w-4 mr-2" /> Add Inclusion
+                                    </Button>
+                                    <input type="hidden" name="inclusions" value={JSON.stringify(inclusions)} />
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-border/50 shadow-sm">
+                                <CardHeader>
+                                    <CardTitle className="text-lg font-bold font-serif text-red-600">Exclusions</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    {exclusions.map((item, idx) => (
+                                        <div key={idx} className="flex gap-2">
+                                            <Input
+                                                value={item}
+                                                onChange={(e) => {
+                                                    const newExclusions = [...exclusions];
+                                                    newExclusions[idx] = e.target.value;
+                                                    setExclusions(newExclusions);
+                                                }}
+                                                placeholder="Excluded item..."
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => {
+                                                    const newExclusions = exclusions.filter((_, i) => i !== idx);
+                                                    setExclusions(newExclusions);
+                                                }}
+                                            >
+                                                <Trash2 className="h-4 w-4 text-destructive" />
+                                            </Button>
+                                        </div>
+                                    ))}
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setExclusions([...exclusions, ""])}
+                                    >
+                                        <Plus className="h-4 w-4 mr-2" /> Add Exclusion
+                                    </Button>
+                                    <input type="hidden" name="exclusions" value={JSON.stringify(exclusions)} />
+                                </CardContent>
+                            </Card>
+                        </div>
+
                         <Card className="border-border/50 shadow-sm">
                             <CardHeader>
                                 <CardTitle className="text-xl font-bold font-serif">Tour Images</CardTitle>
@@ -309,16 +508,16 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                     <Button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full font-bold shadow-md"
+                                        className="w-full font-bold text-lg h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all"
                                         size="lg"
                                     >
-                                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
                                         {isEditing ? "Update Tour" : "Create Tour"}
                                     </Button>
                                     <Button
                                         variant="outline"
                                         asChild
-                                        className="w-full"
+                                        className="w-full h-12 text-base hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 transition-colors"
                                     >
                                         <Link href="/admin/tours">
                                             Cancel

@@ -17,6 +17,38 @@ const TourSchema = z.object({
     long_description: z.string().optional(),
     trip_type: z.string().optional(),
     is_active: z.boolean().optional(),
+    highlights: z.string().transform((str, ctx) => {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            ctx.addIssue({ code: 'custom', message: 'Invalid JSON' });
+            return z.NEVER;
+        }
+    }).optional(),
+    itinerary: z.string().transform((str, ctx) => {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            ctx.addIssue({ code: 'custom', message: 'Invalid JSON' });
+            return z.NEVER;
+        }
+    }).optional(),
+    inclusions: z.string().transform((str, ctx) => {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            ctx.addIssue({ code: 'custom', message: 'Invalid JSON' });
+            return z.NEVER;
+        }
+    }).optional(),
+    exclusions: z.string().transform((str, ctx) => {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            ctx.addIssue({ code: 'custom', message: 'Invalid JSON' });
+            return z.NEVER;
+        }
+    }).optional(),
 });
 
 export async function createTour(prevState: any, formData: FormData) {
@@ -39,6 +71,10 @@ export async function createTour(prevState: any, formData: FormData) {
         long_description: formData.get("long_description"),
         trip_type: formData.get("trip_type"),
         is_active: formData.get("is_active") === "on",
+        highlights: formData.get("highlights") || "[]",
+        itinerary: formData.get("itinerary") || "[]",
+        inclusions: formData.get("inclusions") || "[]",
+        exclusions: formData.get("exclusions") || "[]",
     });
 
     if (!validatedFields.success) {
@@ -98,6 +134,10 @@ export async function updateTour(id: string, prevState: any, formData: FormData)
         long_description: formData.get("long_description"),
         trip_type: formData.get("trip_type"),
         is_active: formData.get("is_active") === "on",
+        highlights: formData.get("highlights") || "[]",
+        itinerary: formData.get("itinerary") || "[]",
+        inclusions: formData.get("inclusions") || "[]",
+        exclusions: formData.get("exclusions") || "[]",
     });
 
     if (!validatedFields.success) {
