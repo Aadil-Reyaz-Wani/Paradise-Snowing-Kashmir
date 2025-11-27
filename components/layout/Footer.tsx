@@ -13,7 +13,7 @@ export default function Footer() {
                     {/* Brand Column */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                            <div className="p-2.5 rounded-xl border border-primary/10 bg-primary/5 flex items-center justify-center text-primary">
                                 <Mountain className="h-6 w-6" />
                             </div>
                             <div className="flex flex-col">
@@ -33,7 +33,7 @@ export default function Footer() {
                                 <a
                                     key={i}
                                     href="#"
-                                    className="w-10 h-10 bg-background rounded-full flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all shadow-sm"
+                                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 bg-[#F8FAFC] text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:scale-105"
                                 >
                                     <Icon className="h-5 w-5" />
                                 </a>
@@ -69,13 +69,13 @@ export default function Footer() {
                             <li className="flex items-start gap-3 text-muted-foreground">
                                 <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
                                 <span>
-                                    Boulevard Road, Dal Lake,<br />
-                                    Srinagar, Kashmir 190001
+                                    Gulmarg Road, Tangmarg,<br />
+                                    Kashmir, 193402
                                 </span>
                             </li>
                             <li className="flex items-center gap-3 text-muted-foreground">
                                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                                <a href="tel:+919906700000" className="hover:text-foreground transition-colors">+91 99067 00000</a>
+                                <a href="tel:+917006014581" className="hover:text-foreground transition-colors">+91 70060 14581</a>
                             </li>
                             <li className="flex items-center gap-3 text-muted-foreground">
                                 <Mail className="h-5 w-5 text-primary shrink-0" />
@@ -96,7 +96,7 @@ export default function Footer() {
                                 placeholder="Your email address"
                                 className="bg-background"
                             />
-                            <Button className="w-full font-bold">
+                            <Button className="w-full font-bold rounded-xl bg-[#F8FAFC] text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] border-none h-12">
                                 Subscribe
                             </Button>
                         </form>

@@ -127,7 +127,7 @@ export default function ContactPage() {
             {/* 3. Map Section */}
             <section className="h-[400px] w-full bg-muted grayscale hover:grayscale-0 transition-all duration-700">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52816.60637682568!2d74.77254586990526!3d34.0836531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e1855686e3c5ef%3A0x662e0e785d4415!2sDal%20Lake!5e0!3m2!1sen!2sin!4v1710332456789!5m2!1sen!2sin"
+                    src="https://maps.google.com/maps?q=Gulmarg+Road,+Tangmarg,+Kashmir&t=&z=13&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}

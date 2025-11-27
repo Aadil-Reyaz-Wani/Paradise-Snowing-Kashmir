@@ -310,13 +310,13 @@ export default function Home() {
             Let us customize the perfect itinerary for you. No hidden costs, just pure memories.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Button asChild className="rounded-xl h-14 px-10 bg-[#F8FAFC] text-primary font-bold text-lg tracking-wider hover:bg-[#F8FAFC] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
+            <Button asChild className="w-64 rounded-xl h-14 bg-[#F8FAFC] text-primary font-bold text-lg tracking-wider hover:bg-[#F8FAFC] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
               <Link href="/contact">
                 Get a Free Quote
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-xl text-lg h-14 px-10 bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground hover:scale-105 transition-transform">
-              <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer">
+            <Button asChild variant="outline" size="lg" className="w-64 rounded-xl text-lg h-14 bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground hover:scale-105 transition-transform">
+              <a href="https://wa.me/919906700000" target="_blank" rel="noopener noreferrer">
                 WhatsApp Us
               </a>
             </Button>

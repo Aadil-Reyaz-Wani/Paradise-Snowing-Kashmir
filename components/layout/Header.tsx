@@ -112,10 +112,10 @@ export function Header() {
                             <Button
                                 asChild
                                 className={cn(
-                                    "rounded-full font-bold px-8 h-11 hover:scale-105 transition-all duration-300 shadow-lg",
+                                    "rounded-xl font-bold px-8 h-11 hover:scale-105 transition-all duration-300 shadow-lg",
                                     isTransparent
                                         ? "bg-white text-primary hover:bg-white/90 shadow-white/10"
-                                        : "bg-[#F8FAFC] text-primary hover:bg-[#F8FAFC] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border border-primary/5"
+                                        : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
                                 )}
                             >
                                 <Link href="/tours">Book Now</Link>
@@ -166,7 +166,7 @@ export function Header() {
                                         0{i + 1}
                                     </span>
                                     <span className={cn(
-                                        "text-2xl font-serif font-medium transition-colors",
+                                        "text-lg font-serif font-medium transition-colors",
                                         pathname === link.href ? "text-primary" : "text-foreground group-hover:text-primary"
                                     )}>
                                         {link.name}
