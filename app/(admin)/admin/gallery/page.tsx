@@ -9,8 +9,11 @@ export default async function AdminGalleryPage() {
         .order("created_at", { ascending: false });
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold text-slate-900 mb-8">Gallery Management</h1>
+        <div className="space-y-8">
+            <div>
+                <h1 className="text-3xl font-bold font-serif text-foreground">Gallery Management</h1>
+                <p className="text-muted-foreground mt-1">Curate your visual storytelling.</p>
+            </div>
             <GalleryManager initialImages={images || []} />
         </div>
     );

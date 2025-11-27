@@ -9,8 +9,11 @@ export default async function AdminTestimonialsPage() {
         .order("created_at", { ascending: false });
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold text-slate-900 mb-8">Testimonials Management</h1>
+        <div className="space-y-8">
+            <div>
+                <h1 className="text-3xl font-bold font-serif text-foreground">Testimonials Management</h1>
+                <p className="text-muted-foreground mt-1">Manage client reviews and feedback.</p>
+            </div>
             <TestimonialsManager initialTestimonials={testimonials || []} />
         </div>
     );

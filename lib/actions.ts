@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createPublicClient } from "@/lib/supabase/public";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -225,6 +226,7 @@ export async function uploadGalleryImage(prevState: any, formData: FormData) {
 
     // 2. Insert into DB
     console.log("Upload successful, inserting into DB...");
+
     const { error: dbError } = await adminSupabase.from("gallery_images").insert({
         storage_path: filePath,
         category,
@@ -355,6 +357,105 @@ export async function updateBookingStatus(id: string, status: string) {
     }
 
     revalidatePath("/admin/bookings");
+}
+
+// --- Destinations ---
+
+export async function getDestinations() {
+    const supabase = await createAdminClient();
+    const { data, error } = await supabase
+        .from("destinations")
+        .select("*")
+        .order("sort_order", { ascending: true });
+
+    if (error) {
+        console.error("Error fetching destinations:", error);
+        return [];
+    }
+
+    return data;
+}
+
+export async function getPublicDestinations() {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+        .from("destinations")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
+
+    if (error) {
+        console.error("Error fetching public destinations:", JSON.stringify(error, null, 2));
+        return [];
+    }
+
+    return data;
+}
+
+export async function createDestination(formData: FormData) {
+    const supabase = await createAdminClient();
+    const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
+    const image = formData.get("image") as File;
+    const slug = name.toLowerCase().replace(/ /g, "-");
+
+    let imagePath = "";
+    if (image && image.size > 0) {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+            .from("gallery") // Using gallery bucket for now
+            .upload(`destinations/${Date.now()}-${image.name}`, image);
+
+        if (uploadError) throw new Error("Image upload failed");
+        imagePath = uploadData.path;
+    }
+
+    const { error } = await supabase.from("destinations").insert({
+        name,
+        description,
+        slug,
+        image: imagePath,
+        is_active: true,
+    });
+
+    if (error) throw new Error("Failed to create destination");
+    revalidatePath("/destinations");
+    revalidatePath("/admin/destinations");
+}
+
+export async function updateDestination(id: string, formData: FormData) {
+    const supabase = await createAdminClient();
+    const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
+    const image = formData.get("image") as File;
+
+    const updates: any = { name, description };
+
+    if (image && image.size > 0) {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+            .from("gallery")
+            .upload(`destinations/${Date.now()}-${image.name}`, image);
+
+        if (uploadError) throw new Error("Image upload failed");
+        updates.image = uploadData.path;
+    }
+
+    const { error } = await supabase
+        .from("destinations")
+        .update(updates)
+        .eq("id", id);
+
+    if (error) throw new Error("Failed to update destination");
+    revalidatePath("/destinations");
+    revalidatePath("/admin/destinations");
+}
+
+export async function deleteDestination(id: string) {
+    const supabase = await createAdminClient();
+    const { error } = await supabase.from("destinations").delete().eq("id", id);
+
+    if (error) throw new Error("Failed to delete destination");
+    revalidatePath("/destinations");
+    revalidatePath("/admin/destinations");
 }
 
 export async function submitContactForm(prevState: any, formData: FormData) {

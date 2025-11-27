@@ -62,10 +62,10 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             Back to Packages
                         </Link>
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full border-[0.5px] border-white/20 bg-primary/80 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wide shadow-sm">
                                 {tour.region}
                             </span>
-                            <span className="bg-white/20 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full border-[0.5px] border-white/20 bg-white/10 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wide shadow-sm">
                                 {tour.trip_type}
                             </span>
                         </div>

@@ -1,99 +1,191 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import ContactForm from "@/components/features/ContactForm";
+"use client";
 
-export const metadata = {
-    title: "Contact Us - Paradise Snowing Kashmir",
-    description: "Get in touch with us to plan your dream trip to Kashmir and Ladakh.",
-    openGraph: {
-        title: "Contact Us - Paradise Snowing Kashmir",
-        description: "Get in touch with us to plan your dream trip to Kashmir and Ladakh.",
-    },
-};
+import { Mail, Phone, MapPin, Clock, MessageSquare, ChevronDown, Send } from "lucide-react";
+import { BlurImage } from "@/components/ui/blur-image";
+import ContactForm from "@/components/features/ContactForm";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function ContactPage() {
     return (
-        <div className="min-h-screen bg-background transition-colors duration-300">
-            <div className="container mx-auto px-4 py-12 pt-24">
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl font-bold mb-4 text-foreground">Get in Touch</h1>
-                    <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-                        Have questions? Want a custom itinerary? We are here to help.
-                    </p>
-                </div>
+        <div className="min-h-screen bg-background">
+            {/* 1. Split Hero Section */}
+            <section className="relative pt-32 pb-12 md:pt-48 md:pb-24 overflow-hidden">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                        {/* Text Content */}
+                        <div className="w-full lg:w-1/2 relative z-10 animate-fade-in-up">
+                            <div className="inline-flex items-center gap-3 mb-6">
+                                <span className="h-px w-8 bg-primary/60"></span>
+                                <span className="text-primary font-bold tracking-[0.2em] text-xs uppercase">Contact Us</span>
+                            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                    {/* Contact Info */}
-                    <div className="space-y-8">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Contact Information</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-6">
-                                <div className="flex items-start gap-4">
-                                    <div className="bg-primary/10 p-3 rounded-full text-primary">
-                                        <Phone className="h-6 w-6" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-foreground">Phone / WhatsApp</h3>
-                                        <p className="text-muted-foreground">+91 00000 00000</p>
-                                        <p className="text-sm text-muted-foreground/60 mt-1">Available 24/7</p>
-                                    </div>
-                                </div>
+                            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold font-serif text-foreground mb-6 leading-[1.1]">
+                                Let's Plan Your <br />
+                                <span className="text-primary italic">Journey</span>
+                            </h1>
 
-                                <div className="flex items-start gap-4">
-                                    <div className="bg-primary/10 p-3 rounded-full text-primary">
-                                        <Mail className="h-6 w-6" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-foreground">Email</h3>
-                                        <p className="text-muted-foreground">info@paradisesnowingkashmir.com</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="bg-primary/10 p-3 rounded-full text-primary">
-                                        <MapPin className="h-6 w-6" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-foreground">Office</h3>
-                                        <p className="text-muted-foreground">
-                                            Boulevard Road, Dal Lake,<br />
-                                            Srinagar, Jammu and Kashmir 190001
-                                        </p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        <div className="bg-primary p-8 rounded-2xl text-primary-foreground shadow-xl">
-                            <h2 className="text-2xl font-bold mb-4">Ready to plan your trip?</h2>
-                            <p className="mb-6 opacity-90 text-lg">
-                                The fastest way to reach us is via WhatsApp. We usually reply within minutes!
+                            <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed max-w-lg mb-10">
+                                Whether you have a question about our tours, need a custom itinerary, or just want to say hello, we are here for you.
                             </p>
-                            <a
-                                href="https://wa.me/910000000000"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center w-full px-6 py-4 bg-background text-foreground font-bold rounded-xl hover:bg-background/90 transition-all shadow-md"
-                            >
-                                Chat on WhatsApp
-                            </a>
+
+                            <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                    Online Now
+                                </div>
+                                <span className="text-border">|</span>
+                                <div>Avg. Response: 10 Mins</div>
+                            </div>
+                        </div>
+
+                        {/* Image Content */}
+                        <div className="w-full lg:w-1/2 relative">
+                            <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up delay-200">
+                                <BlurImage
+                                    src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?q=80&w=2070&auto=format&fit=crop"
+                                    alt="Kashmir Contact"
+                                    fill
+                                    className="object-cover hover:scale-105 transition-transform duration-1000"
+                                    priority
+                                />
+                                {/* Decorative Badge */}
+                                <div className="absolute bottom-0 right-0 bg-white/10 backdrop-blur-md border-t border-l border-white/20 p-6 rounded-tl-3xl">
+                                    <p className="text-white text-xs font-bold uppercase tracking-widest">24/7 Support</p>
+                                </div>
+                            </div>
+
+                            {/* Decorative Elements */}
+                            <div className="absolute -z-10 top-10 -left-10 w-full h-full border-2 border-primary/5 rounded-[3rem] hidden md:block" />
+                            <div className="absolute -z-10 -bottom-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    {/* Contact Form */}
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Send us a Message</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <ContactForm />
-                        </CardContent>
-                    </Card>
+            {/* 2. Contact Info & Form Grid */}
+            <section className="py-24 bg-secondary/20">
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                        {/* Left Column: Contact Info */}
+                        <div className="lg:col-span-5 space-y-8">
+                            <h2 className="text-3xl font-bold font-serif mb-8">Get in Touch</h2>
+
+                            {/* Info Cards */}
+                            <div className="space-y-6">
+                                {[
+                                    { icon: Phone, title: "Phone / WhatsApp", value: "+91 70061 23456", sub: "Available 24/7 for urgent queries" },
+                                    { icon: Mail, title: "Email Address", value: "info@paradisesnowing.com", sub: "We reply within 24 hours" },
+                                    { icon: MapPin, title: "Head Office", value: "Boulevard Road, Dal Lake", sub: "Srinagar, Kashmir 190001" },
+                                ].map((item, i) => (
+                                    <div key={i} className="group bg-[#F8FAFC] p-6 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 flex items-start gap-4">
+                                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm group-hover:scale-110 transition-transform duration-300 shrink-0">
+                                            <item.icon className="h-5 w-5" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-foreground">{item.title}</h3>
+                                            <p className="text-lg font-medium text-primary mt-1">{item.value}</p>
+                                            <p className="text-sm text-muted-foreground mt-1">{item.sub}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* WhatsApp CTA */}
+                            <div className="bg-primary p-8 rounded-[2rem] text-primary-foreground relative overflow-hidden shadow-xl mt-12">
+                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+                                <div className="relative z-10">
+                                    <h3 className="text-2xl font-bold font-serif mb-2">Quick Chat?</h3>
+                                    <p className="text-primary-foreground/80 mb-6">Connect with us instantly on WhatsApp.</p>
+                                    <a
+                                        href="https://wa.me/917006123456"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-white/90 transition-colors"
+                                    >
+                                        <MessageSquare className="h-5 w-5" />
+                                        Chat Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Column: Contact Form */}
+                        <div className="lg:col-span-7">
+                            <div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl border border-border/50">
+                                <div className="mb-8">
+                                    <h2 className="text-3xl font-bold font-serif mb-2">Send a Message</h2>
+                                    <p className="text-muted-foreground">Fill out the form below and we'll get back to you shortly.</p>
+                                </div>
+                                <ContactForm />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. Map Section */}
+            <section className="h-[400px] w-full bg-muted grayscale hover:grayscale-0 transition-all duration-700">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52816.60637682568!2d74.77254586990526!3d34.0836531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e1855686e3c5ef%3A0x662e0e785d4415!2sDal%20Lake!5e0!3m2!1sen!2sin!4v1710332456789!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
+            </section>
+
+            {/* 4. FAQ Section */}
+            <section className="py-24 container mx-auto px-4">
+                <div className="max-w-3xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold font-serif mb-4">Common Questions</h2>
+                        <p className="text-muted-foreground">Everything you need to know before you book.</p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <FAQItem
+                            question="What is the best time to visit Kashmir?"
+                            answer="Kashmir is a year-round destination. April to October is perfect for greenery and pleasant weather, while December to February is ideal for snow lovers and winter sports in Gulmarg."
+                        />
+                        <FAQItem
+                            question="Is it safe for tourists?"
+                            answer="Yes, Kashmir is very safe for tourists. Thousands of travelers visit every month. We also provide 24/7 on-ground support to ensure your safety and comfort."
+                        />
+                        <FAQItem
+                            question="Do you customize tour packages?"
+                            answer="Absolutely! We specialize in tailor-made itineraries. Whether you want a honeymoon trip, a family vacation, or an adventure tour, we customize everything to your preferences."
+                        />
+                        <FAQItem
+                            question="How do I book a trip?"
+                            answer="You can contact us via the form above, call us, or WhatsApp us. Once we finalize your itinerary, you can pay a deposit to confirm your booking."
+                        />
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+}
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div className="border border-border/50 rounded-2xl overflow-hidden bg-[#F8FAFC] shadow-sm">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full flex items-center justify-between p-6 text-left font-medium text-lg hover:bg-secondary/20 transition-colors"
+            >
+                {question}
+                <ChevronDown className={cn("h-5 w-5 text-muted-foreground transition-transform duration-300", isOpen && "rotate-180")} />
+            </button>
+            <div className={cn("grid transition-all duration-300 ease-in-out", isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
+                <div className="overflow-hidden">
+                    <div className="p-6 pt-0 text-muted-foreground leading-relaxed">
+                        {answer}
+                    </div>
                 </div>
             </div>
         </div>

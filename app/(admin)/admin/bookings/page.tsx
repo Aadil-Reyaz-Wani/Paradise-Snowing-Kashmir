@@ -13,8 +13,11 @@ export default async function AdminBookingsPage() {
         .order("created_at", { ascending: false });
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold text-slate-900 mb-8">Bookings Management</h1>
+        <div className="space-y-8">
+            <div>
+                <h1 className="text-3xl font-bold font-serif text-foreground">Bookings Management</h1>
+                <p className="text-muted-foreground mt-1">Track and manage customer reservations.</p>
+            </div>
             <BookingsManager initialBookings={bookings || []} />
         </div>
     );

@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         hostname: '**.supabase.co',
       },
       {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+      },
+      {
         protocol: 'http',
         hostname: '127.0.0.1',
       },

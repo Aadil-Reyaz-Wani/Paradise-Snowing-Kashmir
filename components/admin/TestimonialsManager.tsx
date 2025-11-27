@@ -2,8 +2,13 @@
 
 import { useState, useRef } from "react";
 import { createTestimonial, deleteTestimonial } from "@/lib/actions";
-import { Loader2, Trash2, Plus, Star, User } from "lucide-react";
+import { Loader2, Trash2, Plus, Star, User, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Testimonial = {
     id: string;
@@ -48,135 +53,152 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
     };
 
     return (
-        <div>
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 mb-8">
-                <h2 className="text-lg font-semibold text-slate-900 mb-4">Add New Testimonial</h2>
-                <form
-                    ref={formRef}
-                    action={handleSubmit}
-                    className="space-y-4"
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Client Name</label>
-                            <input
-                                type="text"
-                                name="name"
+        <div className="space-y-8">
+            <Card className="border-border/50 shadow-sm">
+                <CardHeader>
+                    <CardTitle className="text-lg font-bold font-serif flex items-center gap-2">
+                        <MessageSquare className="h-5 w-5 text-primary" />
+                        Add New Testimonial
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <form
+                        ref={formRef}
+                        action={handleSubmit}
+                        className="space-y-6"
+                    >
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="name">Client Name</Label>
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    required
+                                    placeholder="e.g. Rahul Sharma"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="location">Location</Label>
+                                <Input
+                                    id="location"
+                                    type="text"
+                                    name="location"
+                                    placeholder="e.g. Mumbai"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="rating">Rating (1-5)</Label>
+                                <div className="relative">
+                                    <select
+                                        id="rating"
+                                        name="rating"
+                                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+                                        defaultValue="5"
+                                    >
+                                        <option value="5">5 Stars</option>
+                                        <option value="4">4 Stars</option>
+                                        <option value="3">3 Stars</option>
+                                        <option value="2">2 Stars</option>
+                                        <option value="1">1 Star</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="trip_type">Trip Type</Label>
+                                <div className="relative">
+                                    <select
+                                        id="trip_type"
+                                        name="trip_type"
+                                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+                                        defaultValue="Family"
+                                    >
+                                        <option value="Family">Family</option>
+                                        <option value="Honeymoon">Honeymoon</option>
+                                        <option value="Adventure">Adventure</option>
+                                        <option value="Group">Group</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="flex items-center pt-8">
+                                <input
+                                    type="checkbox"
+                                    name="show_on_homepage"
+                                    id="show_on_homepage"
+                                    defaultChecked
+                                    className="h-4 w-4 text-primary rounded border-input focus:ring-primary mr-2"
+                                />
+                                <Label htmlFor="show_on_homepage" className="cursor-pointer">
+                                    Show on Homepage
+                                </Label>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="text">Review Text</Label>
+                            <Textarea
+                                id="text"
+                                name="text"
                                 required
-                                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                                placeholder="e.g. Rahul Sharma"
+                                rows={3}
+                                placeholder="Client's feedback..."
                             />
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
-                            <input
-                                type="text"
-                                name="location"
-                                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                                placeholder="e.g. Mumbai"
-                            />
-                        </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Rating (1-5)</label>
-                            <select
-                                name="rating"
-                                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
-                                defaultValue="5"
+                        <div className="flex justify-end">
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="min-w-[150px]"
                             >
-                                <option value="5">5 Stars</option>
-                                <option value="4">4 Stars</option>
-                                <option value="3">3 Stars</option>
-                                <option value="2">2 Stars</option>
-                                <option value="1">1 Star</option>
-                            </select>
+                                {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
+                                Add Testimonial
+                            </Button>
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Trip Type</label>
-                            <select
-                                name="trip_type"
-                                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
-                                defaultValue="Family"
-                            >
-                                <option value="Family">Family</option>
-                                <option value="Honeymoon">Honeymoon</option>
-                                <option value="Adventure">Adventure</option>
-                                <option value="Group">Group</option>
-                            </select>
-                        </div>
-                        <div className="flex items-center pt-6">
-                            <input
-                                type="checkbox"
-                                name="show_on_homepage"
-                                id="show_on_homepage"
-                                defaultChecked
-                                className="h-4 w-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 mr-2"
-                            />
-                            <label htmlFor="show_on_homepage" className="text-sm font-medium text-slate-700">
-                                Show on Homepage
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Review Text</label>
-                        <textarea
-                            name="text"
-                            required
-                            rows={3}
-                            className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                            placeholder="Client's feedback..."
-                        />
-                    </div>
-
-                    <div className="flex justify-end">
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
-                        >
-                            {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-                            Add Testimonial
-                        </button>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </CardContent>
+            </Card>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {initialTestimonials.map((item) => (
-                    <div key={item.id} className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 relative group">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                                    <User className="h-5 w-5" />
+                    <Card key={item.id} className="border-border/50 shadow-sm hover:shadow-md transition-all group">
+                        <CardContent className="p-6">
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                        <User className="h-5 w-5" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-foreground">{item.name}</h3>
+                                        <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{item.location} • {item.trip_type}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-slate-900">{item.name}</h3>
-                                    <p className="text-xs text-slate-500">{item.location} • {item.trip_type}</p>
+                                <div className="flex items-center gap-1 bg-yellow-500/10 px-2 py-1 rounded text-yellow-600 text-xs font-bold border border-yellow-500/20">
+                                    <Star className="h-3 w-3 fill-current" />
+                                    {item.rating}
                                 </div>
                             </div>
-                            <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded text-yellow-700 text-xs font-bold">
-                                <Star className="h-3 w-3 fill-current" />
-                                {item.rating}
-                            </div>
-                        </div>
-                        <p className="text-slate-600 text-sm italic">"{item.text}"</p>
+                            <p className="text-muted-foreground text-sm italic leading-relaxed">"{item.text}"</p>
 
-                        <div className="mt-4 flex justify-between items-center border-t pt-4">
-                            <span className={`text-xs px-2 py-1 rounded-full ${item.show_on_homepage ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
-                                {item.show_on_homepage ? 'On Homepage' : 'Hidden'}
-                            </span>
-                            <button
-                                onClick={() => handleDelete(item.id)}
-                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                                title="Delete"
-                            >
-                                <Trash2 className="h-4 w-4" />
-                            </button>
-                        </div>
-                    </div>
+                            <div className="mt-6 flex justify-between items-center border-t border-border/50 pt-4">
+                                <span className={`text-xs px-2 py-1 rounded-full font-bold uppercase tracking-wide ${item.show_on_homepage ? 'bg-green-500/10 text-green-600 border border-green-500/20' : 'bg-muted text-muted-foreground border border-border'}`}>
+                                    {item.show_on_homepage ? 'On Homepage' : 'Hidden'}
+                                </span>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleDelete(item.id)}
+                                    className="h-8 w-8 text-destructive hover:bg-destructive/10 hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                                    title="Delete"
+                                >
+                                    <Trash2 className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
         </div>

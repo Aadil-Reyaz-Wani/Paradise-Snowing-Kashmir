@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { LayoutDashboard, Map, Image as ImageIcon, CalendarDays, Users, LogOut } from "lucide-react";
+import { LayoutDashboard, Map, Image as ImageIcon, CalendarDays, Users, LogOut, Mountain } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function AdminLayout({
     children,
@@ -7,41 +8,58 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex min-h-screen bg-slate-100">
-            <aside className="w-64 bg-white border-r hidden md:flex flex-col">
-                <div className="p-6 border-b">
-                    <h1 className="text-xl font-bold">Admin Panel</h1>
+        <div className="flex min-h-screen bg-muted/30">
+            <aside className="w-72 bg-card border-r border-border/50 hidden md:flex flex-col shadow-sm">
+                <div className="p-8 border-b border-border/50">
+                    <h1 className="text-2xl font-bold font-serif text-foreground">Admin Panel</h1>
+                    <p className="text-xs text-muted-foreground mt-1">Manage your paradise</p>
                 </div>
-                <nav className="flex-1 p-4 space-y-1">
-                    <Link href="/admin" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 text-slate-700">
-                        <LayoutDashboard className="h-5 w-5" />
-                        Dashboard
-                    </Link>
-                    <Link href="/admin/tours" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 text-slate-700">
-                        <Map className="h-5 w-5" />
-                        Tours
-                    </Link>
-                    <Link href="/admin/bookings" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 text-slate-700">
-                        <CalendarDays className="h-5 w-5" />
-                        Bookings
-                    </Link>
-                    <Link href="/admin/gallery" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 text-slate-700">
-                        <ImageIcon className="h-5 w-5" />
-                        Gallery
-                    </Link>
-                    <Link href="/admin/testimonials" className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md hover:bg-slate-100 text-slate-700">
-                        <Users className="h-5 w-5" />
-                        Testimonials
-                    </Link>
+                <nav className="flex-1 p-6 space-y-2">
+                    <Button asChild variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
+                        <Link href="/admin">
+                            <LayoutDashboard className="h-5 w-5" />
+                            Dashboard
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
+                        <Link href="/admin/tours">
+                            <Map className="h-5 w-5" />
+                            Tours
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
+                        <Link href="/admin/bookings">
+                            <CalendarDays className="h-5 w-5" />
+                            Bookings
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
+                        <Link href="/admin/gallery">
+                            <ImageIcon className="h-5 w-5" />
+                            Gallery
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
+                        <Link href="/admin/testimonials">
+                            <Users className="h-5 w-5" />
+                            Testimonials
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
+                        <Link href="/admin/destinations">
+                            <Mountain className="h-5 w-5" />
+                            Destinations
+                        </Link>
+                    </Button>
                 </nav>
-                <div className="p-4 border-t">
-                    <button className="flex w-full items-center gap-3 px-3 py-2 text-sm font-medium text-red-600 rounded-md hover:bg-red-50">
+                <div className="p-6 border-t border-border/50">
+                    <Button variant="ghost" className="w-full justify-start gap-3 text-destructive hover:text-destructive hover:bg-destructive/10">
                         <LogOut className="h-5 w-5" />
                         Sign Out
-                    </button>
+                    </Button>
                 </div>
             </aside>
-            <main className="flex-1 p-8 overflow-y-auto">
+            <main className="flex-1 p-8 md:p-12 overflow-y-auto">
                 {children}
             </main>
         </div>

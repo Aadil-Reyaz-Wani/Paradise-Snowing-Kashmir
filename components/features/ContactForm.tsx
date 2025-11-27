@@ -10,6 +10,7 @@ import { submitContactForm } from "@/lib/actions";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 const contactSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -56,9 +57,9 @@ export default function ContactForm() {
                         id="name"
                         placeholder="Your Name"
                         {...register("name")}
-                        className={errors.name ? "border-red-500" : ""}
+                        className={errors.name ? "border-destructive focus-visible:ring-destructive" : ""}
                     />
-                    {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
+                    {errors.name && <p className="text-destructive text-xs">{errors.name.message}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="phone">Phone</Label>
@@ -66,9 +67,9 @@ export default function ContactForm() {
                         id="phone"
                         placeholder="+91 00000 00000"
                         {...register("phone")}
-                        className={errors.phone ? "border-red-500" : ""}
+                        className={errors.phone ? "border-destructive focus-visible:ring-destructive" : ""}
                     />
-                    {errors.phone && <p className="text-red-500 text-xs">{errors.phone.message}</p>}
+                    {errors.phone && <p className="text-destructive text-xs">{errors.phone.message}</p>}
                 </div>
             </div>
             <div className="space-y-2">
@@ -78,9 +79,9 @@ export default function ContactForm() {
                     type="email"
                     placeholder="your@email.com"
                     {...register("email")}
-                    className={errors.email ? "border-red-500" : ""}
+                    className={errors.email ? "border-destructive focus-visible:ring-destructive" : ""}
                 />
-                {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
+                {errors.email && <p className="text-destructive text-xs">{errors.email.message}</p>}
             </div>
             <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
@@ -89,18 +90,18 @@ export default function ContactForm() {
                     rows={4}
                     placeholder="Tell us about your travel plans..."
                     {...register("message")}
-                    className={errors.message ? "border-red-500" : ""}
+                    className={errors.message ? "border-destructive focus-visible:ring-destructive" : ""}
                 />
-                {errors.message && <p className="text-red-500 text-xs">{errors.message.message}</p>}
+                {errors.message && <p className="text-destructive text-xs">{errors.message.message}</p>}
             </div>
-            <button
+            <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-xl hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full font-bold text-lg h-12 rounded-xl shadow-md"
             >
-                {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+                {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
                 Send Message
-            </button>
+            </Button>
         </form>
     );
 }
