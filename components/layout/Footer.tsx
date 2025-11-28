@@ -29,13 +29,19 @@ export default function Footer() {
                             we make your journey unforgettable.
                         </p>
                         <div className="flex gap-4">
-                            {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                            {[
+                                { Icon: Instagram, href: "https://www.instagram.com/paradise_snowing_kashmir?igsh=MXMzOXc5em96aHNoMw==", color: "hover:bg-[#E1306C]" },
+                                { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61584314134155", color: "hover:bg-[#1877F2]" },
+                                { Icon: Twitter, href: "https://twitter.com/Snowingkashmir", color: "hover:bg-black" }
+                            ].map((social, i) => (
                                 <a
                                     key={i}
-                                    href="#"
-                                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 bg-[#F8FAFC] text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:scale-105"
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`h-10 w-10 rounded-full bg-secondary/30 flex items-center justify-center text-primary ${social.color} hover:text-white transition-all`}
                                 >
-                                    <Icon className="h-5 w-5" />
+                                    <social.Icon className="h-5 w-5" />
                                 </a>
                             ))}
                         </div>
@@ -68,18 +74,18 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3 text-muted-foreground">
                                 <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
-                                <span>
-                                    Gulmarg Road, Tangmarg,<br />
-                                    Kashmir, 193402
-                                </span>
+                                <p className="text-muted-foreground leading-relaxed">
+                                    Chandil, Tangmarg, <br />
+                                    Jammu and Kashmir 193404
+                                </p>
                             </li>
                             <li className="flex items-center gap-3 text-muted-foreground">
                                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                                <a href="tel:+917006014581" className="hover:text-foreground transition-colors">+91 70060 14581</a>
+                                <a href="tel:+917051543381" className="hover:text-primary transition-colors">+91 70515 43381</a>
                             </li>
                             <li className="flex items-center gap-3 text-muted-foreground">
                                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                                <a href="mailto:info@paradisesnowingkashmir.com" className="hover:text-foreground transition-colors">info@paradisesnowingkashmir.com</a>
+                                <a href="mailto:snowingkashmir@gmail.com" className="hover:text-primary transition-colors">snowingkashmir@gmail.com</a>
                             </li>
                         </ul>
                     </div>

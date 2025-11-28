@@ -187,17 +187,17 @@ export function Header() {
                         <div className="space-y-4 p-6 rounded-2xl bg-white border border-primary/10 shadow-sm">
                             <h3 className="text-xs font-bold text-primary/60 uppercase tracking-widest">Get in Touch</h3>
                             <div className="space-y-3">
-                                <a href="tel:+919906700000" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+                                <a href="tel:+917051543381" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
                                     <div className="p-2 rounded-full bg-primary/5 text-primary">
                                         <Phone className="h-4 w-4" />
                                     </div>
-                                    <span className="font-medium">+91 99067 00000</span>
+                                    <span className="font-medium">+91 70515 43381</span>
                                 </a>
-                                <a href="mailto:info@paradisesnowing.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+                                <a href="mailto:snowingkashmir@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
                                     <div className="p-2 rounded-full bg-primary/5 text-primary">
                                         <Mail className="h-4 w-4" />
                                     </div>
-                                    <span className="font-medium">info@paradisesnowing.com</span>
+                                    <span className="font-medium">snowingkashmir@gmail.com</span>
                                 </a>
                             </div>
                         </div>
@@ -205,9 +205,12 @@ export function Header() {
                         {/* Socials & CTA */}
                         <div className="flex flex-col gap-4">
                             <div className="flex gap-4 justify-center">
-                                {[Instagram, Facebook].map((Icon, i) => (
-                                    <a key={i} href="#" className="p-3 rounded-full bg-white text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all border border-primary/10 hover:border-primary/30 shadow-sm">
-                                        <Icon className="h-5 w-5" />
+                                {[
+                                    { Icon: Instagram, href: "https://www.instagram.com/paradise_snowing_kashmir?igsh=MXMzOXc5em96aHNoMw==" },
+                                    { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61584314134155" }
+                                ].map((social, i) => (
+                                    <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all border border-primary/10 hover:border-primary/30 shadow-sm">
+                                        <social.Icon className="h-5 w-5" />
                                     </a>
                                 ))}
                             </div>

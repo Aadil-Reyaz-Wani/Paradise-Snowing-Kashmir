@@ -74,9 +74,9 @@ export default function ContactPage() {
                             {/* Info Cards */}
                             <div className="space-y-6">
                                 {[
-                                    { icon: Phone, title: "Phone / WhatsApp", value: "+91 70061 23456", sub: "Available 24/7 for urgent queries" },
-                                    { icon: Mail, title: "Email Address", value: "info@paradisesnowing.com", sub: "We reply within 24 hours" },
-                                    { icon: MapPin, title: "Head Office", value: "Boulevard Road, Dal Lake", sub: "Srinagar, Kashmir 190001" },
+                                    { icon: Phone, title: "Phone / WhatsApp", value: "+91 70515 43381 / +91 97979 64143", sub: "Available 24/7 for urgent queries" },
+                                    { icon: Mail, title: "Email Address", value: "snowingkashmir@gmail.com", sub: "We reply within 24 hours" },
+                                    { icon: MapPin, title: "Head Office", value: "Chandil, Tangmarg", sub: "Jammu and Kashmir 193404" },
                                 ].map((item, i) => (
                                     <div key={i} className="group bg-[#F8FAFC] p-6 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 flex items-start gap-4">
                                         <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm group-hover:scale-110 transition-transform duration-300 shrink-0">
@@ -98,7 +98,7 @@ export default function ContactPage() {
                                     <h3 className="text-2xl font-bold font-serif mb-2">Quick Chat?</h3>
                                     <p className="text-primary-foreground/80 mb-6">Connect with us instantly on WhatsApp.</p>
                                     <a
-                                        href="https://wa.me/917006123456"
+                                        href="https://wa.me/917051543381"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-white/90 transition-colors"
@@ -127,7 +127,7 @@ export default function ContactPage() {
             {/* 3. Map Section */}
             <section className="h-[300px] md:h-[400px] w-full bg-muted grayscale hover:grayscale-0 transition-all duration-700">
                 <iframe
-                    src="https://maps.google.com/maps?q=Gulmarg+Road,+Tangmarg,+Kashmir&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=WANI+GUEST+HOUSE+Chandil+Jammu+and+Kashmir+193404&t=&z=13&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
