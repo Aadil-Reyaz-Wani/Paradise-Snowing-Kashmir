@@ -33,7 +33,7 @@ async function DestinationsList() {
     }
 
     return (
-        <div className="space-y-16 md:space-y-32">
+        <div className="space-y-12 md:space-y-32">
             {destinations.map((dest: any, idx: number) => (
                 <div
                     key={dest.id}
@@ -45,7 +45,7 @@ async function DestinationsList() {
                 >
                     {/* Image Section */}
                     <div className="w-full md:w-1/2 relative">
-                        <div className="aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] relative rounded-lg overflow-hidden shadow-2xl">
+                        <div className="aspect-[4/3] md:aspect-[3/4] lg:aspect-[4/5] relative rounded-lg overflow-hidden shadow-2xl">
                             <BlurImage
                                 src={dest.image?.startsWith("http") ? dest.image : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${dest.image}`}
                                 alt={dest.name}
@@ -65,7 +65,7 @@ async function DestinationsList() {
                     </div>
 
                     {/* Content Section */}
-                    <div className="w-full md:w-1/2 text-left space-y-4 md:space-y-8 px-1 md:px-0">
+                    <div className="w-full md:w-1/2 text-left space-y-4 md:space-y-8 px-4 md:px-0">
                         <div className="space-y-2 md:space-y-4">
                             <div className={cn(
                                 "flex items-center gap-3 text-primary font-bold tracking-[0.2em] text-[10px] md:text-xs uppercase",
@@ -75,7 +75,7 @@ async function DestinationsList() {
                                 <span>0{idx + 1}</span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold font-serif text-foreground leading-tight">
+                            <h2 className="text-3xl md:text-6xl lg:text-7xl font-bold font-serif text-foreground leading-tight">
                                 {dest.name}
                             </h2>
                         </div>
@@ -101,13 +101,13 @@ async function DestinationsList() {
 
 function DestinationsSkeleton() {
     return (
-        <div className="space-y-16 md:space-y-32">
+        <div className="space-y-12 md:space-y-32">
             {[1, 2, 3].map((i) => (
                 <div key={i} className={cn(
                     "flex flex-col md:flex-row items-center gap-8 md:gap-16",
                     i % 2 === 1 && "md:flex-row-reverse"
                 )}>
-                    <Skeleton className="w-full md:w-1/2 aspect-[3/4] rounded-[2rem]" />
+                    <Skeleton className="w-full md:w-1/2 aspect-[4/3] md:aspect-[3/4] rounded-[2rem]" />
                     <div className="w-full md:w-1/2 space-y-6">
                         <Skeleton className="h-4 w-24" />
                         <Skeleton className="h-16 w-3/4" />
@@ -122,7 +122,7 @@ function DestinationsSkeleton() {
 
 export default function Destinations() {
     return (
-        <div className="min-h-screen bg-background pt-24 md:pt-32 pb-20 md:pb-32"> {/* Warm off-white background */}
+        <div className="min-h-screen bg-background pt-24 md:pt-32 pb-20 md:pb-32 overflow-x-hidden"> {/* Warm off-white background */}
             <div className="container mx-auto px-4 max-w-6xl">
                 {/* 1. Soft Intro Header */}
                 <div className="text-center mb-16 md:mb-32 space-y-4 md:space-y-6 animate-fade-in-up">

@@ -11,11 +11,11 @@ export default async function GalleryPage() {
     const images = await getGalleryImages();
 
     return (
-        <div className="min-h-screen bg-background pt-24 pb-20">
+        <div className="min-h-screen bg-background pt-20 md:pt-24 pb-20">
             {/* Hero Section */}
-            <section className="relative py-24 bg-secondary/30 mb-12">
+            <section className="relative py-12 md:py-24 bg-secondary/30 mb-12">
                 <div className="container px-4 mx-auto text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold font-serif mb-6 text-foreground">
+                    <h1 className="text-4xl md:text-6xl font-bold font-serif mb-6 text-foreground">
                         Photo Gallery
                     </h1>
                     <p className="text-muted-foreground max-w-2xl mx-auto text-xl leading-relaxed">

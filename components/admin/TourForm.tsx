@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BlurImage } from "@/components/ui/blur-image";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type TourFormProps = {
     tour?: any; // Replace with proper type
@@ -115,36 +116,32 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <Label htmlFor="region">Region</Label>
-                                        <div className="relative">
-                                            <select
-                                                id="region"
-                                                name="region"
-                                                defaultValue={tour?.region || "Kashmir"}
-                                                className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
-                                            >
-                                                <option value="Kashmir">Kashmir</option>
-                                                <option value="Ladakh">Ladakh</option>
-                                                <option value="Jammu">Jammu</option>
-                                            </select>
-                                        </div>
+                                        <Select name="region" defaultValue={tour?.region || "Kashmir"}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select Region" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Kashmir">Kashmir</SelectItem>
+                                                <SelectItem value="Ladakh">Ladakh</SelectItem>
+                                                <SelectItem value="Jammu">Jammu</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
 
                                     <div className="space-y-2">
                                         <Label htmlFor="trip_type">Trip Type</Label>
-                                        <div className="relative">
-                                            <select
-                                                id="trip_type"
-                                                name="trip_type"
-                                                defaultValue={tour?.trip_type || "Family"}
-                                                className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
-                                            >
-                                                <option value="Family">Family</option>
-                                                <option value="Honeymoon">Honeymoon</option>
-                                                <option value="Adventure">Adventure</option>
-                                                <option value="Group">Group</option>
-                                                <option value="Custom">Custom</option>
-                                            </select>
-                                        </div>
+                                        <Select name="trip_type" defaultValue={tour?.trip_type || "Family"}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select Trip Type" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Family">Family</SelectItem>
+                                                <SelectItem value="Honeymoon">Honeymoon</SelectItem>
+                                                <SelectItem value="Adventure">Adventure</SelectItem>
+                                                <SelectItem value="Group">Group</SelectItem>
+                                                <SelectItem value="Custom">Custom</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </div>
 
@@ -485,14 +482,15 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                     </div>
 
                     <div className="space-y-8">
-                        <Card className="border-border/50 shadow-sm sticky top-8">
+                        <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm sticky top-8">
                             <CardHeader>
-                                <CardTitle className="text-lg font-bold font-serif">Publishing</CardTitle>
+                                <CardTitle className="text-xl font-bold font-serif text-primary">Publishing</CardTitle>
+                                <CardDescription>Control the visibility of this tour.</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
-                                <div className="flex items-center justify-between p-4 bg-secondary/20 rounded-lg border border-border/50">
+                                <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-primary/10">
                                     <div className="space-y-0.5">
-                                        <Label htmlFor="is_active" className="text-base font-medium">Active Status</Label>
+                                        <Label htmlFor="is_active" className="text-base font-semibold text-foreground">Active Status</Label>
                                         <p className="text-xs text-muted-foreground">Visible to the public</p>
                                     </div>
                                     <input
@@ -500,15 +498,15 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                         name="is_active"
                                         id="is_active"
                                         defaultChecked={tour?.is_active ?? true}
-                                        className="h-5 w-5 text-primary rounded border-input focus:ring-primary cursor-pointer accent-primary"
+                                        className="h-5 w-5 text-primary rounded border-primary/20 focus:ring-primary cursor-pointer accent-primary"
                                     />
                                 </div>
 
-                                <div className="pt-4 border-t border-border/50 space-y-3">
+                                <div className="pt-4 border-t border-primary/10 space-y-4">
                                     <Button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full font-bold text-lg h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all"
+                                        className="w-full font-bold text-lg h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                                         size="lg"
                                     >
                                         {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
@@ -517,7 +515,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                     <Button
                                         variant="outline"
                                         asChild
-                                        className="w-full h-12 text-base hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 transition-colors"
+                                        className="w-full h-12 text-base rounded-xl border-primary/20 hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                                     >
                                         <Link href="/admin/tours">
                                             Cancel

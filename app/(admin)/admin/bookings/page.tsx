@@ -15,7 +15,7 @@ export default async function AdminBookingsPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold font-serif text-foreground">Bookings Management</h1>
+                <h1 className="text-4xl font-bold font-serif text-primary">Bookings Management</h1>
                 <p className="text-muted-foreground mt-1">Track and manage customer reservations.</p>
             </div>
             <BookingsManager initialBookings={bookings || []} />

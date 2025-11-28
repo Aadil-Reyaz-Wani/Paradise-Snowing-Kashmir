@@ -14,14 +14,14 @@ export default async function ToursPage() {
     const tours = await getAllTours();
 
     return (
-        <div className="min-h-screen bg-background pb-20">
+        <div className="min-h-screen bg-background pb-20 overflow-x-hidden">
             {/* Clean Hero */}
-            <section className="relative pt-32 pb-16 container mx-auto px-4 text-center">
+            <section className="relative pt-24 md:pt-32 pb-16 container mx-auto px-4 text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-border/50 text-primary text-xs font-bold uppercase tracking-widest mb-6 animate-fade-in-up">
                     <Star className="w-3 h-3 fill-primary" />
                     Best Selling Packages
                 </div>
-                <h1 className="text-5xl md:text-6xl font-bold font-serif text-foreground mb-6 tracking-tight animate-fade-in-up delay-100">
+                <h1 className="text-4xl md:text-6xl font-bold font-serif text-foreground mb-6 tracking-tight animate-fade-in-up delay-100">
                     Find Your Perfect Getaway
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium animate-fade-in-up delay-200">
@@ -63,7 +63,7 @@ export default async function ToursPage() {
                             </div>
 
                             {/* Content Section */}
-                            <div className="p-8 flex flex-col flex-1">
+                            <div className="p-5 md:p-8 flex flex-col flex-1">
                                 <div className="flex items-center gap-3 mb-4">
                                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border-[0.5px] border-primary/5 bg-primary/5 text-primary text-xs font-bold uppercase tracking-wider shadow-sm">
                                         <Clock className="h-3.5 w-3.5" />
@@ -74,7 +74,7 @@ export default async function ToursPage() {
                                     </span>
                                 </div>
 
-                                <h3 className="text-2xl font-serif font-bold text-foreground mb-3 leading-tight group-hover:text-primary transition-colors">
+                                <h3 className="text-xl md:text-2xl font-serif font-bold text-foreground mb-3 leading-tight group-hover:text-primary transition-colors">
                                     {tour.title}
                                 </h3>
 
@@ -82,7 +82,7 @@ export default async function ToursPage() {
                                     {tour.short_description}
                                 </p>
 
-                                <div className="pt-6 border-t border-border/50 flex items-center justify-between mt-auto">
+                                <div className="pt-6 border-t border-border/50 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-auto">
                                     <div>
                                         <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Starting from</p>
                                         <div className="flex items-baseline gap-1 whitespace-nowrap">
@@ -92,7 +92,7 @@ export default async function ToursPage() {
                                     </div>
 
                                     {/* Neumorphic Button */}
-                                    <Button asChild className="rounded-xl h-11 px-6 bg-[#F8FAFC] text-primary font-bold tracking-wider hover:bg-[#F8FAFC] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none shrink-0 ml-4">
+                                    <Button asChild className="rounded-xl h-11 px-6 bg-[#F8FAFC] text-primary font-bold tracking-wider hover:bg-[#F8FAFC] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none shrink-0 w-full sm:w-auto">
                                         <Link href={`/tours/${tour.slug}`}>
                                             View Details <ArrowRight className="ml-2 h-4 w-4 opacity-70" />
                                         </Link>

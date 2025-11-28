@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-[100dvh] md:min-h-[800px] flex items-center justify-center overflow-hidden">
         {/* Background Video/Image */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black/30 z-10" />
@@ -43,7 +43,7 @@ export default function Home() {
               <span>Accepting Bookings for Summer 2025</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-serif text-white tracking-tight leading-tight drop-shadow-2xl">
+            <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold font-serif text-white tracking-tight leading-tight drop-shadow-2xl">
               Discover the <br />
               <span className="italic font-light text-emerald-100">Soul of Kashmir</span>
             </h1>
@@ -82,10 +82,10 @@ export default function Home() {
       </section>
 
       {/* Iconic Destinations - Horizontal Scroll */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="py-12 md:py-24 bg-background relative overflow-hidden">
         <div className="container mx-auto px-4 mb-12 flex items-end justify-between">
           <div className="space-y-4 max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground">Iconic Destinations</h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground">Iconic Destinations</h2>
             <p className="text-muted-foreground text-lg">From the floating markets of Srinagar to the moonscapes of Ladakh.</p>
           </div>
           <Button variant="ghost" className="hidden md:flex group" asChild>
@@ -168,11 +168,11 @@ export default function Home() {
       </section>
 
       {/* Featured Packages */}
-      <section className="py-24 bg-secondary/20">
+      <section className="py-12 md:py-24 bg-secondary/20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <span className="text-primary font-bold tracking-widest uppercase text-sm">Curated Experiences</span>
-            <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground">Signature Tour Packages</h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground">Signature Tour Packages</h2>
             <p className="text-muted-foreground text-lg">Handpicked itineraries designed to give you the most authentic and luxurious experience of the valley.</p>
           </div>
 
@@ -207,13 +207,13 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
                 <span className="text-primary font-bold tracking-widest uppercase text-sm">Why Choose Us</span>
-                <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground leading-tight">
+                <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground leading-tight">
                   We Don't Just Plan Trips, <br />
                   <span className="text-muted-foreground">We Craft Memories.</span>
                 </h2>
@@ -242,7 +242,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800">
+            <div className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800">
               <BlurImage
                 src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=800&auto=format&fit=crop"
                 alt="Happy travelers in Kashmir"
@@ -276,10 +276,10 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-secondary/20">
+      <section className="py-12 md:py-24 bg-secondary/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground">Guest Stories</h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground">Guest Stories</h2>
             <p className="text-muted-foreground text-lg">Read about the experiences of travelers who explored paradise with us.</p>
           </div>
 
@@ -300,10 +300,10 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+      <section className="py-12 md:py-24 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/patterns/topography.svg')] opacity-10" />
         <div className="container mx-auto px-4 relative z-10 text-center space-y-8">
-          <h2 className="text-4xl md:text-6xl font-bold font-serif max-w-4xl mx-auto leading-tight">
+          <h2 className="text-3xl md:text-6xl font-bold font-serif max-w-4xl mx-auto leading-tight">
             Ready to Experience the Magic of Kashmir?
           </h2>
           <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">

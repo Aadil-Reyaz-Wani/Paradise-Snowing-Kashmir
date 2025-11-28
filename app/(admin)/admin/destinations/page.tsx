@@ -13,117 +13,82 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { AddDestinationDialog, EditDestinationDialog } from "@/components/admin/DestinationDialogs";
+
 export default async function AdminDestinationsPage() {
     const destinations = await getDestinations();
 
     return (
         <div className="space-y-8">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold font-serif tracking-tight text-foreground">Destinations</h1>
+                    <h1 className="text-4xl font-bold font-serif text-primary">Destinations</h1>
                     <p className="text-muted-foreground mt-1">Manage your travel destinations.</p>
                 </div>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button className="gap-2 shadow-md">
-                            <Plus className="h-4 w-4" /> Add Destination
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Add New Destination</DialogTitle>
-                            <DialogDescription>
-                                Create a new destination to showcase on the website.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <DestinationForm />
-                    </DialogContent>
-                </Dialog>
+                <AddDestinationDialog />
             </div>
 
-            <div className="bg-card rounded-2xl border border-border/50 shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left">
-                        <thead className="bg-muted/30 text-muted-foreground uppercase text-xs font-semibold tracking-wider border-b border-border/50">
-                            <tr>
-                                <th className="px-6 py-4">Image</th>
-                                <th className="px-6 py-4">Name</th>
-                                <th className="px-6 py-4">Description</th>
-                                <th className="px-6 py-4">Status</th>
-                                <th className="px-6 py-4 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border/50">
-                            {destinations.length === 0 ? (
-                                <tr>
-                                    <td colSpan={5} className="px-6 py-16 text-center text-muted-foreground">
-                                        No destinations found. Create one to get started.
-                                    </td>
-                                </tr>
-                            ) : (
-                                destinations.map((dest: any) => (
-                                    <tr key={dest.id} className="hover:bg-muted/30 transition-colors group">
-                                        <td className="px-6 py-4">
-                                            <div className="relative w-16 h-12 rounded-lg overflow-hidden bg-muted shadow-sm border border-border/50">
-                                                {dest.image ? (
-                                                    <BlurImage
-                                                        src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${dest.image}`}
-                                                        alt={dest.name}
-                                                        fill
-                                                        className="object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center text-[10px] text-muted-foreground uppercase font-bold tracking-wider">
-                                                        No Img
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4 font-semibold text-foreground">{dest.name}</td>
-                                        <td className="px-6 py-4 text-muted-foreground max-w-xs truncate">
-                                            {dest.description}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide ${dest.is_active
-                                                ? "bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20"
-                                                : "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20"
-                                                }`}>
-                                                {dest.is_active ? "Active" : "Inactive"}
-                                            </span>
-                                        </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <Dialog>
-                                                    <DialogTrigger asChild>
-                                                        <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-primary/10 hover:text-primary">
-                                                            <Pencil className="h-4 w-4" />
-                                                        </Button>
-                                                    </DialogTrigger>
-                                                    <DialogContent>
-                                                        <DialogHeader>
-                                                            <DialogTitle>Edit Destination</DialogTitle>
-                                                        </DialogHeader>
-                                                        <DestinationForm destination={dest} />
-                                                    </DialogContent>
-                                                </Dialog>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {destinations.length === 0 ? (
+                    <div className="col-span-full py-24 text-center bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-primary/10">
+                        <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
+                            <Plus className="h-10 w-10" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-primary font-serif mb-2">No destinations yet</h3>
+                        <p className="text-muted-foreground max-w-sm mx-auto">
+                            Create your first destination to start building your travel catalog.
+                        </p>
+                    </div>
+                ) : (
+                    destinations.map((dest: any) => (
+                        <div key={dest.id} className="group relative bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-white/20 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div className="aspect-video relative overflow-hidden">
+                                {dest.image ? (
+                                    <BlurImage
+                                        src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${dest.image}`}
+                                        alt={dest.name}
+                                        fill
+                                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-primary/5 flex items-center justify-center text-primary/20 font-serif text-4xl font-bold">
+                                        {dest.name.charAt(0)}
+                                    </div>
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                                <div className="absolute top-4 right-4 flex gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0">
+                                    <EditDestinationDialog destination={dest} />
 
-                                                <form action={async () => {
-                                                    "use server";
-                                                    await deleteDestination(dest.id);
-                                                }}>
-                                                    <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-destructive/10 hover:text-destructive">
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                                    <form action={async () => {
+                                        "use server";
+                                        await deleteDestination(dest.id);
+                                    }}>
+                                        <Button size="icon" className="h-9 w-9 rounded-full bg-white/90 text-destructive hover:bg-red-500 hover:text-white shadow-lg backdrop-blur-sm transition-colors">
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </form>
+                                </div>
+
+
+                                <div className="absolute bottom-4 left-4 right-4">
+                                    <h3 className="text-2xl font-bold text-white font-serif mb-1 drop-shadow-md">{dest.name}</h3>
+                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${dest.is_active
+                                        ? "bg-emerald-500/20 text-emerald-100 border border-emerald-500/30"
+                                        : "bg-yellow-500/20 text-yellow-100 border border-yellow-500/30"
+                                        }`}>
+                                        {dest.is_active ? "Active" : "Inactive"}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="p-6">
+                                <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed">
+                                    {dest.description}
+                                </p>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
-        </div>
+        </div >
     );
 }

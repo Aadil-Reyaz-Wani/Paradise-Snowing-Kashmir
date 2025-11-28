@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Loader2, Calendar, Users, CreditCard } from "lucide-react";
+import { Loader2, Calendar, Users, CreditCard, ShieldCheck, Mail, Phone, User } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
+import { cn } from "@/lib/utils";
 
 const bookingSchema = z.object({
     customer_name: z.string().min(2, "Name is required"),
@@ -100,7 +101,7 @@ export default function BookingForm({ tour }: BookingFormProps) {
                     contact: data.customer_phone,
                 },
                 theme: {
-                    color: "#0061a4",
+                    color: "#059669", // Primary Emerald Color
                 },
             };
 
@@ -118,128 +119,165 @@ export default function BookingForm({ tour }: BookingFormProps) {
         <>
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-[var(--surface)] p-8 rounded-3xl shadow-lg border border-[var(--border)]">
-                    <h2 className="text-2xl font-bold text-[var(--foreground)] mb-6">Enter Your Details</h2>
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--foreground)] mb-2">Full Name</label>
-                            <input
-                                {...register("customer_name")}
-                                className="w-full bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--primary)] outline-none p-3 transition-all"
-                                placeholder="John Doe"
-                            />
-                            {errors.customer_name && <p className="text-red-500 text-xs mt-1">{(errors.customer_name as any).message}</p>}
-                        </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Left Column: Form Details */}
+                <div className="lg:col-span-2 space-y-8">
+                    {/* Guest Details Section */}
+                    <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-border/50">
+                        <h2 className="text-xl font-bold font-serif text-foreground mb-6">Guest Details</h2>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--foreground)] mb-2">Email</label>
-                                <input
-                                    {...register("customer_email")}
-                                    type="email"
-                                    className="w-full bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--primary)] outline-none p-3 transition-all"
-                                    placeholder="john@example.com"
-                                />
-                                {errors.customer_email && <p className="text-red-500 text-xs mt-1">{(errors.customer_email as any).message}</p>}
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--foreground)] mb-2">Phone</label>
-                                <input
-                                    {...register("customer_phone")}
-                                    className="w-full bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--primary)] outline-none p-3 transition-all"
-                                    placeholder="+91..."
-                                />
-                                {errors.customer_phone && <p className="text-red-500 text-xs mt-1">{(errors.customer_phone as any).message}</p>}
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-[var(--foreground)] mb-2">Travel Date</label>
-                            <div className="relative">
-                                <Calendar className="absolute left-3 top-3.5 h-5 w-5 text-[var(--foreground)] opacity-50" />
-                                <input
-                                    {...register("start_date")}
-                                    type="date"
-                                    className="w-full pl-10 pr-4 py-3 bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all"
-                                />
-                            </div>
-                            {errors.start_date && <p className="text-red-500 text-xs mt-1">{(errors.start_date as any).message}</p>}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--foreground)] mb-2">Adults</label>
-                                <div className="relative">
-                                    <Users className="absolute left-3 top-3.5 h-5 w-5 text-[var(--foreground)] opacity-50" />
+                        <div className="space-y-6">
+                            {/* Name */}
+                            <div className="space-y-2">
+                                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Full Name</label>
+                                <div className="flex items-center w-full bg-white border border-border rounded-lg px-3 py-2.5 focus-within:border-primary transition-all">
+                                    <User className="h-5 w-5 text-muted-foreground/50 mr-3 shrink-0" />
                                     <input
-                                        {...register("travellers_adults")}
-                                        type="number"
-                                        min="1"
-                                        className="w-full pl-10 pr-4 py-3 bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all"
+                                        {...register("customer_name")}
+                                        className="w-full bg-transparent border-none outline-none placeholder:text-muted-foreground/40 text-sm p-0 text-foreground"
+                                        placeholder="e.g. John Doe"
                                     />
                                 </div>
+                                {errors.customer_name && <p className="text-red-500 text-xs">{(errors.customer_name as any).message}</p>}
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--foreground)] mb-2">Children</label>
-                                <div className="relative">
-                                    <Users className="absolute left-3 top-3.5 h-5 w-5 text-[var(--foreground)] opacity-50" />
-                                    <input
-                                        {...register("travellers_children")}
-                                        type="number"
-                                        min="0"
-                                        className="w-full pl-10 pr-4 py-3 bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all"
-                                    />
-                                </div>
-                            </div>
-                        </div>
 
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="w-full py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 mt-4 shadow-md"
-                        >
-                            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <CreditCard className="h-5 w-5" />}
-                            Pay ₹{totalPrice.toLocaleString()}
-                        </button>
-                        <p className="text-xs text-center text-[var(--foreground)] opacity-60 mt-2">
-                            Secure payment via Razorpay
-                        </p>
-                    </form>
-                </div>
-
-                <div className="space-y-6">
-                    <div className="bg-[var(--surface)] p-8 rounded-3xl border border-[var(--border)] shadow-sm">
-                        <h3 className="text-xl font-bold text-[var(--foreground)] mb-6">Booking Summary</h3>
-                        <div className="space-y-4 text-sm">
-                            <div className="flex justify-between">
-                                <span className="text-[var(--foreground)] opacity-70">Tour</span>
-                                <span className="font-medium text-[var(--foreground)]">{tour.title}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-[var(--foreground)] opacity-70">Base Price</span>
-                                <span className="font-medium text-[var(--foreground)]">₹{tour.base_price.toLocaleString()} / adult</span>
-                            </div>
-                            <div className="border-t border-[var(--border)] my-2 pt-4">
-                                <div className="flex justify-between mb-2">
-                                    <span className="text-[var(--foreground)] opacity-70">Adults ({adults})</span>
-                                    <span className="font-medium text-[var(--foreground)]">₹{(adults * tour.base_price).toLocaleString()}</span>
-                                </div>
-                                {children > 0 && (
-                                    <div className="flex justify-between">
-                                        <span className="text-[var(--foreground)] opacity-70">Children ({children})</span>
-                                        <span className="font-medium text-[var(--foreground)]">₹{(children * tour.base_price * 0.5).toLocaleString()}</span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                {/* Email */}
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Email Address</label>
+                                    <div className="flex items-center w-full bg-white border border-border rounded-lg px-3 py-2.5 focus-within:border-primary transition-all">
+                                        <Mail className="h-5 w-5 text-muted-foreground/50 mr-3 shrink-0" />
+                                        <input
+                                            {...register("customer_email")}
+                                            type="email"
+                                            className="w-full bg-transparent border-none outline-none placeholder:text-muted-foreground/40 text-sm p-0 text-foreground"
+                                            placeholder="john@example.com"
+                                        />
                                     </div>
-                                )}
+                                    {errors.customer_email && <p className="text-red-500 text-xs">{(errors.customer_email as any).message}</p>}
+                                </div>
+
+                                {/* Phone */}
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Phone Number</label>
+                                    <div className="flex items-center w-full bg-white border border-border rounded-lg px-3 py-2.5 focus-within:border-primary transition-all">
+                                        <Phone className="h-5 w-5 text-muted-foreground/50 mr-3 shrink-0" />
+                                        <input
+                                            {...register("customer_phone")}
+                                            className="w-full bg-transparent border-none outline-none placeholder:text-muted-foreground/40 text-sm p-0 text-foreground"
+                                            placeholder="+91 98765 43210"
+                                        />
+                                    </div>
+                                    {errors.customer_phone && <p className="text-red-500 text-xs">{(errors.customer_phone as any).message}</p>}
+                                </div>
                             </div>
-                            <div className="border-t border-[var(--border)] pt-4 flex justify-between items-center">
-                                <span className="font-bold text-[var(--foreground)] text-lg">Total</span>
-                                <span className="font-bold text-[var(--primary)] text-2xl">₹{totalPrice.toLocaleString()}</span>
+                        </div>
+                    </div>
+
+                    {/* Trip Details Section */}
+                    <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-border/50">
+                        <h2 className="text-xl font-bold font-serif text-foreground mb-6">Trip Details</h2>
+
+                        <div className="space-y-6">
+                            {/* Date */}
+                            <div className="space-y-2">
+                                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Travel Date</label>
+                                <div className="flex items-center w-full bg-white border border-border rounded-lg px-3 py-2.5 focus-within:border-primary transition-all">
+                                    <Calendar className="h-5 w-5 text-muted-foreground/50 mr-3 shrink-0" />
+                                    <input
+                                        {...register("start_date")}
+                                        type="date"
+                                        className="w-full bg-transparent border-none outline-none placeholder:text-muted-foreground/40 text-sm p-0 text-foreground"
+                                    />
+                                </div>
+                                {errors.start_date && <p className="text-red-500 text-xs">{(errors.start_date as any).message}</p>}
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                {/* Adults */}
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Adults (12+ yrs)</label>
+                                    <div className="flex items-center w-full bg-white border border-border rounded-lg px-3 py-2.5 focus-within:border-primary transition-all">
+                                        <Users className="h-5 w-5 text-muted-foreground/50 mr-3 shrink-0" />
+                                        <input
+                                            {...register("travellers_adults")}
+                                            type="number"
+                                            min="1"
+                                            className="w-full bg-transparent border-none outline-none placeholder:text-muted-foreground/40 text-sm p-0 text-foreground"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Children */}
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Children (5-11 yrs)</label>
+                                    <div className="flex items-center w-full bg-white border border-border rounded-lg px-3 py-2.5 focus-within:border-primary transition-all">
+                                        <Users className="h-5 w-5 text-muted-foreground/50 mr-3 shrink-0" />
+                                        <input
+                                            {...register("travellers_children")}
+                                            type="number"
+                                            min="0"
+                                            className="w-full bg-transparent border-none outline-none placeholder:text-muted-foreground/40 text-sm p-0 text-foreground"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                {/* Right Column: Summary Card */}
+                <div className="lg:col-span-1">
+                    <div className="sticky top-24">
+                        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg border border-border/50">
+                            <h3 className="text-lg font-bold font-serif text-foreground mb-6 pb-4 border-b border-border/50">Booking Summary</h3>
+
+                            <div className="space-y-4 text-sm">
+                                <div className="flex justify-between items-start">
+                                    <span className="text-muted-foreground">Tour Package</span>
+                                    <span className="font-bold text-foreground text-right max-w-[60%]">{tour.title}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-muted-foreground">Base Price</span>
+                                    <span className="font-medium text-foreground">₹{tour.base_price.toLocaleString()} <span className="text-xs text-muted-foreground font-normal">/ adult</span></span>
+                                </div>
+
+                                <div className="py-4 space-y-2">
+                                    <div className="flex justify-between">
+                                        <span className="text-muted-foreground">Adults ({adults})</span>
+                                        <span className="font-medium text-foreground">₹{(adults * tour.base_price).toLocaleString()}</span>
+                                    </div>
+                                    {children > 0 && (
+                                        <div className="flex justify-between">
+                                            <span className="text-muted-foreground">Children ({children})</span>
+                                            <span className="font-medium text-foreground">₹{(children * tour.base_price * 0.5).toLocaleString()}</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="border-t border-border pt-4 flex justify-between items-center">
+                                    <span className="font-bold text-foreground text-lg">Total</span>
+                                    <span className="font-bold text-primary text-2xl">₹{totalPrice.toLocaleString()}</span>
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full py-3.5 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 mt-8 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98]"
+                            >
+                                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <CreditCard className="h-5 w-5" />}
+                                Pay ₹{totalPrice.toLocaleString()}
+                            </button>
+
+                            <div className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground/80 bg-muted/50 py-2 rounded-lg">
+                                <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+                                <span>Secure Payment via Razorpay</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </>
     );
 }

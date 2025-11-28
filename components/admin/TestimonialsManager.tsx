@@ -2,13 +2,15 @@
 
 import { useState, useRef } from "react";
 import { createTestimonial, deleteTestimonial } from "@/lib/actions";
-import { Loader2, Trash2, Plus, Star, User, MessageSquare } from "lucide-react";
+import { Loader2, Trash2, Plus, Star, User, MessageSquare, MapPin, Quote } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 type Testimonial = {
     id: string;
@@ -22,10 +24,15 @@ type Testimonial = {
 
 export default function TestimonialsManager({ initialTestimonials }: { initialTestimonials: Testimonial[] }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const isSubmittingRef = useRef(false);
     const formRef = useRef<HTMLFormElement>(null);
 
     const handleSubmit = async (formData: FormData) => {
+        if (isSubmittingRef.current) return;
+
+        isSubmittingRef.current = true;
         setIsSubmitting(true);
+
         try {
             const result = await createTestimonial(null, formData);
             if (result?.error) {
@@ -37,6 +44,7 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
         } catch (error) {
             toast.error("Failed to add testimonial");
         } finally {
+            isSubmittingRef.current = false;
             setIsSubmitting(false);
         }
     };
@@ -54,14 +62,16 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
 
     return (
         <div className="space-y-8">
-            <Card className="border-border/50 shadow-sm">
-                <CardHeader>
-                    <CardTitle className="text-lg font-bold font-serif flex items-center gap-2">
-                        <MessageSquare className="h-5 w-5 text-primary" />
+            {/* Add Testimonial Form */}
+            <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden">
+                <CardHeader className="bg-primary/5 border-b border-primary/10 pb-4">
+                    <CardTitle className="text-xl font-bold font-serif text-primary flex items-center gap-2">
+                        <MessageSquare className="h-5 w-5" />
                         Add New Testimonial
                     </CardTitle>
+                    <CardDescription>Share client success stories.</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                     <form
                         ref={formRef}
                         action={handleSubmit}
@@ -69,82 +79,83 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                     >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label htmlFor="name">Client Name</Label>
+                                <Label htmlFor="name" className="text-sm font-semibold text-foreground">Client Name</Label>
                                 <Input
                                     id="name"
                                     type="text"
                                     name="name"
                                     required
                                     placeholder="e.g. Rahul Sharma"
+                                    className="h-12 rounded-xl border-primary/20 focus:border-primary bg-background/50"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="location">Location</Label>
+                                <Label htmlFor="location" className="text-sm font-semibold text-foreground">Location</Label>
                                 <Input
                                     id="location"
                                     type="text"
                                     name="location"
                                     placeholder="e.g. Mumbai"
+                                    className="h-12 rounded-xl border-primary/20 focus:border-primary bg-background/50"
                                 />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="space-y-2">
-                                <Label htmlFor="rating">Rating (1-5)</Label>
-                                <div className="relative">
-                                    <select
-                                        id="rating"
-                                        name="rating"
-                                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
-                                        defaultValue="5"
-                                    >
-                                        <option value="5">5 Stars</option>
-                                        <option value="4">4 Stars</option>
-                                        <option value="3">3 Stars</option>
-                                        <option value="2">2 Stars</option>
-                                        <option value="1">1 Star</option>
-                                    </select>
-                                </div>
+                                <Label htmlFor="rating" className="text-sm font-semibold text-foreground">Rating</Label>
+                                <Select name="rating" defaultValue="5">
+                                    <SelectTrigger className="h-12 rounded-xl border-primary/20 bg-background/50">
+                                        <SelectValue placeholder="Select Rating" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="5">5 Stars - Excellent</SelectItem>
+                                        <SelectItem value="4">4 Stars - Very Good</SelectItem>
+                                        <SelectItem value="3">3 Stars - Good</SelectItem>
+                                        <SelectItem value="2">2 Stars - Fair</SelectItem>
+                                        <SelectItem value="1">1 Star - Poor</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="trip_type">Trip Type</Label>
-                                <div className="relative">
-                                    <select
-                                        id="trip_type"
-                                        name="trip_type"
-                                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
-                                        defaultValue="Family"
-                                    >
-                                        <option value="Family">Family</option>
-                                        <option value="Honeymoon">Honeymoon</option>
-                                        <option value="Adventure">Adventure</option>
-                                        <option value="Group">Group</option>
-                                    </select>
-                                </div>
+                                <Label htmlFor="trip_type" className="text-sm font-semibold text-foreground">Trip Type</Label>
+                                <Select name="trip_type" defaultValue="Family">
+                                    <SelectTrigger className="h-12 rounded-xl border-primary/20 bg-background/50">
+                                        <SelectValue placeholder="Select Trip Type" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Family">Family</SelectItem>
+                                        <SelectItem value="Honeymoon">Honeymoon</SelectItem>
+                                        <SelectItem value="Adventure">Adventure</SelectItem>
+                                        <SelectItem value="Group">Group</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </div>
-                            <div className="flex items-center pt-8">
-                                <input
-                                    type="checkbox"
-                                    name="show_on_homepage"
-                                    id="show_on_homepage"
-                                    defaultChecked
-                                    className="h-4 w-4 text-primary rounded border-input focus:ring-primary mr-2"
-                                />
-                                <Label htmlFor="show_on_homepage" className="cursor-pointer">
-                                    Show on Homepage
-                                </Label>
+                            <div className="flex items-center pt-8 px-2">
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="checkbox"
+                                        name="show_on_homepage"
+                                        id="show_on_homepage"
+                                        defaultChecked
+                                        className="h-5 w-5 text-primary rounded border-primary/20 focus:ring-primary cursor-pointer"
+                                    />
+                                    <Label htmlFor="show_on_homepage" className="cursor-pointer font-medium">
+                                        Show on Homepage
+                                    </Label>
+                                </div>
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="text">Review Text</Label>
+                            <Label htmlFor="text" className="text-sm font-semibold text-foreground">Review Text</Label>
                             <Textarea
                                 id="text"
                                 name="text"
                                 required
-                                rows={3}
+                                rows={4}
                                 placeholder="Client's feedback..."
+                                className="rounded-xl border-primary/20 focus:border-primary bg-background/50 resize-none"
                             />
                         </div>
 
@@ -152,9 +163,9 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                             <Button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="min-w-[150px]"
+                                className="min-w-[180px] h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 font-bold text-base active:scale-[0.98] transition-all duration-200"
                             >
-                                {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
+                                {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Plus className="h-5 w-5 mr-2" />}
                                 Add Testimonial
                             </Button>
                         </div>
@@ -162,36 +173,50 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                 </CardContent>
             </Card>
 
+            {/* Testimonials Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {initialTestimonials.map((item) => (
-                    <Card key={item.id} className="border-border/50 shadow-sm hover:shadow-md transition-all group">
-                        <CardContent className="p-6">
-                            <div className="flex justify-between items-start mb-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                                        <User className="h-5 w-5" />
+                    <Card key={item.id} className="border-none shadow-md bg-white/50 backdrop-blur-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+                        <CardContent className="p-6 relative">
+                            <Quote className="absolute top-6 right-6 h-12 w-12 text-primary/5 rotate-180" />
+
+                            <div className="flex justify-between items-start mb-6 relative z-10">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shadow-inner shrink-0">
+                                        <User className="h-6 w-6" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-foreground">{item.name}</h3>
-                                        <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{item.location} • {item.trip_type}</p>
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="font-bold text-lg text-primary font-serif">{item.name}</h3>
+                                            <Badge variant="outline" className="bg-yellow-500/10 text-yellow-700 border-yellow-500/20 flex items-center gap-1 px-1.5 py-0 h-5 text-[10px] rounded-md">
+                                                <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
+                                                <span className="font-bold">{item.rating}.0</span>
+                                            </Badge>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium uppercase tracking-wide mt-0.5">
+                                            <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {item.location}</span>
+                                            <span className="w-1 h-1 rounded-full bg-primary/30"></span>
+                                            <span>{item.trip_type}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-1 bg-yellow-500/10 px-2 py-1 rounded text-yellow-600 text-xs font-bold border border-yellow-500/20">
-                                    <Star className="h-3 w-3 fill-current" />
-                                    {item.rating}
-                                </div>
                             </div>
-                            <p className="text-muted-foreground text-sm italic leading-relaxed">"{item.text}"</p>
 
-                            <div className="mt-6 flex justify-between items-center border-t border-border/50 pt-4">
-                                <span className={`text-xs px-2 py-1 rounded-full font-bold uppercase tracking-wide ${item.show_on_homepage ? 'bg-green-500/10 text-green-600 border border-green-500/20' : 'bg-muted text-muted-foreground border border-border'}`}>
-                                    {item.show_on_homepage ? 'On Homepage' : 'Hidden'}
-                                </span>
+                            <div className="relative z-10">
+                                <p className="text-muted-foreground text-sm italic leading-relaxed bg-background/50 p-4 rounded-xl border border-primary/5">
+                                    "{item.text}"
+                                </p>
+                            </div>
+
+                            <div className="mt-6 flex justify-between items-center border-t border-primary/5 pt-4 relative z-10">
+                                <Badge variant={item.show_on_homepage ? "default" : "secondary"} className={`rounded-full px-3 py-1 ${item.show_on_homepage ? 'bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20 border-0' : 'bg-muted text-muted-foreground'}`}>
+                                    {item.show_on_homepage ? 'Visible on Homepage' : 'Hidden'}
+                                </Badge>
                                 <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleDelete(item.id)}
-                                    className="h-8 w-8 text-destructive hover:bg-destructive/10 hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                                    className="h-9 w-9 text-destructive hover:bg-red-500 hover:text-white rounded-full transition-all duration-300 shadow-sm hover:shadow-md"
                                     title="Delete"
                                 >
                                     <Trash2 className="h-4 w-4" />
@@ -200,6 +225,18 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                         </CardContent>
                     </Card>
                 ))}
+
+                {initialTestimonials.length === 0 && (
+                    <div className="col-span-full py-24 text-center bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-primary/10">
+                        <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
+                            <MessageSquare className="h-10 w-10" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-primary font-serif mb-2">No testimonials yet</h3>
+                        <p className="text-muted-foreground max-w-sm mx-auto">
+                            Add your first client review to build trust with potential customers.
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );

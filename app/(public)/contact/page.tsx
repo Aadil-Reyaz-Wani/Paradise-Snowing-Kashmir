@@ -10,7 +10,7 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen bg-background">
             {/* 1. Split Hero Section */}
-            <section className="relative pt-32 pb-12 md:pt-48 md:pb-24 overflow-hidden">
+            <section className="relative pt-24 pb-12 md:pt-48 md:pb-24 overflow-hidden">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
                         {/* Text Content */}
@@ -20,7 +20,7 @@ export default function ContactPage() {
                                 <span className="text-primary font-bold tracking-[0.2em] text-xs uppercase">Contact Us</span>
                             </div>
 
-                            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold font-serif text-foreground mb-6 leading-[1.1]">
+                            <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold font-serif text-foreground mb-6 leading-[1.1]">
                                 Let's Plan Your <br />
                                 <span className="text-primary italic">Journey</span>
                             </h1>
@@ -41,7 +41,7 @@ export default function ContactPage() {
 
                         {/* Image Content */}
                         <div className="w-full lg:w-1/2 relative">
-                            <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up delay-200">
+                            <div className="relative aspect-square md:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up delay-200">
                                 <BlurImage
                                     src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?q=80&w=2070&auto=format&fit=crop"
                                     alt="Kashmir Contact"
@@ -64,7 +64,7 @@ export default function ContactPage() {
             </section>
 
             {/* 2. Contact Info & Form Grid */}
-            <section className="py-24 bg-secondary/20">
+            <section className="py-12 md:py-24 bg-secondary/20">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
                         {/* Left Column: Contact Info */}
@@ -112,7 +112,7 @@ export default function ContactPage() {
 
                         {/* Right Column: Contact Form */}
                         <div className="lg:col-span-7">
-                            <div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl border border-border/50">
+                            <div className="bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-border/50">
                                 <div className="mb-8">
                                     <h2 className="text-3xl font-bold font-serif mb-2">Send a Message</h2>
                                     <p className="text-muted-foreground">Fill out the form below and we'll get back to you shortly.</p>
@@ -125,7 +125,7 @@ export default function ContactPage() {
             </section>
 
             {/* 3. Map Section */}
-            <section className="h-[400px] w-full bg-muted grayscale hover:grayscale-0 transition-all duration-700">
+            <section className="h-[300px] md:h-[400px] w-full bg-muted grayscale hover:grayscale-0 transition-all duration-700">
                 <iframe
                     src="https://maps.google.com/maps?q=Gulmarg+Road,+Tangmarg,+Kashmir&t=&z=13&ie=UTF8&iwloc=&output=embed"
                     width="100%"
@@ -138,7 +138,7 @@ export default function ContactPage() {
             </section>
 
             {/* 4. FAQ Section */}
-            <section className="py-24 container mx-auto px-4">
+            <section className="py-12 md:py-24 container mx-auto px-4">
                 <div className="max-w-3xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold font-serif mb-4">Common Questions</h2>

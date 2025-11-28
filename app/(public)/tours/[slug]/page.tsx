@@ -39,7 +39,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
     return (
         <div className="min-h-screen bg-background pb-20">
             {/* Hero Section */}
-            <div className="relative h-[60vh] bg-slate-900">
+            <div className="relative h-[50vh] md:h-[60vh] bg-slate-900">
                 <div className="absolute inset-0 bg-slate-900/40 z-10" />
                 {tour.images && tour.images.length > 0 ? (
                     <BlurImage
@@ -55,7 +55,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                     </div>
                 )}
 
-                <div className="absolute bottom-0 left-0 w-full z-20 bg-gradient-to-t from-slate-900/90 to-transparent pt-32 pb-12">
+                <div className="absolute bottom-0 left-0 w-full z-20 bg-gradient-to-t from-slate-900/90 to-transparent pt-24 md:pt-32 pb-12">
                     <div className="container mx-auto px-4">
                         <Link href="/tours" className="inline-flex items-center text-white/80 hover:text-white mb-6 text-sm font-medium transition-colors">
                             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -69,7 +69,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                                 {tour.trip_type}
                             </span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{tour.title}</h1>
+                        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">{tour.title}</h1>
                         <div className="flex flex-wrap gap-6 text-white/90 text-sm font-medium">
                             <div className="flex items-center gap-2">
                                 <Clock className="h-5 w-5" />
@@ -85,12 +85,12 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
             </div>
 
             <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
                     {/* Main Content */}
                     <div className="lg:col-span-2 space-y-12">
                         {/* Overview */}
                         <section>
-                            <h2 className="text-2xl font-bold text-foreground mb-4">Overview</h2>
+                            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">Overview</h2>
                             <p className="text-muted-foreground leading-relaxed text-lg">
                                 {tour.long_description || tour.short_description}
                             </p>
@@ -115,8 +115,8 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         {/* Itinerary */}
                         {tour.itinerary && (
                             <section>
-                                <h2 className="text-2xl font-bold text-foreground mb-6">Day-wise Itinerary</h2>
-                                <div className="ml-4 pl-4 relative">
+                                <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">Day-wise Itinerary</h2>
+                                <div className="ml-0 pl-0 md:ml-4 md:pl-4 relative">
                                     {tour.itinerary.map((day: any, idx: number) => (
                                         <div key={idx} className="relative pb-12 last:pb-0">
 

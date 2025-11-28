@@ -12,7 +12,7 @@ export default function AboutPage() {
     return (
         <div className="min-h-screen bg-background">
             {/* 1. Split Hero Section - Premium & Clean */}
-            <section className="relative pt-32 pb-12 md:pt-48 md:pb-24 overflow-hidden">
+            <section className="relative pt-24 pb-12 md:pt-48 md:pb-24 overflow-hidden">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
                         {/* Text Content - Left Side */}
@@ -22,7 +22,7 @@ export default function AboutPage() {
                                 <span className="text-primary font-bold tracking-[0.2em] text-xs uppercase">Est. 2014</span>
                             </div>
 
-                            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold font-serif text-foreground mb-6 leading-[1.1]">
+                            <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold font-serif text-foreground mb-6 leading-[1.1]">
                                 The Soul <br />
                                 <span className="text-primary italic">of Kashmir</span>
                             </h1>
@@ -45,7 +45,7 @@ export default function AboutPage() {
 
                         {/* Image Content - Right Side */}
                         <div className="w-full lg:w-1/2 relative">
-                            <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up delay-200">
+                            <div className="relative aspect-square md:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up delay-200">
                                 <BlurImage
                                     src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=2070&auto=format&fit=crop"
                                     alt="Kashmir Valley View"
@@ -68,7 +68,7 @@ export default function AboutPage() {
             </section>
 
             {/* 2. Founder's Story - Asymmetric Split */}
-            <section className="py-16 md:py-24 container mx-auto px-4">
+            <section className="py-12 md:py-24 container mx-auto px-4">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
                     <div className="w-full lg:w-1/2 relative group px-4 md:px-0">
                         <div className="relative aspect-[4/5] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl">
@@ -93,7 +93,7 @@ export default function AboutPage() {
                     </div>
 
                     <div className="w-full lg:w-1/2 space-y-6 md:space-y-8 text-center lg:text-left">
-                        <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground leading-tight">
+                        <h2 className="text-2xl md:text-5xl font-bold font-serif text-foreground leading-tight">
                             "Whoever believes in Allah,<br />
                             <span className="text-primary">let him honor his guest.</span>"
                         </h2>
@@ -119,10 +119,10 @@ export default function AboutPage() {
             </section>
 
             {/* 3. Why Choose Us - Premium Grid */}
-            <section className="py-16 md:py-24 bg-secondary/20">
+            <section className="py-12 md:py-24 bg-secondary/20">
                 <div className="container mx-auto px-4">
                     <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold font-serif mb-3 md:mb-4">Why Travelers Trust Us</h2>
+                        <h2 className="text-2xl md:text-4xl font-bold font-serif mb-3 md:mb-4">Why Travelers Trust Us</h2>
                         <p className="text-muted-foreground text-base md:text-lg">We craft experiences that are as seamless as they are unforgettable.</p>
                     </div>
 
@@ -179,7 +179,7 @@ export default function AboutPage() {
                             <div className="h-px w-8 md:w-12 bg-white/60" />
                         </div>
 
-                        <h2 className="text-3xl sm:text-5xl md:text-7xl font-serif font-bold text-white mb-6 md:mb-10 leading-tight drop-shadow-2xl">
+                        <h2 className="text-2xl sm:text-4xl md:text-7xl font-serif font-bold text-white mb-6 md:mb-10 leading-tight drop-shadow-2xl">
                             "We believe travel should <span className="italic text-white/90">change</span> you."
                         </h2>
 
@@ -202,8 +202,8 @@ export default function AboutPage() {
             </section>
 
             {/* 5. Minimalist CTA */}
-            <section className="py-16 md:py-24 container mx-auto px-4 text-center">
-                <h2 className="text-3xl md:text-5xl font-bold font-serif mb-4 md:mb-6 text-foreground">Ready to start your journey?</h2>
+            <section className="py-12 md:py-24 container mx-auto px-4 text-center">
+                <h2 className="text-2xl md:text-5xl font-bold font-serif mb-4 md:mb-6 text-foreground">Ready to start your journey?</h2>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-xl md:max-w-2xl mx-auto mb-8 md:mb-10">
                     Let us design a Kashmir itinerary that perfectly matches your dreams.
                 </p>

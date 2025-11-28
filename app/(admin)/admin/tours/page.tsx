@@ -25,7 +25,8 @@ export default async function AdminToursPage() {
                 </Button>
             </div>
 
-            <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden">
+            {/* Desktop View - Table */}
+            <Card className="hidden md:block border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-primary/5 text-primary uppercase text-xs font-bold tracking-wider border-b border-primary/10">
@@ -69,8 +70,8 @@ export default async function AdminToursPage() {
                                         <Badge
                                             variant="outline"
                                             className={`rounded-full px-3 py-1 border-0 ${tour.is_active
-                                                    ? "bg-green-500/10 text-green-700 ring-1 ring-green-600/20"
-                                                    : "bg-yellow-500/10 text-yellow-700 ring-1 ring-yellow-600/20"
+                                                ? "bg-green-500/10 text-green-700 ring-1 ring-green-600/20"
+                                                : "bg-yellow-500/10 text-yellow-700 ring-1 ring-yellow-600/20"
                                                 }`}
                                         >
                                             {tour.is_active ? 'Active' : 'Draft'}
@@ -78,7 +79,7 @@ export default async function AdminToursPage() {
                                     </td>
                                     <td className="px-6 py-5 text-right">
                                         <div className="flex items-center justify-end gap-2">
-                                            <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-primary/10 hover:text-primary transition-colors" title="View Live">
+                                            <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors" title="View Live">
                                                 <Link href={`/tours/${tour.slug}`} target="_blank">
                                                     <Eye className="h-4 w-4" />
                                                 </Link>
@@ -124,6 +125,82 @@ export default async function AdminToursPage() {
                     </table>
                 </div>
             </Card>
+
+            {/* Mobile View - Cards */}
+            <div className="md:hidden grid gap-4">
+                {tours?.map((tour) => (
+                    <Card key={tour.id} className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden rounded-xl">
+                        <CardContent className="p-5 space-y-4">
+                            <div className="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 className="font-bold text-lg text-foreground font-serif leading-tight">{tour.title}</h3>
+                                    <p className="text-xs text-muted-foreground font-mono mt-1 truncate max-w-[200px]">{tour.slug}</p>
+                                </div>
+                                <Badge
+                                    variant="outline"
+                                    className={`rounded-full px-2.5 py-0.5 text-xs border-0 shrink-0 ${tour.is_active
+                                        ? "bg-green-500/10 text-green-700 ring-1 ring-green-600/20"
+                                        : "bg-yellow-500/10 text-yellow-700 ring-1 ring-yellow-600/20"
+                                        }`}
+                                >
+                                    {tour.is_active ? 'Active' : 'Draft'}
+                                </Badge>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3 text-sm">
+                                <div className="flex items-center text-muted-foreground bg-white/40 p-2 rounded-lg">
+                                    <MapPin className="h-4 w-4 mr-2 text-primary/70" />
+                                    <span className="truncate">{tour.region}</span>
+                                </div>
+                                <div className="flex items-center text-muted-foreground bg-white/40 p-2 rounded-lg">
+                                    <Calendar className="h-4 w-4 mr-2 text-primary/70" />
+                                    <span>{tour.duration_days} Days</span>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-2 border-t border-primary/5">
+                                <div className="flex items-center font-bold text-lg text-primary">
+                                    <IndianRupee className="h-4 w-4 mr-1" />
+                                    {tour.base_price.toLocaleString()}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors">
+                                        <Link href={`/tours/${tour.slug}`} target="_blank">
+                                            <Eye className="h-4 w-4" />
+                                        </Link>
+                                    </Button>
+                                    <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-blue-500/10 hover:text-blue-600 transition-colors">
+                                        <Link href={`/admin/tours/${tour.id}`}>
+                                            <Pencil className="h-4 w-4" />
+                                        </Link>
+                                    </Button>
+                                    <form action={async () => {
+                                        "use server";
+                                        await deleteTour(tour.id);
+                                    }}>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-red-500/10 hover:text-red-600 transition-colors">
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </form>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+                {(!tours || tours.length === 0) && (
+                    <div className="flex flex-col items-center justify-center space-y-3 py-12 text-center bg-white/50 backdrop-blur-sm rounded-xl border-none shadow-sm">
+                        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <MapPin className="h-6 w-6" />
+                        </div>
+                        <p className="text-lg font-medium text-foreground">No tours found</p>
+                        <Button asChild variant="outline" className="mt-4 rounded-xl">
+                            <Link href="/admin/tours/new">
+                                Create Tour
+                            </Link>
+                        </Button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

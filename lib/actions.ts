@@ -522,3 +522,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
     return { success: true };
 }
+
+export async function signOutAction() {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+    redirect("/admin/login");
+}
