@@ -37,15 +37,29 @@ export async function updateSession(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser()
 
+    // 1. Check if user is logged in
+    // 2. Check if user is accessing an admin route
+    // 3. Check if user is NOT on the login page
     if (
-        !user &&
         request.nextUrl.pathname.startsWith('/admin') &&
         !request.nextUrl.pathname.startsWith('/admin/login')
     ) {
-        // no user, potentially respond by redirecting the user to the login page
-        const url = request.nextUrl.clone()
-        url.pathname = '/admin/login'
-        return NextResponse.redirect(url)
+        // If no user, redirect to login
+        if (!user) {
+            const url = request.nextUrl.clone()
+            url.pathname = '/admin/login'
+            return NextResponse.redirect(url)
+        }
+
+        // SECURITY: Strict Email Check
+        // Only allow the specific founder email to access the admin panel
+        if (user.email !== 'snowingkashmir@gmail.com') {
+            // If logged in but wrong email, redirect to home or show error
+            // For now, redirecting to home to prevent unauthorized access
+            const url = request.nextUrl.clone()
+            url.pathname = '/'
+            return NextResponse.redirect(url)
+        }
     }
 
     // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
