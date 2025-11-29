@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { Map, CalendarDays, TrendingUp, Plus, Image as ImageIcon, Users, ArrowRight } from "lucide-react";
+import { Map, CalendarDays, TrendingUp, Plus, Image as ImageIcon, Users, ArrowRight, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -18,6 +18,8 @@ export default async function AdminDashboard() {
     const { count: toursCount } = await supabase.from('tours').select('*', { count: 'exact', head: true });
     const { count: bookingsCount } = await supabase.from('bookings').select('*', { count: 'exact', head: true });
     const { count: pendingBookingsCount } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).eq('status', 'pending');
+    const { count: newMessagesCount } = await supabase.from('contacts').select('*', { count: 'exact', head: true }).eq('status', 'new');
+    const { count: readMessagesCount } = await supabase.from('contacts').select('*', { count: 'exact', head: true }).eq('status', 'read');
 
     return (
         <div className="space-y-8 max-w-7xl mx-auto">
@@ -36,8 +38,10 @@ export default async function AdminDashboard() {
                 </div>
             </div>
 
+
+
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between">
@@ -46,7 +50,7 @@ export default async function AdminDashboard() {
                                 <div className="text-3xl font-bold text-primary mt-2 font-serif">{toursCount || 0}</div>
                                 <p className="text-xs text-muted-foreground mt-1">Active packages listed</p>
                             </div>
-                            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                            <div className="h-12 w-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600">
                                 <Map className="h-6 w-6" />
                             </div>
                         </div>
@@ -82,6 +86,33 @@ export default async function AdminDashboard() {
                         </div>
                     </CardContent>
                 </Card>
+
+                <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+                    <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">Messages</p>
+                                <div className="text-3xl font-bold text-purple-600 mt-2 font-serif">
+                                    {(newMessagesCount || 0) + (readMessagesCount || 0)}
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-1">Needs response</p>
+                            </div>
+                            <div className="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-600">
+                                <MessageSquare className="h-6 w-6" />
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4 text-xs font-medium border-t border-primary/5 pt-3">
+                            <div className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                New: {newMessagesCount || 0}
+                            </div>
+                            <div className="flex items-center gap-1.5 text-blue-600 bg-blue-50 px-2 py-1 rounded-md">
+                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                Read: {readMessagesCount || 0}
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -92,6 +123,13 @@ export default async function AdminDashboard() {
                         <CardDescription>Manage your content efficiently</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
+                        <Button variant="outline" asChild className="w-full justify-start h-12 text-base rounded-xl hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all group">
+                            <Link href="/admin/contacts">
+                                <MessageSquare className="mr-3 h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                View Messages
+                                <ArrowRight className="ml-auto h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </Link>
+                        </Button>
                         <Button variant="outline" asChild className="w-full justify-start h-12 text-base rounded-xl hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-all group">
                             <Link href="/admin/bookings">
                                 <CalendarDays className="mr-3 h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -135,6 +173,6 @@ export default async function AdminDashboard() {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </div >
     );
 }

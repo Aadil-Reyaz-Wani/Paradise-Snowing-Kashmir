@@ -2,7 +2,7 @@
 
 import { useState, useOptimistic, startTransition } from "react";
 import { formatInTimeZone } from "date-fns-tz";
-import { Mail, Phone, Calendar, MessageSquare, Trash2, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import { Mail, Phone, Calendar, MessageSquare, Trash2, CheckCircle, Clock, AlertCircle, MessageCircle } from "lucide-react";
 import { deleteContact, updateContactStatus } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import {
@@ -174,22 +174,33 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
                                         </Select>
                                     </td>
                                     <td className="py-4 px-6 text-right align-top">
-                                        <AlertConfirm
-                                            title="Delete Message?"
-                                            description="This action cannot be undone. This will permanently delete the message from your database."
-                                            confirmText="Delete"
-                                            cancelText="Cancel"
-                                            confirmVariant="destructive"
-                                            onConfirm={() => handleDelete(contact.id)}
-                                            trigger={
-                                                <button
-                                                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
-                                                    title="Delete Message"
-                                                >
-                                                    <Trash2 className="h-4 w-4" />
-                                                </button>
-                                            }
-                                        />
+                                        <div className="flex items-center justify-end gap-2">
+                                            <a
+                                                href={`https://wa.me/${contact.phone.replace(/\D/g, '')}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="p-2 h-9 w-9 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition-colors"
+                                                title="Chat on WhatsApp"
+                                            >
+                                                <MessageCircle className="h-4 w-4" />
+                                            </a>
+                                            <AlertConfirm
+                                                title="Delete Message?"
+                                                description="This action cannot be undone. This will permanently delete the message from your database."
+                                                confirmText="Delete"
+                                                cancelText="Cancel"
+                                                confirmVariant="destructive"
+                                                onConfirm={() => handleDelete(contact.id)}
+                                                trigger={
+                                                    <button
+                                                        className="p-2 h-9 w-9 flex items-center justify-center bg-red-50 text-red-500 hover:bg-red-100 rounded-lg transition-colors"
+                                                        title="Delete Message"
+                                                    >
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </button>
+                                                }
+                                            />
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -269,22 +280,33 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
                         </div>
 
                         <div className="flex justify-end pt-2 border-t border-primary/5">
-                            <AlertConfirm
-                                title="Delete Message?"
-                                description="This action cannot be undone. This will permanently delete the message from your database."
-                                confirmText="Delete"
-                                cancelText="Cancel"
-                                confirmVariant="destructive"
-                                onConfirm={() => handleDelete(contact.id)}
-                                trigger={
-                                    <button
-                                        className="flex items-center gap-2 text-xs font-medium text-red-500 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
-                                    >
-                                        <Trash2 className="h-3 w-3" />
-                                        Delete Message
-                                    </button>
-                                }
-                            />
+                            <div className="flex gap-2">
+                                <a
+                                    href={`https://wa.me/${contact.phone.replace(/\D/g, '')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-xs font-medium bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-3 py-2 rounded-lg transition-colors"
+                                >
+                                    <MessageCircle className="h-3 w-3" />
+                                    WhatsApp
+                                </a>
+                                <AlertConfirm
+                                    title="Delete Message?"
+                                    description="This action cannot be undone. This will permanently delete the message from your database."
+                                    confirmText="Delete"
+                                    cancelText="Cancel"
+                                    confirmVariant="destructive"
+                                    onConfirm={() => handleDelete(contact.id)}
+                                    trigger={
+                                        <button
+                                            className="flex items-center gap-2 text-xs font-medium bg-red-50 text-red-500 hover:bg-red-100 px-3 py-2 rounded-lg transition-colors"
+                                        >
+                                            <Trash2 className="h-3 w-3" />
+                                            Delete Message
+                                        </button>
+                                    }
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}
