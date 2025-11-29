@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Map, Image as ImageIcon, CalendarDays, Users, LogOut, Mountain } from "lucide-react";
+import { LayoutDashboard, Map, Image as ImageIcon, CalendarDays, Users, LogOut, Mountain, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MobileAdminNav } from "@/components/admin/MobileAdminNav";
 import { signOutAction } from "@/lib/actions";
@@ -55,6 +55,12 @@ export default function AdminLayout({
                         <Link href="/admin/destinations">
                             <Mountain className="h-5 w-5 text-muted-foreground/70 group-hover:text-primary" />
                             Destinations
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" className="w-full justify-start gap-4 h-12 text-base rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-300">
+                        <Link href="/admin/contacts">
+                            <Mail className="h-5 w-5 text-muted-foreground/70 group-hover:text-primary" />
+                            Messages
                         </Link>
                     </Button>
                 </nav>

@@ -517,10 +517,68 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         return { error: "Invalid fields", issues: validatedFields.error.issues };
     }
 
-    // In a real app, send email here (e.g. Resend)
-    console.log("Contact Form Submitted:", validatedFields.data);
+    const { name, email, phone, message } = validatedFields.data;
+
+    // 1. Save to Database
+    const supabase = await createAdminClient(); // Use admin client to bypass RLS if needed, or ensure policy allows anon insert
+    const { error: dbError } = await supabase.from("contacts").insert({
+        name,
+        email,
+        phone,
+        message,
+    });
+
+    if (dbError) {
+        console.error("Contact DB Error:", dbError);
+        return { error: "Failed to save message. Please try again." };
+    }
+
+    // 2. Send Email (using dedicated utility)
+    try {
+        const { sendEmail } = await import("./email");
+
+        // Send ONE email to both Admin and Sender (via CC)
+        // This reduces connection attempts and prevents timeouts
+        const adminEmail = "snowingkashmir@gmail.com";
+        const senderEmail = process.env.SMTP_USER;
+
+        // If sender is different from admin, CC them. Otherwise just send to admin.
+        const cc = (senderEmail && senderEmail !== adminEmail) ? senderEmail : undefined;
+
+        await sendEmail({
+            to: adminEmail,
+            cc: cc,
+            subject: `New Contact: ${name}`,
+            html: `
+                <h2>New Message from Website</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Message:</strong></p>
+                <p>${message}</p>
+            `
+        });
+
+    } catch (emailError) {
+        console.error("Email Sending Error:", emailError);
+    }
 
     return { success: true };
+}
+
+export async function getAdminContacts() {
+    const supabase = await createAdminClient();
+    const { data, error } = await supabase
+        .from("contacts")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error("Error fetching contacts:", error);
+        return [];
+    }
+
+    return data;
 }
 
 export async function signOutAction() {

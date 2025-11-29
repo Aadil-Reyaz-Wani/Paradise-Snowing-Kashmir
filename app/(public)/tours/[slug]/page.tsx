@@ -191,7 +191,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                                     Book This Trip
                                 </Link>
                                 <a
-                                    href={`https://wa.me/919906700000?text=Hi, I am interested in ${tour.title}`}
+                                    href={`https://wa.me/917051543381?text=Hi, I am interested in ${tour.title}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="block w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center font-bold rounded-xl transition-colors shadow-lg"

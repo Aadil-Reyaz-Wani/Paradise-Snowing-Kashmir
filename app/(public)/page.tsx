@@ -60,7 +60,7 @@ export default function Home() {
               </Button>
               <Button asChild variant="outline" size="lg" className="rounded-full text-lg h-14 px-8 bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:text-white transition-transform hover:scale-105">
                 <a
-                  href="https://wa.me/910000000000"
+                  href="https://wa.me/917051543381"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
