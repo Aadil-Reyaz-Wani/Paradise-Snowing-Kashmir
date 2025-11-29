@@ -1,6 +1,7 @@
 import { getAdminContacts } from "@/lib/actions";
 import { Mail, Phone, Calendar, MessageSquare } from "lucide-react";
 import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export const dynamic = "force-dynamic";
 
@@ -44,9 +45,9 @@ export default async function AdminContactsPage() {
                                         <td className="py-4 px-6 text-sm text-muted-foreground whitespace-nowrap align-top">
                                             <div className="flex items-center gap-2">
                                                 <Calendar className="h-4 w-4 opacity-50" />
-                                                {format(new Date(contact.created_at), "MMM d, yyyy")}
+                                                {formatInTimeZone(new Date(contact.created_at), 'Asia/Kolkata', "MMM d, yyyy")}
                                                 <span className="text-xs opacity-50 ml-1">
-                                                    {format(new Date(contact.created_at), "h:mm a")}
+                                                    {formatInTimeZone(new Date(contact.created_at), 'Asia/Kolkata', "h:mm a")}
                                                 </span>
                                             </div>
                                         </td>
