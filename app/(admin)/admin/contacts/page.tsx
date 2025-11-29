@@ -45,8 +45,10 @@ export default async function AdminContactsPage() {
                                         <td className="py-4 px-6 text-sm text-muted-foreground whitespace-nowrap align-top">
                                             <div className="flex items-center gap-2">
                                                 <Calendar className="h-4 w-4 opacity-50" />
-                                                {formatInTimeZone(new Date(contact.created_at), 'Asia/Kolkata', "MMM d, yyyy")}
-                                                <span className="text-xs opacity-50 ml-1">
+                                                <span suppressHydrationWarning>
+                                                    {formatInTimeZone(new Date(contact.created_at), 'Asia/Kolkata', "MMM d, yyyy")}
+                                                </span>
+                                                <span className="text-xs opacity-50 ml-1" suppressHydrationWarning>
                                                     {formatInTimeZone(new Date(contact.created_at), 'Asia/Kolkata', "h:mm a")}
                                                 </span>
                                             </div>

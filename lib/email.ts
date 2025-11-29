@@ -19,18 +19,17 @@ export async function sendEmail(data: EmailPayload) {
     console.log(`📧 Initializing email transport for user: ${smtpUser}`);
 
     // Reverting to 'service: gmail' as it proved most reliable for the user
+    // We keep family: 4 to force IPv4 and avoid IPv6 timeouts
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
             user: smtpUser,
             pass: smtpPass,
         },
-        // Force IPv4 to avoid IPv6 timeouts
-        family: 4,
-        // Keep timeouts to prevent infinite hanging
-        connectionTimeout: 10000,
-        greetingTimeout: 10000,
-        socketTimeout: 10000,
+        family: 4, // Force IPv4
+        connectionTimeout: 60000, // 60 seconds
+        greetingTimeout: 60000,
+        socketTimeout: 60000,
     } as nodemailer.TransportOptions);
 
     try {

@@ -550,12 +550,29 @@ export async function submitContactForm(prevState: any, formData: FormData) {
             cc: cc,
             subject: `New Contact: ${name}`,
             html: `
-                <h2>New Message from Website</h2>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Phone:</strong> ${phone}</p>
-                <p><strong>Message:</strong></p>
-                <p>${message}</p>
+                <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
+                    <div style="background-color: #1a4d2e; padding: 24px; text-align: center;">
+                        <h2 style="color: #ffffff; margin: 0; font-family: serif; font-size: 24px;">New Message from Paradise Snowing Kashmir</h2>
+                    </div>
+                    <div style="padding: 32px; background-color: #ffffff;">
+                        <p style="margin-top: 0; color: #555;">You have received a new inquiry from the website contact form.</p>
+                        
+                        <div style="margin-top: 24px; border-top: 1px solid #f0f0f0; padding-top: 24px;">
+                            <p style="margin: 8px 0;"><strong>Name:</strong> ${name}</p>
+                            <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #1a4d2e;">${email}</a></p>
+                            <p style="margin: 8px 0;"><strong>Phone:</strong> <a href="tel:${phone}" style="color: #1a4d2e;">${phone}</a></p>
+                        </div>
+
+                        <div style="margin-top: 24px; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+                            <p style="margin: 0 0 8px 0; font-weight: bold; color: #333;">Message:</p>
+                            <p style="margin: 0; color: #555; white-space: pre-wrap;">${message}</p>
+                        </div>
+                        
+                        <div style="margin-top: 32px; text-align: center; font-size: 12px; color: #888;">
+                            <p>&copy; ${new Date().getFullYear()} Paradise Snowing Kashmir. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
             `
         });
 
