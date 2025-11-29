@@ -598,6 +598,45 @@ export async function getAdminContacts() {
     return data;
 }
 
+export async function deleteContact(id: string) {
+    const supabase = await createClient();
+    const adminSupabase = createAdminClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        return { error: "Unauthorized" };
+    }
+
+    const { error } = await adminSupabase.from("contacts").delete().eq("id", id);
+
+    if (error) {
+        return { error: error.message };
+    }
+
+    revalidatePath("/admin/contacts");
+}
+
+export async function updateContactStatus(id: string, status: string) {
+    const supabase = await createClient();
+    const adminSupabase = createAdminClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        return { error: "Unauthorized" };
+    }
+
+    const { error } = await adminSupabase
+        .from("contacts")
+        .update({ status })
+        .eq("id", id);
+
+    if (error) {
+        return { error: error.message };
+    }
+
+    revalidatePath("/admin/contacts");
+}
+
 export async function signOutAction() {
     const supabase = await createClient();
     await supabase.auth.signOut();
