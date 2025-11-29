@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { createTour, updateTour } from "@/lib/actions";
 import { Loader2, Save, ArrowLeft, Upload, Image as ImageIcon, X, Plus, Trash2 } from "lucide-react";
+import { AlertSuccess } from "@/components/ui/global-alerts";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -24,6 +25,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [previews, setPreviews] = useState<string[]>([]);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     // Dynamic Fields State
     const [highlights, setHighlights] = useState<string[]>(tour?.highlights || []);
@@ -45,8 +47,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
             if (result?.error) {
                 toast.error(result.error);
             } else {
-                toast.success(isEditing ? "Tour updated successfully" : "Tour created successfully");
-                router.push("/admin/tours");
+                setShowSuccessAlert(true);
             }
         } catch (error) {
             console.error("Submit Error:", error);
@@ -527,6 +528,15 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                     </div>
                 </div>
             </form>
+
+            <AlertSuccess
+                open={showSuccessAlert}
+                onOpenChange={setShowSuccessAlert}
+                title={isEditing ? "Tour Updated!" : "Tour Created!"}
+                description="The tour package has been successfully saved to the database. It is now available in your catalog."
+                confirmText="Continue to Tours"
+                onConfirm={() => router.push("/admin/tours")}
+            />
         </div>
     );
 }

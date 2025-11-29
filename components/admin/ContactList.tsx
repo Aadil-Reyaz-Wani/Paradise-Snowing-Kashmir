@@ -12,6 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { AlertConfirm } from "@/components/ui/global-alerts";
 
 interface Contact {
     id: string;
@@ -39,8 +40,6 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
     );
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this message?")) return;
-
         startTransition(() => {
             addOptimisticContact({ type: "delete", id });
         });
@@ -175,13 +174,22 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
                                         </Select>
                                     </td>
                                     <td className="py-4 px-6 text-right align-top">
-                                        <button
-                                            onClick={() => handleDelete(contact.id)}
-                                            className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
-                                            title="Delete Message"
-                                        >
-                                            <Trash2 className="h-4 w-4" />
-                                        </button>
+                                        <AlertConfirm
+                                            title="Delete Message?"
+                                            description="This action cannot be undone. This will permanently delete the message from your database."
+                                            confirmText="Delete"
+                                            cancelText="Cancel"
+                                            confirmVariant="destructive"
+                                            onConfirm={() => handleDelete(contact.id)}
+                                            trigger={
+                                                <button
+                                                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                                                    title="Delete Message"
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </button>
+                                            }
+                                        />
                                     </td>
                                 </tr>
                             ))}
@@ -193,7 +201,7 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
             {/* Mobile Card View */}
             <div className="md:hidden space-y-4">
                 {optimisticContacts.map((contact) => (
-                    <div key={contact.id} className="bg-white rounded-xl shadow-sm border border-primary/10 p-5 space-y-4">
+                    <div key={contact.id} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-primary/10 p-5 space-y-4">
                         <div className="flex justify-between items-start">
                             <div className="space-y-1">
                                 <h3 className="font-semibold text-lg text-primary">{contact.name}</h3>
@@ -261,13 +269,22 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
                         </div>
 
                         <div className="flex justify-end pt-2 border-t border-primary/5">
-                            <button
-                                onClick={() => handleDelete(contact.id)}
-                                className="flex items-center gap-2 text-xs font-medium text-red-500 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
-                            >
-                                <Trash2 className="h-3 w-3" />
-                                Delete Message
-                            </button>
+                            <AlertConfirm
+                                title="Delete Message?"
+                                description="This action cannot be undone. This will permanently delete the message from your database."
+                                confirmText="Delete"
+                                cancelText="Cancel"
+                                confirmVariant="destructive"
+                                onConfirm={() => handleDelete(contact.id)}
+                                trigger={
+                                    <button
+                                        className="flex items-center gap-2 text-xs font-medium text-red-500 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
+                                    >
+                                        <Trash2 className="h-3 w-3" />
+                                        Delete Message
+                                    </button>
+                                }
+                            />
                         </div>
                     </div>
                 ))}

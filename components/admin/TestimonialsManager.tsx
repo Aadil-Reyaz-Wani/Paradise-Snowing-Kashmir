@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { createTestimonial, deleteTestimonial } from "@/lib/actions";
 import { Loader2, Trash2, Plus, Star, User, MessageSquare, MapPin, Quote } from "lucide-react";
 import { toast } from "sonner";
+import { AlertConfirm } from "@/components/ui/global-alerts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,7 +26,9 @@ type Testimonial = {
 export default function TestimonialsManager({ initialTestimonials }: { initialTestimonials: Testimonial[] }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const isSubmittingRef = useRef(false);
+
     const formRef = useRef<HTMLFormElement>(null);
+    const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
     const handleSubmit = async (formData: FormData) => {
         if (isSubmittingRef.current) return;
@@ -49,14 +52,20 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this testimonial?")) return;
+    const handleDeleteClick = (id: string) => {
+        setDeleteTarget(id);
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteTarget) return;
 
         try {
-            await deleteTestimonial(id);
+            await deleteTestimonial(deleteTarget);
             toast.success("Testimonial deleted");
         } catch (error) {
             toast.error("Delete failed");
+        } finally {
+            setDeleteTarget(null);
         }
     };
 
@@ -215,8 +224,8 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleDelete(item.id)}
-                                    className="h-9 w-9 text-destructive hover:bg-red-500 hover:text-white rounded-full transition-all duration-300 shadow-sm hover:shadow-md"
+                                    onClick={() => handleDeleteClick(item.id)}
+                                    className="h-9 w-9 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105"
                                     title="Delete"
                                 >
                                     <Trash2 className="h-4 w-4" />
@@ -238,6 +247,19 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                     </div>
                 )}
             </div>
-        </div>
+
+
+            <AlertConfirm
+                open={!!deleteTarget}
+                onOpenChange={(open) => !open && setDeleteTarget(null)}
+                title="Delete Testimonial?"
+                description="This action cannot be undone. This will permanently delete the testimonial."
+                confirmText="Delete"
+                cancelText="Cancel"
+                confirmVariant="destructive"
+                onConfirm={confirmDelete}
+                onCancel={() => setDeleteTarget(null)}
+            />
+        </div >
     );
 }

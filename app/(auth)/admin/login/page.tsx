@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { AlertError, AlertSuccess } from "@/components/ui/global-alerts";
 import { Loader2, ArrowLeft, Lock, Mountain } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,9 @@ export default function AdminLoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [showSuccess, setShowSuccess] = useState(false);
     const router = useRouter();
     const supabase = createClient();
 
@@ -26,16 +29,17 @@ export default function AdminLoginPage() {
             });
 
             if (error) {
-                toast.error(error.message);
+                setErrorMessage(error.message);
+                setShowError(true);
+                setLoading(false); // Stop loading on error
                 return;
             }
 
-            toast.success("Logged in successfully");
-            router.push("/admin");
-            router.refresh();
+            setShowSuccess(true);
+            // We don't stop loading here to prevent interaction while success dialog is shown
         } catch (error) {
-            toast.error("An unexpected error occurred");
-        } finally {
+            setErrorMessage("An unexpected error occurred");
+            setShowError(true);
             setLoading(false);
         }
     };
@@ -101,6 +105,28 @@ export default function AdminLoginPage() {
                     &copy; {new Date().getFullYear()} Paradise Snowing Kashmir. All rights reserved.
                 </p>
             </div>
-        </div>
+
+
+            <AlertError
+                open={showError}
+                onOpenChange={setShowError}
+                title="Login Failed"
+                description={errorMessage}
+                confirmText="Try Again"
+                onConfirm={() => setShowError(false)}
+            />
+
+            <AlertSuccess
+                open={showSuccess}
+                onOpenChange={setShowSuccess}
+                title="Welcome Back!"
+                description="You have successfully logged in to the admin panel."
+                confirmText="Enter Dashboard"
+                onConfirm={() => {
+                    router.push("/admin");
+                    router.refresh();
+                }}
+            />
+        </div >
     );
 }

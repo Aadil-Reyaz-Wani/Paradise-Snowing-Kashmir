@@ -2,8 +2,9 @@
 
 import { useState, useRef } from "react";
 import { uploadGalleryImage, deleteGalleryImage } from "@/lib/actions";
-import { Loader2, Trash2, Upload, Plus, X, Image as ImageIcon } from "lucide-react";
+import { Loader2, Trash2, Upload, Plus, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
+import { AlertConfirm } from "@/components/ui/global-alerts";
 import { BlurImage } from "@/components/ui/blur-image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,7 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
     const [isUploading, setIsUploading] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [deleteTarget, setDeleteTarget] = useState<{ id: string; path: string } | null>(null);
 
     const handleUpload = async (formData: FormData) => {
         setIsUploading(true);
@@ -41,11 +43,15 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
         }
     };
 
-    const handleDelete = async (id: string, path: string) => {
-        if (!confirm("Are you sure you want to delete this image?")) return;
+    const handleDeleteClick = (id: string, path: string) => {
+        setDeleteTarget({ id, path });
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteTarget) return;
 
         try {
-            const result = await deleteGalleryImage(id, path);
+            const result = await deleteGalleryImage(deleteTarget.id, deleteTarget.path);
             if (result?.error) {
                 toast.error(result.error);
             } else {
@@ -53,6 +59,8 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
             }
         } catch (error) {
             toast.error("Delete failed");
+        } finally {
+            setDeleteTarget(null);
         }
     };
 
@@ -158,25 +166,26 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                                 sizes="(max-width: 768px) 50vw, 25vw"
                             />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                                <Button
-                                    variant="destructive"
-                                    size="icon"
-                                    onClick={() => handleDelete(img.id, img.storage_path)}
-                                    className="h-10 w-10 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform hover:bg-red-600"
-                                >
-                                    <Trash2 className="h-5 w-5" />
-                                </Button>
-                            </div>
+
                             <div className="absolute top-3 right-3">
                                 <span className="bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border border-white/10">
                                     {img.category || "General"}
                                 </span>
                             </div>
                         </div>
-                        <div className="p-4">
-                            <p className="text-sm font-bold text-primary font-serif truncate">{img.caption || "Untitled Image"}</p>
-                            <p className="text-xs text-muted-foreground mt-1">ID: {img.id.slice(0, 8)}...</p>
+                        <div className="p-4 flex items-center justify-between gap-3">
+                            <div className="min-w-0">
+                                <p className="text-sm font-bold text-primary font-serif truncate">{img.caption || "Untitled Image"}</p>
+                                <p className="text-xs text-muted-foreground mt-1">ID: {img.id.slice(0, 8)}...</p>
+                            </div>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => handleDeleteClick(img.id, img.storage_path)}
+                                className="h-8 w-8 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg shrink-0 transition-all duration-300 hover:scale-110 hover:shadow-md"
+                            >
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
                         </div>
                     </div>
                 ))}
@@ -192,6 +201,19 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
                     </div>
                 )}
             </div>
-        </div>
+
+
+            <AlertConfirm
+                open={!!deleteTarget}
+                onOpenChange={(open) => !open && setDeleteTarget(null)}
+                title="Delete Image?"
+                description="This action cannot be undone. This will permanently delete the image from your gallery."
+                confirmText="Delete"
+                cancelText="Cancel"
+                confirmVariant="destructive"
+                onConfirm={confirmDelete}
+                onCancel={() => setDeleteTarget(null)}
+            />
+        </div >
     );
 }

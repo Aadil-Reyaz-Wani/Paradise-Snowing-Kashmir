@@ -42,7 +42,7 @@ export function EditDestinationDialog({ destination }: { destination: any }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button size="icon" className="h-9 w-9 rounded-full bg-white/90 text-primary hover:bg-emerald-600 hover:text-white shadow-lg backdrop-blur-sm transition-all duration-300">
+                <Button size="icon" className="h-9 w-9 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 shadow-sm transition-all hover:scale-105">
                     <Pencil className="h-4 w-4" />
                 </Button>
             </DialogTrigger>

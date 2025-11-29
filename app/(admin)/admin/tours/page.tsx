@@ -5,6 +5,7 @@ import { deleteTour } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DeleteTourButton } from "@/components/admin/DeleteTourButton";
 
 export default async function AdminToursPage() {
     const supabase = await createClient();
@@ -79,24 +80,17 @@ export default async function AdminToursPage() {
                                     </td>
                                     <td className="px-6 py-5 text-right">
                                         <div className="flex items-center justify-end gap-2">
-                                            <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors" title="View Live">
+                                            <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors hover:scale-105" title="View Live">
                                                 <Link href={`/tours/${tour.slug}`} target="_blank">
                                                     <Eye className="h-4 w-4" />
                                                 </Link>
                                             </Button>
-                                            <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-blue-500/10 hover:text-blue-600 transition-colors" title="Edit">
+                                            <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors hover:scale-105" title="Edit">
                                                 <Link href={`/admin/tours/${tour.id}`}>
                                                     <Pencil className="h-4 w-4" />
                                                 </Link>
                                             </Button>
-                                            <form action={async () => {
-                                                "use server";
-                                                await deleteTour(tour.id);
-                                            }}>
-                                                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-red-500/10 hover:text-red-600 transition-colors" title="Delete">
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </form>
+                                            <DeleteTourButton id={tour.id} title={tour.title} />
                                         </div>
                                     </td>
                                 </tr>
@@ -164,24 +158,17 @@ export default async function AdminToursPage() {
                                     {tour.base_price.toLocaleString()}
                                 </div>
                                 <div className="flex items-center gap-1">
-                                    <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors">
+                                    <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors hover:scale-105">
                                         <Link href={`/tours/${tour.slug}`} target="_blank">
                                             <Eye className="h-4 w-4" />
                                         </Link>
                                     </Button>
-                                    <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-blue-500/10 hover:text-blue-600 transition-colors">
+                                    <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors hover:scale-105">
                                         <Link href={`/admin/tours/${tour.id}`}>
                                             <Pencil className="h-4 w-4" />
                                         </Link>
                                     </Button>
-                                    <form action={async () => {
-                                        "use server";
-                                        await deleteTour(tour.id);
-                                    }}>
-                                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-red-500/10 hover:text-red-600 transition-colors">
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </form>
+                                    <DeleteTourButton id={tour.id} title={tour.title} className="h-8 w-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 transition-colors hover:scale-105" />
                                 </div>
                             </div>
                         </CardContent>

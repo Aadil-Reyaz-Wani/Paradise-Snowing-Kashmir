@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { AddDestinationDialog, EditDestinationDialog } from "@/components/admin/DestinationDialogs";
+import { DeleteDestinationButton } from "@/components/admin/DeleteDestinationButton";
 
 export default async function AdminDestinationsPage() {
     const destinations = await getDestinations();
@@ -57,16 +58,10 @@ export default async function AdminDestinationsPage() {
                                 )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
                                 <div className="absolute top-4 right-4 flex gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0">
-                                    <EditDestinationDialog destination={dest} />
 
-                                    <form action={async () => {
-                                        "use server";
-                                        await deleteDestination(dest.id);
-                                    }}>
-                                        <Button size="icon" className="h-9 w-9 rounded-full bg-white/90 text-destructive hover:bg-red-500 hover:text-white shadow-lg backdrop-blur-sm transition-colors">
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </form>
+
+                                    <EditDestinationDialog destination={dest} />
+                                    <DeleteDestinationButton id={dest.id} name={dest.name} />
                                 </div>
 
 
