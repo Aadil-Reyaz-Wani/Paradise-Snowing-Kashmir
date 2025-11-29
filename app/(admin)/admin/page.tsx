@@ -57,20 +57,22 @@ export default async function AdminDashboard() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
-                    <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Total Bookings</p>
-                                <div className="text-3xl font-bold text-primary mt-2 font-serif">{bookingsCount || 0}</div>
-                                <p className="text-xs text-muted-foreground mt-1">Lifetime reservations</p>
+                <Link href="/admin/bookings" className="block">
+                    <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm cursor-pointer h-full">
+                        <CardContent className="p-6">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Total Bookings</p>
+                                    <div className="text-3xl font-bold text-primary mt-2 font-serif">{bookingsCount || 0}</div>
+                                    <p className="text-xs text-muted-foreground mt-1">Lifetime reservations</p>
+                                </div>
+                                <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
+                                    <CalendarDays className="h-6 w-6" />
+                                </div>
                             </div>
-                            <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600">
-                                <CalendarDays className="h-6 w-6" />
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
+                </Link>
 
                 <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
                     <CardContent className="p-6">
@@ -87,32 +89,34 @@ export default async function AdminDashboard() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
-                    <CardContent className="p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Messages</p>
-                                <div className="text-3xl font-bold text-purple-600 mt-2 font-serif">
-                                    {(newMessagesCount || 0) + (readMessagesCount || 0)}
+                <Link href="/admin/contacts" className="block">
+                    <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm cursor-pointer h-full">
+                        <CardContent className="p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Messages</p>
+                                    <div className="text-3xl font-bold text-purple-600 mt-2 font-serif">
+                                        {(newMessagesCount || 0) + (readMessagesCount || 0)}
+                                    </div>
+                                    <p className="text-xs text-muted-foreground mt-1">Needs response</p>
                                 </div>
-                                <p className="text-xs text-muted-foreground mt-1">Needs response</p>
+                                <div className="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-600">
+                                    <MessageSquare className="h-6 w-6" />
+                                </div>
                             </div>
-                            <div className="h-12 w-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-600">
-                                <MessageSquare className="h-6 w-6" />
+                            <div className="flex items-center gap-4 text-xs font-medium border-t border-primary/5 pt-3">
+                                <div className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    New: {newMessagesCount || 0}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-blue-600 bg-blue-50 px-2 py-1 rounded-md">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                    Read: {readMessagesCount || 0}
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex items-center gap-4 text-xs font-medium border-t border-primary/5 pt-3">
-                            <div className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                New: {newMessagesCount || 0}
-                            </div>
-                            <div className="flex items-center gap-1.5 text-blue-600 bg-blue-50 px-2 py-1 rounded-md">
-                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                                Read: {readMessagesCount || 0}
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -216,7 +216,7 @@ export function Header() {
                             </div>
                             <Button
                                 asChild
-                                className="w-full rounded-full bg-primary text-white font-bold h-14 text-lg hover:bg-primary/90 shadow-lg shadow-primary/20"
+                                className="w-full rounded-full bg-primary text-black font-bold h-14 text-lg hover:bg-primary/90 shadow-lg shadow-primary/20"
                             >
                                 <Link href="/tours" onClick={() => setIsMobileMenuOpen(false)}>
                                     Book Your Trip
