@@ -25,11 +25,13 @@ export async function sendEmail(data: EmailPayload) {
             user: smtpUser,
             pass: smtpPass,
         },
+        // Force IPv4 to avoid IPv6 timeouts
+        family: 4,
         // Keep timeouts to prevent infinite hanging
         connectionTimeout: 10000,
         greetingTimeout: 10000,
         socketTimeout: 10000,
-    });
+    } as nodemailer.TransportOptions);
 
     try {
         // Verify connection
