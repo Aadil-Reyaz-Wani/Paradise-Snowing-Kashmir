@@ -872,13 +872,37 @@ export async function sendIndividualEmail(prevState: any, formData: FormData) {
     try {
         const { sendEmail } = await import("./email");
 
+        // Read logo once
+        let logoContent: Buffer | null = null;
+        try {
+            const logoPath = process.cwd() + "/PSK_Logo.png";
+            logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+        } catch (error) {
+            console.warn("Failed to load email logo:", error);
+        }
+
+        const attachments = logoContent ? [{
+            filename: 'logo.png',
+            content: logoContent,
+            cid: 'logo',
+            contentType: 'image/png',
+            contentDisposition: 'inline' as const
+        }] : [];
+
+        const logoHtml = logoContent ? `
+            <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
+                <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
+            </div>
+        ` : '';
+
         const result = await sendEmail({
             to: email,
             subject: subject,
             html: `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
-                    <div style="background-color: #1a4d2e; padding: 24px; text-align: center;">
-                        <h2 style="color: #ffffff; margin: 0; font-family: serif; font-size: 24px;">Paradise Snowing Kashmir</h2>
+                    <div style="background-color: #FDFBF7; padding: 24px; text-align: center; border-bottom: 1px solid rgba(26, 77, 46, 0.1);">
+                        ${logoHtml}
+                        <h2 style="color: #1a4d2e; margin: 0; font-family: serif; font-size: 24px;">Paradise Snowing Kashmir</h2>
                     </div>
                     <div style="padding: 32px; background-color: #ffffff;">
                         <div style="white-space: pre-wrap; color: #333; line-height: 1.6;">${message}</div>
@@ -889,7 +913,8 @@ export async function sendIndividualEmail(prevState: any, formData: FormData) {
                         </div>
                     </div>
                 </div>
-            `
+            `,
+            attachments: attachments
         });
 
         if (!result.success) {
