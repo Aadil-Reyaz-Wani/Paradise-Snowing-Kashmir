@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     },
     // @ts-expect-error - reactCompiler is valid in this version but missing from types
     reactCompiler: true,
+    outputFileTracingIncludes: {
+      '/**/*': ['./PSK_Logo.png'],
+    },
   },
   images: {
     remotePatterns: [
