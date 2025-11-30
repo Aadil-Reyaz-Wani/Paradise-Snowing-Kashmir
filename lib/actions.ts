@@ -545,8 +545,27 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         // If sender is different from admin, CC them. Otherwise just send to admin.
         const cc = (senderEmail && senderEmail !== adminEmail) ? senderEmail : undefined;
 
-        const logoPath = process.cwd() + "/PSK_Logo.png";
-        const logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+        let logoContent: Buffer | null = null;
+        try {
+            const logoPath = process.cwd() + "/PSK_Logo.png";
+            logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+        } catch (error) {
+            console.warn("Failed to load email logo:", error);
+        }
+
+        const attachments = logoContent ? [{
+            filename: 'logo.png',
+            content: logoContent,
+            cid: 'logo',
+            contentType: 'image/png',
+            contentDisposition: 'inline' as const
+        }] : [];
+
+        const logoHtml = logoContent ? `
+            <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
+                <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
+            </div>
+        ` : '';
 
         await sendEmail({
             to: adminEmail,
@@ -555,9 +574,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
             html: `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
                     <div style="background-color: #FDFBF7; padding: 24px; text-align: center; border-bottom: 1px solid rgba(26, 77, 46, 0.1);">
-                        <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
-                            <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
-                        </div>
+                        ${logoHtml}
                         <h2 style="color: #1a4d2e; margin: 0; font-family: serif; font-size: 24px;">New Message from Paradise Snowing Kashmir</h2>
                     </div>
                     <div style="padding: 32px; background-color: #ffffff;">
@@ -580,13 +597,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
                     </div>
                 </div>
             `,
-            attachments: [{
-                filename: 'logo.png',
-                content: logoContent,
-                cid: 'logo',
-                contentType: 'image/png',
-                contentDisposition: 'inline'
-            }]
+            attachments: attachments
         });
 
     } catch (emailError) {
@@ -773,8 +784,27 @@ export async function sendNewsletterCampaign(prevState: any, formData: FormData)
         const { sendEmail } = await import("./email");
 
         // Read logo once
-        const logoPath = process.cwd() + "/PSK_Logo.png";
-        const logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+        let logoContent: Buffer | null = null;
+        try {
+            const logoPath = process.cwd() + "/PSK_Logo.png";
+            logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+        } catch (error) {
+            console.warn("Failed to load email logo:", error);
+        }
+
+        const attachments = logoContent ? [{
+            filename: 'logo.png',
+            content: logoContent,
+            cid: 'logo',
+            contentType: 'image/png',
+            contentDisposition: 'inline' as const
+        }] : [];
+
+        const logoHtml = logoContent ? `
+            <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
+                <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
+            </div>
+        ` : '';
 
         // Send in parallel (limit concurrency if list is huge, but for now Promise.all is fine for small lists)
         // For better reliability with Gmail, we might want to do it sequentially or in chunks, 
@@ -786,9 +816,7 @@ export async function sendNewsletterCampaign(prevState: any, formData: FormData)
                 html: `
                     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
                         <div style="background-color: #FDFBF7; padding: 24px; text-align: center; border-bottom: 1px solid rgba(26, 77, 46, 0.1);">
-                            <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
-                                <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
-                            </div>
+                            ${logoHtml}
                             <h2 style="color: #1a4d2e; margin: 0; font-family: serif; font-size: 24px;">Paradise Snowing Kashmir</h2>
                         </div>
                         <div style="padding: 32px; background-color: #ffffff;">
@@ -801,13 +829,7 @@ export async function sendNewsletterCampaign(prevState: any, formData: FormData)
                         </div>
                     </div>
                 `,
-                attachments: [{
-                    filename: 'logo.png',
-                    content: logoContent,
-                    cid: 'logo',
-                    contentType: 'image/png',
-                    contentDisposition: 'inline'
-                }]
+                attachments: attachments
             });
 
             if (result.success) {
