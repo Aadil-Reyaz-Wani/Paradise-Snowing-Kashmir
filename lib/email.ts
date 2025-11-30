@@ -5,6 +5,14 @@ interface EmailPayload {
     cc?: string;
     subject: string;
     html: string;
+    attachments?: {
+        filename: string;
+        content?: string | Buffer;
+        path?: string;
+        cid?: string;
+        contentType?: string;
+        contentDisposition?: 'attachment' | 'inline';
+    }[];
 }
 
 export async function sendEmail(data: EmailPayload) {
@@ -45,6 +53,7 @@ export async function sendEmail(data: EmailPayload) {
             cc: data.cc,
             subject: data.subject,
             html: data.html,
+            attachments: data.attachments,
         });
 
         console.log("✅ Email sent successfully!", info.messageId);

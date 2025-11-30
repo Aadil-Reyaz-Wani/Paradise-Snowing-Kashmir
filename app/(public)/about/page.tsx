@@ -112,7 +112,7 @@ export default function AboutPage() {
                         </div>
 
                         <div className="pt-2 md:pt-4 flex justify-center lg:justify-start">
-                            <img src="/images/signature-waseem.png" alt="Signature" className="h-16 md:h-20 mix-blend-multiply dark:invert dark:mix-blend-screen opacity-80" />
+                            <img src="/images/signature-waseem.png" alt="Signature" className="h-16 md:h-20 w-auto" />
                         </div>
                     </div>
                 </div>

@@ -545,14 +545,20 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         // If sender is different from admin, CC them. Otherwise just send to admin.
         const cc = (senderEmail && senderEmail !== adminEmail) ? senderEmail : undefined;
 
+        const logoPath = process.cwd() + "/PSK_Logo.png";
+        const logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+
         await sendEmail({
             to: adminEmail,
             cc: cc,
             subject: `New Contact: ${name}`,
             html: `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
-                    <div style="background-color: #1a4d2e; padding: 24px; text-align: center;">
-                        <h2 style="color: #ffffff; margin: 0; font-family: serif; font-size: 24px;">New Message from Paradise Snowing Kashmir</h2>
+                    <div style="background-color: #FDFBF7; padding: 24px; text-align: center; border-bottom: 1px solid rgba(26, 77, 46, 0.1);">
+                        <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
+                            <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
+                        </div>
+                        <h2 style="color: #1a4d2e; margin: 0; font-family: serif; font-size: 24px;">New Message from Paradise Snowing Kashmir</h2>
                     </div>
                     <div style="padding: 32px; background-color: #ffffff;">
                         <p style="margin-top: 0; color: #555;">You have received a new inquiry from the website contact form.</p>
@@ -563,8 +569,8 @@ export async function submitContactForm(prevState: any, formData: FormData) {
                             <p style="margin: 8px 0;"><strong>Phone:</strong> <a href="tel:${phone}" style="color: #1a4d2e;">${phone}</a></p>
                         </div>
 
-                        <div style="margin-top: 24px; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
-                            <p style="margin: 0 0 8px 0; font-weight: bold; color: #333;">Message:</p>
+                        <div style="margin-top: 24px; background-color: #FDFBF7; padding: 20px; border-radius: 8px; border: 1px solid rgba(26, 77, 46, 0.05);">
+                            <p style="margin: 0 0 8px 0; font-weight: bold; color: #1a4d2e;">Message:</p>
                             <p style="margin: 0; color: #555; white-space: pre-wrap;">${message}</p>
                         </div>
                         
@@ -573,7 +579,14 @@ export async function submitContactForm(prevState: any, formData: FormData) {
                         </div>
                     </div>
                 </div>
-            `
+            `,
+            attachments: [{
+                filename: 'logo.png',
+                content: logoContent,
+                cid: 'logo',
+                contentType: 'image/png',
+                contentDisposition: 'inline'
+            }]
         });
 
     } catch (emailError) {
@@ -641,4 +654,230 @@ export async function signOutAction() {
     const supabase = await createClient();
     await supabase.auth.signOut();
     redirect("/admin/login");
+}
+
+// --- Newsletter ---
+
+export async function subscribeToNewsletter(prevState: any, formData: FormData) {
+    const schema = z.object({
+        email: z.string().email("Invalid email address"),
+    });
+
+    const validatedFields = schema.safeParse({
+        email: formData.get("email"),
+    });
+
+    if (!validatedFields.success) {
+        return { error: validatedFields.error.issues[0].message };
+    }
+
+    const { email } = validatedFields.data;
+    const supabase = await createAdminClient();
+
+    // Check if already subscribed
+    const { data: existing } = await supabase
+        .from("newsletter_subscribers")
+        .select("id")
+        .eq("email", email)
+        .single();
+
+    if (existing) {
+        return { error: "You are already subscribed!" };
+    }
+
+    const { error } = await supabase.from("newsletter_subscribers").insert({
+        email,
+    });
+
+    if (error) {
+        console.error("Newsletter Subscription Error:", error);
+        return { error: "Failed to subscribe. Please try again." };
+    }
+
+    return { success: true, message: "Successfully subscribed to the newsletter!" };
+}
+
+export async function getNewsletterSubscribers() {
+    const supabase = await createAdminClient();
+    const { data, error } = await supabase
+        .from("newsletter_subscribers")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error("Error fetching subscribers:", error);
+        return [];
+    }
+
+    return data;
+}
+
+export async function deleteNewsletterSubscriber(id: string) {
+    const supabase = await createClient();
+    const adminSupabase = createAdminClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        return { error: "Unauthorized" };
+    }
+
+    const { error } = await adminSupabase
+        .from("newsletter_subscribers")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        return { error: error.message };
+    }
+
+    revalidatePath("/admin/newsletter");
+}
+
+export async function sendNewsletterCampaign(prevState: any, formData: FormData) {
+    const schema = z.object({
+        subject: z.string().min(1, "Subject is required"),
+        message: z.string().min(1, "Message is required"),
+    });
+
+    const validatedFields = schema.safeParse({
+        subject: formData.get("subject"),
+        message: formData.get("message"),
+    });
+
+    if (!validatedFields.success) {
+        return { error: validatedFields.error.issues[0].message };
+    }
+
+    const { subject, message } = validatedFields.data;
+    const supabase = await createAdminClient();
+
+    // 1. Fetch all subscribers
+    const { data: subscribers, error: fetchError } = await supabase
+        .from("newsletter_subscribers")
+        .select("email")
+        .eq("status", "active");
+
+    if (fetchError || !subscribers) {
+        return { error: "Failed to fetch subscribers." };
+    }
+
+    if (subscribers.length === 0) {
+        return { error: "No active subscribers found." };
+    }
+
+    // 2. Send Emails
+    let successCount = 0;
+    let failCount = 0;
+
+    try {
+        const { sendEmail } = await import("./email");
+
+        // Read logo once
+        const logoPath = process.cwd() + "/PSK_Logo.png";
+        const logoContent = await import("fs").then(fs => fs.promises.readFile(logoPath));
+
+        // Send in parallel (limit concurrency if list is huge, but for now Promise.all is fine for small lists)
+        // For better reliability with Gmail, we might want to do it sequentially or in chunks, 
+        // but let's try parallel first as it's faster.
+        await Promise.all(subscribers.map(async (sub) => {
+            const result = await sendEmail({
+                to: sub.email,
+                subject: subject,
+                html: `
+                    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
+                        <div style="background-color: #FDFBF7; padding: 24px; text-align: center; border-bottom: 1px solid rgba(26, 77, 46, 0.1);">
+                            <div style="display: inline-block; padding: 10px; border: 1px solid rgba(26, 77, 46, 0.1); border-radius: 12px; margin-bottom: 12px;">
+                                <img src="cid:logo" alt="Logo" style="width: 48px; height: auto; display: block;" />
+                            </div>
+                            <h2 style="color: #1a4d2e; margin: 0; font-family: serif; font-size: 24px;">Paradise Snowing Kashmir</h2>
+                        </div>
+                        <div style="padding: 32px; background-color: #ffffff;">
+                            <div style="white-space: pre-wrap; color: #333; line-height: 1.6;">${message}</div>
+                            
+                            <div style="margin-top: 32px; border-top: 1px solid #f0f0f0; padding-top: 24px; text-align: center; font-size: 12px; color: #888;">
+                                <p>You received this email because you subscribed to our newsletter.</p>
+                                <p>&copy; ${new Date().getFullYear()} Paradise Snowing Kashmir. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                attachments: [{
+                    filename: 'logo.png',
+                    content: logoContent,
+                    cid: 'logo',
+                    contentType: 'image/png',
+                    contentDisposition: 'inline'
+                }]
+            });
+
+            if (result.success) {
+                successCount++;
+            } else {
+                failCount++;
+            }
+        }));
+
+    } catch (error) {
+        console.error("Campaign Error:", error);
+        return { error: "Failed to execute campaign." };
+    }
+
+    return {
+        success: true,
+        message: `Campaign sent! Success: ${successCount}, Failed: ${failCount}`
+    };
+}
+
+export async function sendIndividualEmail(prevState: any, formData: FormData) {
+    const schema = z.object({
+        email: z.string().email(),
+        subject: z.string().min(1, "Subject is required"),
+        message: z.string().min(1, "Message is required"),
+    });
+
+    const validatedFields = schema.safeParse({
+        email: formData.get("email"),
+        subject: formData.get("subject"),
+        message: formData.get("message"),
+    });
+
+    if (!validatedFields.success) {
+        return { error: validatedFields.error.issues[0].message };
+    }
+
+    const { email, subject, message } = validatedFields.data;
+
+    try {
+        const { sendEmail } = await import("./email");
+
+        const result = await sendEmail({
+            to: email,
+            subject: subject,
+            html: `
+                <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden;">
+                    <div style="background-color: #1a4d2e; padding: 24px; text-align: center;">
+                        <h2 style="color: #ffffff; margin: 0; font-family: serif; font-size: 24px;">Paradise Snowing Kashmir</h2>
+                    </div>
+                    <div style="padding: 32px; background-color: #ffffff;">
+                        <div style="white-space: pre-wrap; color: #333; line-height: 1.6;">${message}</div>
+                        
+                        <div style="margin-top: 32px; border-top: 1px solid #f0f0f0; padding-top: 24px; text-align: center; font-size: 12px; color: #888;">
+                            <p>You received this email because you are a valued subscriber.</p>
+                            <p>&copy; ${new Date().getFullYear()} Paradise Snowing Kashmir. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        });
+
+        if (!result.success) {
+            return { error: "Failed to send email. Check server logs." };
+        }
+
+    } catch (error) {
+        console.error("Individual Email Error:", error);
+        return { error: "Failed to send email." };
+    }
+
+    return { success: true, message: `Email sent to ${email}!` };
 }

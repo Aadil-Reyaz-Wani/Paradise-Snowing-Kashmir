@@ -4,6 +4,68 @@ import Link from "next/link";
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight, Mountain } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+import { subscribeToNewsletter } from "@/lib/actions";
+import { AlertSuccess, AlertError } from "@/components/ui/global-alerts";
+import { useState, useEffect } from "react";
+
+function NewsletterForm() {
+    const [state, action] = useActionState(subscribeToNewsletter, null);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+
+    useEffect(() => {
+        if (state?.success) {
+            setShowSuccess(true);
+        } else if (state?.error) {
+            setShowError(true);
+        }
+    }, [state]);
+
+    return (
+        <>
+            <form action={action} className="space-y-3">
+                <Input
+                    name="email"
+                    type="email"
+                    placeholder="Your email address"
+                    className="bg-background"
+                    required
+                />
+                <SubmitButton />
+            </form>
+
+            <AlertSuccess
+                open={showSuccess}
+                onOpenChange={setShowSuccess}
+                title="Subscribed!"
+                description={state?.message || "Successfully subscribed to the newsletter!"}
+                confirmText="Great"
+            />
+
+            <AlertError
+                open={showError}
+                onOpenChange={setShowError}
+                title="Subscription Failed"
+                description={state?.error || "Something went wrong. Please try again."}
+            />
+        </>
+    );
+}
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <Button
+            disabled={pending}
+            className="w-full font-bold rounded-xl bg-[#F8FAFC] text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] border-none h-12"
+        >
+            {pending ? "Subscribing..." : "Subscribe"}
+        </Button>
+    );
+}
 
 export default function Footer() {
     return (
@@ -96,16 +158,7 @@ export default function Footer() {
                         <p className="text-muted-foreground text-sm mb-4">
                             Subscribe to get special offers and travel inspiration.
                         </p>
-                        <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-                            <Input
-                                type="email"
-                                placeholder="Your email address"
-                                className="bg-background"
-                            />
-                            <Button className="w-full font-bold rounded-xl bg-[#F8FAFC] text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] border-none h-12">
-                                Subscribe
-                            </Button>
-                        </form>
+                        <NewsletterForm />
                     </div>
                 </div>
 

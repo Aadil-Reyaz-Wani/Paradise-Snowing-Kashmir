@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Map, Image as ImageIcon, CalendarDays, Users, LogOut, Mountain, Menu, Mail } from "lucide-react";
+import { LayoutDashboard, Map, Image as ImageIcon, CalendarDays, Users, LogOut, Mountain, Menu, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Sheet,
@@ -60,6 +60,12 @@ export function MobileAdminNav() {
             label: "Messages",
             icon: Mail,
             active: pathname.startsWith("/admin/contacts"),
+        },
+        {
+            href: "/admin/newsletter",
+            label: "Newsletter",
+            icon: Send,
+            active: pathname.startsWith("/admin/newsletter"),
         },
     ];
 
