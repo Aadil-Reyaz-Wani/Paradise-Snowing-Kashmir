@@ -27,11 +27,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background z-10" />
           <BlurImage
-            src="/images/hero-bg.jpg"
+            src="/images/hero-bg-v2.jpg"
             alt="Kashmir Valley Landscape"
             fill
             priority
-            className="object-cover scale-105 animate-slow-zoom"
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-center scale-105 animate-slow-zoom"
           />
         </div>
 
@@ -244,7 +246,7 @@ export default function Home() {
 
             <div className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800">
               <BlurImage
-                src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=800&auto=format&fit=crop"
+                src="/images/why-choose-us.jpg"
                 alt="Happy travelers in Kashmir"
                 fill
                 className="object-cover"

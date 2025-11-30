@@ -47,7 +47,7 @@ export default function AboutPage() {
                         <div className="w-full lg:w-1/2 relative">
                             <div className="relative aspect-square md:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl animate-fade-in-up delay-200">
                                 <BlurImage
-                                    src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=2070&auto=format&fit=crop"
+                                    src="/images/shikara-about.jpg"
                                     alt="Kashmir Valley View"
                                     fill
                                     className="object-cover hover:scale-105 transition-transform duration-1000"
@@ -73,7 +73,7 @@ export default function AboutPage() {
                     <div className="w-full lg:w-1/2 relative group px-4 md:px-0">
                         <div className="relative aspect-[4/5] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl">
                             <BlurImage
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop"
+                                src="/images/founder-waseem.jpg"
                                 alt="Waseem Ahmad Wani - Founder"
                                 fill
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -112,7 +112,7 @@ export default function AboutPage() {
                         </div>
 
                         <div className="pt-2 md:pt-4 flex justify-center lg:justify-start">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" alt="Signature" className="h-10 md:h-12 opacity-50 invert dark:invert-0" />
+                            <img src="/images/signature-waseem.png" alt="Signature" className="h-16 md:h-20 mix-blend-multiply dark:invert dark:mix-blend-screen opacity-80" />
                         </div>
                     </div>
                 </div>
@@ -162,7 +162,7 @@ export default function AboutPage() {
             <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden my-16 md:my-24">
                 <div className="absolute inset-0 z-0">
                     <BlurImage
-                        src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=2070&auto=format&fit=crop"
+                        src="/images/philosophy-bg.png"
                         alt="Philosophy Background"
                         fill
                         className="object-cover fixed-background scale-110"
