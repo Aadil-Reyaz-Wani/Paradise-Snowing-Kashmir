@@ -24,6 +24,29 @@ interface Contact {
     status: string;
 }
 
+const formatWhatsAppNumber = (phone: string) => {
+    // If the number starts with +, we assume the user provided the correct country code
+    if (phone.trim().startsWith('+')) {
+        return phone.replace(/\D/g, '');
+    }
+
+    // Remove all non-digit characters
+    const cleaned = phone.replace(/\D/g, '');
+
+    // If it's a 10-digit number (standard Indian mobile), add 91
+    if (cleaned.length === 10) {
+        return `91${cleaned}`;
+    }
+
+    // If it starts with 0, remove it and add 91 (common local format)
+    if (cleaned.length === 11 && cleaned.startsWith('0')) {
+        return `91${cleaned.substring(1)}`;
+    }
+
+    // Otherwise return as is (assuming it already has country code or is international)
+    return cleaned;
+};
+
 export default function ContactList({ initialContacts }: { initialContacts: Contact[] }) {
     const [optimisticContacts, addOptimisticContact] = useOptimistic(
         initialContacts,
@@ -180,7 +203,7 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
                                     <td className="py-4 px-6 text-right align-top">
                                         <div className="flex items-center justify-end gap-2">
                                             <a
-                                                href={`https://wa.me/${contact.phone.replace(/\D/g, '')}`}
+                                                href={`https://wa.me/${formatWhatsAppNumber(contact.phone)}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="p-2 h-9 w-9 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition-colors"
@@ -276,7 +299,7 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
                         <div className="flex justify-end pt-2 border-t border-primary/5">
                             <div className="flex gap-2">
                                 <a
-                                    href={`https://wa.me/${contact.phone.replace(/\D/g, '')}`}
+                                    href={`https://wa.me/${formatWhatsAppNumber(contact.phone)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 text-xs font-medium bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-3 py-2 rounded-lg transition-colors"
