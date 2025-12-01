@@ -175,7 +175,7 @@ export function DestinationForm({ destination, onSuccess }: DestinationFormProps
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 font-bold text-base active:scale-[0.98] transition-all duration-200"
+                        className="w-full h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                     >
                         {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : (destination ? null : <Upload className="h-5 w-5 mr-2" />)}
                         {destination ? "Update Destination" : "Create Destination"}

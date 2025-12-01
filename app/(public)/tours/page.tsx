@@ -35,7 +35,7 @@ export default async function ToursPage() {
                     {tours.map((tour, index) => (
                         <div
                             key={tour.id}
-                            className="group relative bg-card rounded-lg overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
+                            className="group relative bg-[#F8FAFC] rounded-xl overflow-hidden shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 flex flex-col h-full border-none"
                         >
                             {/* Image Section */}
                             <div className="relative h-72 overflow-hidden">

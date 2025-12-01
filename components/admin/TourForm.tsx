@@ -83,7 +83,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
             <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-8">
-                        <Card className="border-border/50 shadow-sm">
+                        <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                             <CardHeader>
                                 <CardTitle className="text-xl font-bold font-serif">Basic Details</CardTitle>
                                 <CardDescription>Essential information about the tour.</CardDescription>
@@ -201,7 +201,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                         </Card>
 
                         {/* Highlights Section */}
-                        <Card className="border-border/50 shadow-sm">
+                        <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                             <CardHeader>
                                 <CardTitle className="text-xl font-bold font-serif">Trip Highlights</CardTitle>
                                 <CardDescription>Key features of this tour package.</CardDescription>
@@ -245,7 +245,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                         </Card>
 
                         {/* Itinerary Section */}
-                        <Card className="border-border/50 shadow-sm">
+                        <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                             <CardHeader>
                                 <CardTitle className="text-xl font-bold font-serif">Day-wise Itinerary</CardTitle>
                                 <CardDescription>Detailed daily plan for the tour.</CardDescription>
@@ -310,7 +310,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
 
                         {/* Inclusions & Exclusions */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <Card className="border-border/50 shadow-sm">
+                            <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                                 <CardHeader>
                                     <CardTitle className="text-lg font-bold font-serif text-green-600">Inclusions</CardTitle>
                                 </CardHeader>
@@ -351,7 +351,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                 </CardContent>
                             </Card>
 
-                            <Card className="border-border/50 shadow-sm">
+                            <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                                 <CardHeader>
                                     <CardTitle className="text-lg font-bold font-serif text-red-600">Exclusions</CardTitle>
                                 </CardHeader>
@@ -393,7 +393,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                             </Card>
                         </div>
 
-                        <Card className="border-border/50 shadow-sm">
+                        <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                             <CardHeader>
                                 <CardTitle className="text-xl font-bold font-serif">Tour Images</CardTitle>
                                 <CardDescription>Manage the visual gallery for this tour.</CardDescription>
@@ -483,7 +483,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                     </div>
 
                     <div className="space-y-8">
-                        <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm sticky top-8">
+                        <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none sticky top-8">
                             <CardHeader>
                                 <CardTitle className="text-xl font-bold font-serif text-primary">Publishing</CardTitle>
                                 <CardDescription>Control the visibility of this tour.</CardDescription>
@@ -507,7 +507,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                     <Button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full font-bold text-lg h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                                        className="w-full h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                                         size="lg"
                                     >
                                         {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
@@ -516,7 +516,7 @@ export default function TourForm({ tour, isEditing = false }: TourFormProps) {
                                     <Button
                                         variant="outline"
                                         asChild
-                                        className="w-full h-12 text-base rounded-xl border-primary/20 hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                                        className="w-full h-14 text-base rounded-xl border-primary/20 hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                                     >
                                         <Link href="/admin/tours">
                                             Cancel

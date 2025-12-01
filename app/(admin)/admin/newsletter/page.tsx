@@ -26,7 +26,7 @@ export default async function NewsletterPage() {
             </div>
 
             {/* Desktop Table View */}
-            <Card className="hidden md:block overflow-hidden">
+            <Card className="hidden md:block bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none overflow-hidden">
                 <CardHeader className="bg-muted/30">
                     <CardTitle className="flex items-center gap-2">
                         <Mail className="h-5 w-5" />
@@ -80,12 +80,12 @@ export default async function NewsletterPage() {
             {/* Mobile Card View */}
             <div className="md:hidden space-y-4">
                 {subscribers.length === 0 ? (
-                    <div className="text-center py-12 text-muted-foreground bg-[#FDFBF7] rounded-xl border border-dashed border-primary/10">
+                    <div className="text-center py-12 text-muted-foreground bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         No subscribers yet.
                     </div>
                 ) : (
                     subscribers.map((sub: any) => (
-                        <div key={sub.id} className="bg-[#FDFBF7] rounded-2xl shadow-sm border border-primary/10 p-5 space-y-4">
+                        <div key={sub.id} className="bg-[#F8FAFC] rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none p-5 space-y-4">
                             <div className="flex justify-between items-start">
                                 <div className="space-y-1">
                                     <h3 className="font-semibold text-lg text-primary truncate max-w-[200px]" title={sub.email}>

@@ -103,7 +103,7 @@ export default function ContactForm() {
                 <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full font-bold text-lg h-12 rounded-xl bg-[#F8FAFC] text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] border-none"
+                    className="w-full font-bold text-lg h-14 rounded-xl bg-[#F8FAFC] text-primary tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                 >
                     {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
                     Send Message

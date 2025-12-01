@@ -112,10 +112,10 @@ export function Header() {
                             <Button
                                 asChild
                                 className={cn(
-                                    "rounded-xl font-bold px-8 h-11 hover:scale-105 transition-all duration-300 shadow-lg",
+                                    "rounded-xl font-bold px-8 h-11 tracking-wider transition-all duration-300 shadow-lg active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)]",
                                     isTransparent
                                         ? "bg-white text-primary hover:bg-white/90 shadow-white/10"
-                                        : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
+                                        : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-primary/20"
                                 )}
                             >
                                 <Link href="/tours">Book Now</Link>
@@ -184,7 +184,7 @@ export function Header() {
 
                     <div className="mt-auto space-y-8">
                         {/* Contact Info */}
-                        <div className="space-y-4 p-6 rounded-2xl bg-white border border-primary/10 shadow-sm">
+                        <div className="space-y-4 p-6 rounded-2xl bg-[#F8FAFC] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                             <h3 className="text-xs font-bold text-primary/60 uppercase tracking-widest">Get in Touch</h3>
                             <div className="space-y-3">
                                 <a href="tel:+917051543381" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
@@ -209,14 +209,14 @@ export function Header() {
                                     { Icon: Instagram, href: "https://www.instagram.com/paradise_snowing_kashmir?igsh=MXMzOXc5em96aHNoMw==" },
                                     { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61584314134155" }
                                 ].map((social, i) => (
-                                    <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all border border-primary/10 hover:border-primary/30 shadow-sm">
+                                    <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-[#F8FAFC] text-primary hover:text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                                         <social.Icon className="h-5 w-5" />
                                     </a>
                                 ))}
                             </div>
                             <Button
                                 asChild
-                                className="w-full rounded-full bg-primary text-black font-bold h-14 text-lg hover:bg-primary/90 shadow-lg shadow-primary/20"
+                                className="w-full rounded-xl bg-[#F8FAFC] text-primary font-bold h-14 text-lg tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                             >
                                 <Link href="/tours" onClick={() => setIsMobileMenuOpen(false)}>
                                     Book Your Trip

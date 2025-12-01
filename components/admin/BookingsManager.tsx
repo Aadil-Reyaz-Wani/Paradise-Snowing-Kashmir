@@ -57,7 +57,7 @@ export default function BookingsManager({ initialBookings }: { initialBookings: 
         <div className="space-y-8">
             {/* Stats Section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground">Total Bookings</CardTitle>
                         <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
@@ -68,7 +68,7 @@ export default function BookingsManager({ initialBookings }: { initialBookings: 
                         <div className="text-3xl font-bold text-primary font-serif">{initialBookings.length}</div>
                     </CardContent>
                 </Card>
-                <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground">Confirmed</CardTitle>
                         <div className="h-8 w-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-600">
@@ -81,7 +81,7 @@ export default function BookingsManager({ initialBookings }: { initialBookings: 
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300">
+                <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
                         <div className="h-8 w-8 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-600">
@@ -99,7 +99,7 @@ export default function BookingsManager({ initialBookings }: { initialBookings: 
             {/* Bookings List */}
             <div className="space-y-6">
                 {initialBookings.map((booking) => (
-                    <Card key={booking.id} className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden hover:shadow-lg transition-all duration-300">
+                    <Card key={booking.id} className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none overflow-hidden">
                         <CardContent className="p-0">
                             {/* Header */}
                             <div className="p-6 border-b border-primary/5 flex flex-col md:flex-row justify-between md:items-start gap-6 bg-primary/5">
@@ -215,7 +215,7 @@ export default function BookingsManager({ initialBookings }: { initialBookings: 
                 ))}
 
                 {initialBookings.length === 0 && (
-                    <div className="text-center py-24 bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-primary/10 shadow-sm">
+                    <div className="text-center py-24 bg-[#F8FAFC] rounded-3xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
                             <Calendar className="h-10 w-10" />
                         </div>

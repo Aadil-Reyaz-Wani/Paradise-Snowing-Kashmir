@@ -11,7 +11,7 @@ export default async function FeaturedTours() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredTours.map((tour) => (
-                <Card key={tour.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-lg bg-card h-full flex flex-col">
+                <Card key={tour.id} className="group overflow-hidden bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none h-full flex flex-col">
                     <div className="h-64 relative overflow-hidden">
                         {tour.images && tour.images.length > 0 ? (
                             <BlurImage

@@ -123,7 +123,7 @@ export default function BookingForm({ tour }: BookingFormProps) {
                 {/* Left Column: Form Details */}
                 <div className="lg:col-span-2 space-y-8">
                     {/* Guest Details Section */}
-                    <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-border/50">
+                    <div className="bg-[#F8FAFC] p-4 md:p-8 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <h2 className="text-xl font-bold font-serif text-foreground mb-6">Guest Details</h2>
 
                         <div className="space-y-6">
@@ -175,7 +175,7 @@ export default function BookingForm({ tour }: BookingFormProps) {
                     </div>
 
                     {/* Trip Details Section */}
-                    <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-border/50">
+                    <div className="bg-[#F8FAFC] p-4 md:p-8 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <h2 className="text-xl font-bold font-serif text-foreground mb-6">Trip Details</h2>
 
                         <div className="space-y-6">
@@ -229,7 +229,7 @@ export default function BookingForm({ tour }: BookingFormProps) {
                 {/* Right Column: Summary Card */}
                 <div className="lg:col-span-1">
                     <div className="sticky top-24">
-                        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg border border-border/50">
+                        <div className="bg-[#F8FAFC] p-4 md:p-6 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                             <h3 className="text-lg font-bold font-serif text-foreground mb-6 pb-4 border-b border-border/50">Booking Summary</h3>
 
                             <div className="space-y-4 text-sm">
@@ -264,7 +264,7 @@ export default function BookingForm({ tour }: BookingFormProps) {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-3.5 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 mt-8 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98]"
+                                className="w-full h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 mt-8 border-none"
                             >
                                 {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <CreditCard className="h-5 w-5" />}
                                 Pay ₹{totalPrice.toLocaleString()}

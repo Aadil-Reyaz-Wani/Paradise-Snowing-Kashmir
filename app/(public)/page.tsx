@@ -231,7 +231,7 @@ export default function Home() {
                   { icon: Calendar, title: "Flexible Plans", desc: "Customizable itineraries to suit your pace." },
                   { icon: MessageCircle, title: "24/7 Support", desc: "Always just a phone call away." }
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-4 p-4 rounded-2xl hover:bg-secondary/30 transition-colors">
+                  <div key={i} className="flex gap-4 p-4 bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                     <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                       <item.icon className="h-6 w-6" />
                     </div>

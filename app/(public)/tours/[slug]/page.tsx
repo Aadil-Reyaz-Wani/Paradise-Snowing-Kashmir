@@ -140,7 +140,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                         {/* Inclusions & Exclusions */}
                         <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {tour.inclusions && (
-                                <div className="bg-green-500/5 p-6 rounded-xl border border-green-500/10">
+                                <div className="bg-[#F8FAFC] p-6 rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                                     <h3 className="text-lg font-bold text-green-600 mb-4 flex items-center gap-2">
                                         <Check className="h-5 w-5" /> What's Included
                                     </h3>
@@ -155,7 +155,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             )}
 
                             {tour.exclusions && (
-                                <div className="bg-red-500/5 p-6 rounded-xl border border-red-500/10">
+                                <div className="bg-[#F8FAFC] p-6 rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                                     <h3 className="text-lg font-bold text-red-600 mb-4 flex items-center gap-2">
                                         <X className="h-5 w-5" /> What's Excluded
                                     </h3>
@@ -173,7 +173,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
 
                     {/* Sidebar Booking Card */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24 bg-card rounded-xl shadow-lg border border-border p-6">
+                        <div className="sticky top-24 bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] p-6 border-none">
                             <div className="mb-6">
                                 <p className="text-sm text-muted-foreground mb-1">Starting from</p>
                                 <div className="flex items-baseline gap-1">
@@ -186,7 +186,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                             <div className="space-y-4">
                                 <Link
                                     href={`/book/${tour.slug}`}
-                                    className="block w-full py-4 bg-[#F8FAFC] hover:bg-[#F8FAFC] text-primary text-center font-bold rounded-xl transition-all shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] hover:scale-[1.02] active:scale-[0.98] border-[0.5px] border-primary/10"
+                                    className="flex items-center justify-center w-full h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                                 >
                                     Book This Trip
                                 </Link>
@@ -194,7 +194,7 @@ export default async function TourDetailsPage({ params }: { params: Promise<{ sl
                                     href={`https://wa.me/917051543381?text=Hi, I am interested in ${tour.title}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center font-bold rounded-xl transition-colors shadow-lg"
+                                    className="flex items-center justify-center w-full h-14 bg-[#F8FAFC] text-green-600 font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                                 >
                                     Customize on WhatsApp
                                 </a>

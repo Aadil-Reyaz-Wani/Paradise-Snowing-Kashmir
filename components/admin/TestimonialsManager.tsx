@@ -72,7 +72,7 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
     return (
         <div className="space-y-8">
             {/* Add Testimonial Form */}
-            <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden">
+            <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none overflow-hidden">
                 <CardHeader className="bg-primary/5 border-b border-primary/10 pb-4">
                     <CardTitle className="text-xl font-bold font-serif text-primary flex items-center gap-2">
                         <MessageSquare className="h-5 w-5" />
@@ -172,7 +172,7 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                             <Button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="min-w-[180px] h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 font-bold text-base active:scale-[0.98] transition-all duration-200"
+                                className="min-w-[180px] h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                             >
                                 {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Plus className="h-5 w-5 mr-2" />}
                                 Add Testimonial
@@ -185,7 +185,7 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
             {/* Testimonials Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {initialTestimonials.map((item) => (
-                    <Card key={item.id} className="border-none shadow-md bg-white/50 backdrop-blur-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+                    <Card key={item.id} className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 group overflow-hidden border-none">
                         <CardContent className="p-6 relative">
                             <Quote className="absolute top-6 right-6 h-12 w-12 text-primary/5 rotate-180" />
 
@@ -236,7 +236,7 @@ export default function TestimonialsManager({ initialTestimonials }: { initialTe
                 ))}
 
                 {initialTestimonials.length === 0 && (
-                    <div className="col-span-full py-24 text-center bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-primary/10">
+                    <div className="col-span-full py-24 text-center bg-[#F8FAFC] rounded-3xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
                             <MessageSquare className="h-10 w-10" />
                         </div>

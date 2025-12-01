@@ -78,8 +78,8 @@ export default function ContactPage() {
                                     { icon: Mail, title: "Email Address", value: "snowingkashmir@gmail.com", sub: "We reply within 24 hours" },
                                     { icon: MapPin, title: "Head Office", value: "Chandil, Tangmarg", sub: "Jammu and Kashmir 193404" },
                                 ].map((item, i) => (
-                                    <div key={i} className="group bg-[#F8FAFC] p-6 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 flex items-start gap-4">
-                                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm group-hover:scale-110 transition-transform duration-300 shrink-0">
+                                    <div key={i} className="group bg-[#F8FAFC] p-6 rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 flex items-start gap-4 border-none">
+                                        <div className="w-12 h-12 bg-[#F8FAFC] rounded-xl flex items-center justify-center text-primary shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] group-hover:scale-110 transition-transform duration-300 shrink-0 border-none">
                                             <item.icon className="h-5 w-5" />
                                         </div>
                                         <div>
@@ -92,16 +92,16 @@ export default function ContactPage() {
                             </div>
 
                             {/* WhatsApp CTA */}
-                            <div className="bg-primary p-8 rounded-[2rem] text-primary-foreground relative overflow-hidden shadow-xl mt-12">
-                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+                            <div className="bg-[#F8FAFC] p-8 rounded-[2rem] text-foreground relative overflow-hidden shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] mt-12 border-none">
+                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-primary/5 rounded-full blur-2xl" />
                                 <div className="relative z-10">
                                     <h3 className="text-2xl font-bold font-serif mb-2">Quick Chat?</h3>
-                                    <p className="text-primary-foreground/80 mb-6">Connect with us instantly on WhatsApp.</p>
+                                    <p className="text-muted-foreground mb-6">Connect with us instantly on WhatsApp.</p>
                                     <a
                                         href="https://wa.me/917051543381"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-white/90 transition-colors"
+                                        className="inline-flex items-center justify-center gap-2 w-full sm:w-auto font-bold text-lg h-14 px-8 rounded-xl bg-[#F8FAFC] text-primary tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                                     >
                                         <MessageSquare className="h-5 w-5" />
                                         Chat Now
@@ -112,7 +112,7 @@ export default function ContactPage() {
 
                         {/* Right Column: Contact Form */}
                         <div className="lg:col-span-7">
-                            <div className="bg-white p-6 md:p-10 rounded-[2.5rem] shadow-xl border border-border/50">
+                            <div className="bg-[#F8FAFC] p-6 md:p-10 rounded-[2.5rem] shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                                 <div className="mb-8">
                                     <h2 className="text-3xl font-bold font-serif mb-2">Send a Message</h2>
                                     <p className="text-muted-foreground">Fill out the form below and we'll get back to you shortly.</p>
@@ -173,7 +173,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="border border-border/50 rounded-2xl overflow-hidden bg-[#F8FAFC] shadow-sm">
+        <div className="bg-[#F8FAFC] rounded-2xl overflow-hidden shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between p-6 text-left font-medium text-lg hover:bg-secondary/20 transition-colors"

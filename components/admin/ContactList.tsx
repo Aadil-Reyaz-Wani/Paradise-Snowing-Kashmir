@@ -99,7 +99,7 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
 
     if (optimisticContacts.length === 0) {
         return (
-            <div className="bg-white rounded-2xl shadow-sm border border-primary/10 p-12 text-center">
+            <div className="bg-[#F8FAFC] rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none p-12 text-center">
                 <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-4">
                     <MessageSquare className="h-8 w-8 text-primary/40" />
                 </div>
@@ -112,7 +112,7 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
     return (
         <div className="space-y-6">
             {/* Desktop Table View */}
-            <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden w-full max-w-full">
+            <div className="hidden md:block bg-[#F8FAFC] rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none overflow-hidden w-full max-w-full">
                 <div className="overflow-x-auto">
                     <table className="w-full">
                         <thead className="bg-primary/5 border-b border-primary/10">
@@ -230,7 +230,7 @@ export default function ContactList({ initialContacts }: { initialContacts: Cont
             {/* Mobile Card View */}
             <div className="md:hidden space-y-4">
                 {optimisticContacts.map((contact) => (
-                    <div key={contact.id} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-primary/10 p-5 space-y-4">
+                    <div key={contact.id} className="bg-[#F8FAFC] rounded-2xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none p-5 space-y-4">
                         <div className="flex justify-between items-start">
                             <div className="space-y-1">
                                 <h3 className="font-semibold text-lg text-primary">{contact.name}</h3>

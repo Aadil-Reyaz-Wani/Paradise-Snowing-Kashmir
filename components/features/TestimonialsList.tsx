@@ -9,7 +9,7 @@ export default async function TestimonialsList() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
-                <Card key={t.id} className="h-full border-border/50 shadow-sm hover:shadow-md transition-all duration-300 rounded-xl bg-card relative overflow-hidden group">
+                <Card key={t.id} className="h-full bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                         <Quote className="h-24 w-24 text-primary rotate-180" />
                     </div>

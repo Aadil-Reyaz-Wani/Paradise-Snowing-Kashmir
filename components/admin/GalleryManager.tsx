@@ -67,7 +67,7 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
     return (
         <div className="space-y-8">
             {/* Upload Section */}
-            <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden">
+            <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none overflow-hidden">
                 <CardHeader className="bg-primary/5 border-b border-primary/10 pb-4">
                     <CardTitle className="text-xl font-bold font-serif text-primary flex items-center gap-2">
                         <Upload className="h-5 w-5" />
@@ -142,7 +142,7 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
                                     <Button
                                         type="submit"
                                         disabled={isUploading}
-                                        className="w-full h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-bold text-base"
+                                        className="w-full h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none"
                                     >
                                         {isUploading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Plus className="h-5 w-5 mr-2" />}
                                         Upload Image
@@ -157,7 +157,7 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
             {/* Gallery Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {initialImages.map((img) => (
-                    <div key={img.id} className="group relative bg-white/50 backdrop-blur-sm rounded-xl shadow-md border-none overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div key={img.id} className="group relative bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none overflow-hidden">
                         <div className="aspect-square bg-muted relative overflow-hidden">
                             <BlurImage
                                 src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${img.storage_path}`}
@@ -190,7 +190,7 @@ export default function GalleryManager({ initialImages }: { initialImages: Galle
                     </div>
                 ))}
                 {initialImages.length === 0 && (
-                    <div className="col-span-full py-24 text-center bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-primary/10">
+                    <div className="col-span-full py-24 text-center bg-[#F8FAFC] rounded-3xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
                             <ImageIcon className="h-10 w-10" />
                         </div>

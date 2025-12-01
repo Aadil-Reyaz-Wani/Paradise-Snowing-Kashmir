@@ -18,7 +18,7 @@ export default async function AdminToursPage() {
                     <h1 className="text-4xl font-bold font-serif text-primary">Tour Packages</h1>
                     <p className="text-muted-foreground mt-1">Manage and organize your travel offerings.</p>
                 </div>
-                <Button asChild className="rounded-xl shadow-lg shadow-primary/20 h-12 px-6 text-base">
+                <Button asChild className="rounded-xl bg-[#F8FAFC] text-primary font-bold h-14 px-6 tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                     <Link href="/admin/tours/new">
                         <Plus className="mr-2 h-5 w-5" />
                         Create New Tour
@@ -27,7 +27,7 @@ export default async function AdminToursPage() {
             </div>
 
             {/* Desktop View - Table */}
-            <Card className="hidden md:block border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden">
+            <Card className="hidden md:block bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-primary/5 text-primary uppercase text-xs font-bold tracking-wider border-b border-primary/10">
@@ -123,7 +123,7 @@ export default async function AdminToursPage() {
             {/* Mobile View - Cards */}
             <div className="md:hidden grid gap-4">
                 {tours?.map((tour) => (
-                    <Card key={tour.id} className="border-none shadow-md bg-white/50 backdrop-blur-sm overflow-hidden rounded-xl">
+                    <Card key={tour.id} className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none overflow-hidden">
                         <CardContent className="p-5 space-y-4">
                             <div className="flex justify-between items-start gap-4">
                                 <div>
@@ -175,7 +175,7 @@ export default async function AdminToursPage() {
                     </Card>
                 ))}
                 {(!tours || tours.length === 0) && (
-                    <div className="flex flex-col items-center justify-center space-y-3 py-12 text-center bg-white/50 backdrop-blur-sm rounded-xl border-none shadow-sm">
+                    <div className="flex flex-col items-center justify-center space-y-3 py-12 text-center bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                             <MapPin className="h-6 w-6" />
                         </div>

@@ -31,7 +31,7 @@ export default async function AdminDestinationsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {destinations.length === 0 ? (
-                    <div className="col-span-full py-24 text-center bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-primary/10">
+                    <div className="col-span-full py-24 text-center bg-[#F8FAFC] rounded-3xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] border-none">
                         <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
                             <Plus className="h-10 w-10" />
                         </div>
@@ -42,7 +42,7 @@ export default async function AdminDestinationsPage() {
                     </div>
                 ) : (
                     destinations.map((dest: any) => (
-                        <div key={dest.id} className="group relative bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-white/20 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div key={dest.id} className="group relative bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none overflow-hidden">
                             <div className="aspect-video relative overflow-hidden">
                                 {dest.image ? (
                                     <BlurImage

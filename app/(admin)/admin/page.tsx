@@ -30,9 +30,9 @@ export default async function AdminDashboard() {
                     <p className="text-muted-foreground mt-1">Welcome back, <span className="font-medium text-foreground">{user.email}</span></p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <Button asChild className="rounded-xl shadow-lg shadow-primary/20">
+                    <Button asChild className="rounded-xl bg-[#F8FAFC] text-primary font-bold h-14 px-6 tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                         <Link href="/admin/tours/new">
-                            <Plus className="mr-2 h-4 w-4" /> Create New Tour
+                            <Plus className="mr-2 h-5 w-5" /> Create New Tour
                         </Link>
                     </Button>
                 </div>
@@ -42,7 +42,7 @@ export default async function AdminDashboard() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+                <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
@@ -58,7 +58,7 @@ export default async function AdminDashboard() {
                 </Card>
 
                 <Link href="/admin/bookings" className="block">
-                    <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm cursor-pointer h-full">
+                    <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none cursor-pointer h-full">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -74,7 +74,7 @@ export default async function AdminDashboard() {
                     </Card>
                 </Link>
 
-                <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm">
+                <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
                     <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
@@ -90,7 +90,7 @@ export default async function AdminDashboard() {
                 </Card>
 
                 <Link href="/admin/contacts" className="block">
-                    <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/50 backdrop-blur-sm cursor-pointer h-full">
+                    <Card className="bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none cursor-pointer h-full">
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <div>
@@ -121,7 +121,7 @@ export default async function AdminDashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Quick Actions */}
-                <Card className="lg:col-span-1 border-none shadow-md h-full">
+                <Card className="lg:col-span-1 bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none h-full">
                     <CardHeader>
                         <CardTitle className="text-xl font-bold font-serif text-primary">Quick Actions</CardTitle>
                         <CardDescription>Manage your content efficiently</CardDescription>
@@ -159,7 +159,7 @@ export default async function AdminDashboard() {
                 </Card>
 
                 {/* Recent Activity */}
-                <Card className="lg:col-span-2 border-none shadow-md">
+                <Card className="lg:col-span-2 bg-[#F8FAFC] rounded-xl shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] transition-all duration-300 border-none">
                     <CardHeader>
                         <CardTitle className="text-xl font-bold font-serif text-primary">Recent Activity</CardTitle>
                         <CardDescription>Latest updates from your platform</CardDescription>

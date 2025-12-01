@@ -42,7 +42,7 @@ export function NewsletterCampaignDialog({ subscriberCount }: { subscriberCount:
 
     if (!mounted) {
         return (
-            <Button className="gap-2 bg-white text-primary hover:bg-white/90 shadow-lg shadow-primary/20 rounded-xl font-medium transition-all hover:scale-105">
+            <Button className="h-14 px-6 rounded-xl bg-[#F8FAFC] text-primary font-bold text-lg tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none gap-2">
                 <Send className="h-4 w-4" />
                 Send Campaign
             </Button>
@@ -53,7 +53,7 @@ export function NewsletterCampaignDialog({ subscriberCount }: { subscriberCount:
         <>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button className="gap-2 bg-white text-primary hover:bg-white/90 shadow-lg shadow-primary/20 rounded-xl font-medium transition-all hover:scale-105">
+                    <Button className="h-14 px-6 rounded-xl bg-[#F8FAFC] text-primary font-bold text-lg tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none gap-2">
                         <Send className="h-4 w-4" />
                         Send Campaign
                     </Button>
@@ -121,7 +121,7 @@ function SubmitButton({ count }: { count: number }) {
     const { pending } = useFormStatus();
 
     return (
-        <Button type="submit" disabled={pending || count === 0}>
+        <Button type="submit" disabled={pending || count === 0} className="w-full h-14 bg-[#F8FAFC] text-primary font-bold text-lg rounded-xl tracking-wider shadow-[-4px_-4px_10px_rgba(255,255,255,0.9),4px_4px_10px_rgba(0,0,0,0.05)] hover:shadow-[-2px_-2px_5px_rgba(255,255,255,0.9),2px_2px_5px_rgba(0,0,0,0.05)] active:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.9),inset_2px_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#F8FAFC] transition-all duration-300 border-none">
             {pending ? (
                 <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
